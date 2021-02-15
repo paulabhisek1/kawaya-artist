@@ -11,13 +11,13 @@
 
           <div class="tab_area">
             <ul>
-                <li class="active_login login_tab">Sign In</li>
-                <li class="register_tab">Sign Up</li>
+                <li (click)="shwSignUp = false; shwSignIn = true;" class="active_login login_tab">Sign In</li>
+                <li (click)="shwSignUp = true; shwSignIn = false;" class="register_tab">Sign Up</li>
             </ul>
           </div>
 
           <!--for_login-->
-          <div class="for_login">
+          <div *ngIf="shwSignIn" class="for_login">
             <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="submitLoginForm()">
               <div class="form-group">
                 <input type="email" class="form-control" placeholder="Email" formControlName="email">
@@ -50,7 +50,7 @@
           </div>
 
           <!--for_register-->
-          <div class="for_register">
+          <div *ngIf="shwSignUp" class="for_register">
             <form [formGroup]="regForm" autocomplete="off" (ngSubmit)="submitRegForm()">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Full Name*" formControlName="full_name" required="required">

@@ -24,6 +24,8 @@ export class LoginComponent {
 
   commonRequestData:any = {};
   countries:any = [];
+  shwSignIn: boolean = true;
+  shwSignUp: boolean = false;
   
 
   constructor(
