@@ -28,4 +28,18 @@ export class CommonService {
         catchError(this.helperService.handleError('error ', []))
     );
   }
+
+  getAPICall(requestData: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (requestData.contentType) {
+      headers = headers.append('Accept', requestData.contentType);
+    } else {
+      headers = headers.append('Accept', 'application/json');
+    }
+
+    return this.http.get<any>(this.apiURL + requestData.url, { headers })
+      .pipe(
+        catchError(this.helperService.handleError('error ', []))
+    );
+  }
 }

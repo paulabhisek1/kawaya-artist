@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { CommonService } from '../../core/services/Common/common.service';
 import { HelperService } from '../../core/services/Helper/helper.service';
 import { noSpace } from '../../shared/custom-validators/nospacesvalidator';
+import { MatDatepickerInputEvent} from '@angular/material/datepicker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +17,15 @@ export class LoginComponent {
   requestData: any = {};
   isLoading: boolean = false;
 
+  regForm: FormGroup;
+  regFormSubmitted: boolean = false;
+  regRequestData: any = {};
+  startDate = new Date();
+
+  commonRequestData:any = {};
+  countries:any = [];
+  
+
   constructor(
     private fb: FormBuilder,
     private helperService: HelperService,
@@ -24,6 +35,8 @@ export class LoginComponent {
 
   ngOnInit() {
     this.createForm();
+    this.createRegForm();
+    this.fetchCountries();
   }
 
   createForm() {
@@ -33,8 +46,27 @@ export class LoginComponent {
     })
   }
 
+  createRegForm() {
+    this.regForm = this.fb.group({
+      full_name: ['', [Validators.required, noSpace]],
+      email: ['', [Validators.required,Validators.email, noSpace]],
+      mobile_no: ['', [Validators.required, noSpace]],
+      password: ['', [Validators.required, Validators.minLength(6), noSpace]],
+      confirm_password: ['', [Validators.required, Validators.minLength(6)]],
+      country_id: ['', [Validators.required]]
+    })
+  }
+
   get f() {
     return this.loginForm.controls;
+  }
+
+  get rf() {
+    return this.regForm.controls;
+  }
+
+  addDateEvent(event) {
+    
   }
 
   submitLoginForm() {
@@ -64,5 +96,60 @@ export class LoginComponent {
       this.helperService.showError(err.error.msg);
     })
 
+  }
+
+  fetchCountries() {
+    this.commonRequestData.url = 'countries';
+
+    this.isLoading = true;
+    this.commonService.getAPICall(this.commonRequestData).subscribe((result)=>{
+      this.isLoading = false;
+      if(result.status == 200) {
+        this.countries = result.data.countries;
+        this.regForm.patchValue({
+          country_id: this.countries[0].id
+        })
+      }
+      else{
+        this.helperService.showError(result.msg);
+      }
+    },(err)=>{
+      this.isLoading = false;
+      this.helperService.showError(err.error.msg);
+    })
+  }
+
+  submitRegForm() {
+    this.regFormSubmitted = true;
+    console.log("CONTROL : ", this.rf);
+    if(this.regForm.invalid) return;
+
+    this.regRequestData.url = 'register';
+    this.regRequestData.data = {
+      full_name: this.regForm.get('full_name').value,
+      email: this.regForm.get('email').value,
+      mobile_no: this.regForm.get('mobile_no').value,
+      password: this.regForm.get('password').value,
+      confirm_password: this.regForm.get('confirm_password').value,
+      dob: '1996-06-01',
+      country_id: this.regForm.get('country_id').value
+    }
+
+    this.isLoading = true;
+    this.commonService.postAPICall(this.regRequestData).subscribe((result)=>{
+      this.isLoading = false;
+      if(result.status == 200) {
+        localStorage.setItem('artist-access-token',result.data.access_token);
+        localStorage.setItem('artist-refresh-token',result.data.refresh_token);
+        this.helperService.showSuccess(result.msg);
+        this.router.navigate(['/dashboard']);
+      }
+      else{
+        this.helperService.showError(result.msg);
+      }
+    },(err)=>{
+      this.isLoading = false;
+      this.helperService.showError(err.error.msg);
+    })
   }
 }
