@@ -113,7 +113,7 @@ section {
   font-family: 'Calibri';
   font-size: 34px;
   color: #fff; 
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .logo_subtext
 {
@@ -130,15 +130,15 @@ section {
   border-color: #ff301e; 
 }
 
-  .login-form form {
+  .login_form_style {
       color: #fff; 
-      padding: 40px 30px;
+      padding: 30px 30px;
       background: rgba(255, 255, 255, 0.1);
       -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.25);
--moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.25);
-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.25);
-margin: 15px;
-border-radius: 15px;
+    -moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.25);
+    margin: 15px;
+    border-radius: 15px;
 }
 .login-form h4 {
   text-align: center;
@@ -162,6 +162,11 @@ border-radius: 15px;
       color: #fff;
       outline-style: none;
       font-size: 18px;
+}
+.login-form .form-control:focus
+{
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
 }
 .login-form .btn {
   min-height: 50px;
@@ -208,6 +213,10 @@ border-radius: 15px;
 .login-form a {
     color: #fff;
 }
+.login-form a:hover
+{
+  color: #fff; 
+}
 .form-control:focus {
 
   box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
@@ -217,14 +226,14 @@ border-radius: 15px;
   position: absolute;
   z-index: 2;
   left: 15px;
-  top: 14px;
+  top: 19px;
   font-size: 20px;
 }
 .tab_area
 {
   display: inline-block;
   width: 100%;
-  margin: 20px 0;
+  margin: 10px 0;
   text-align: center;
 }
 .tab_area ul{
@@ -294,3 +303,57 @@ border-radius: 15px;
 {
   border-right: none;  
 }
+
+
+.for_login input:-webkit-autofill,
+.for_login input:-webkit-autofill:hover, 
+.for_login input:-webkit-autofill:focus,
+.for_login textarea:-webkit-autofill,
+.for_login textarea:-webkit-autofill:hover,
+.for_login textarea:-webkit-autofill:focus,
+.for_login select:-webkit-autofill,
+.for_login select:-webkit-autofill:hover,
+.for_login select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color:#fff;
+  -webkit-box-shadow: none !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.for_register input:-webkit-autofill,
+.for_register input:-webkit-autofill:hover, 
+.for_register input:-webkit-autofill:focus,
+.for_register textarea:-webkit-autofill,
+.for_register textarea:-webkit-autofill:hover,
+.for_register textarea:-webkit-autofill:focus,
+.for_register select:-webkit-autofill,
+.for_register select:-webkit-autofill:hover,
+.for_register select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color:#fff;
+  -webkit-box-shadow: none !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+.form-group span
+{
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  color: #ff301e !important;
+}
+.loder
+{
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+  width: 100%;
+  position: fixed;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+  left: 0;
+  top: 0;
+}
+
