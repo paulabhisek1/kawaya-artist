@@ -6,6 +6,9 @@ import { HelperService } from '../../core/services/Helper/helper.service';
 import { noSpace } from '../../shared/custom-validators/nospacesvalidator';
 import { MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthGuardService } from '../../core/guards/auth-guard.service';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +35,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private helperService: HelperService,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
+    public afAuth: AngularFireAuth,
   ) {}
 
   ngOnInit() {
@@ -152,6 +156,48 @@ export class LoginComponent {
     },(err)=>{
       this.isLoading = false;
       this.helperService.showError(err.error.msg);
+    })
+  }
+
+  // Auth logic to run auth providers
+  facebookLogin() {
+    this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((socialResp)=>{
+      console.log("FACEBOOK RESP : ", socialResp);
+    }).catch((err)=>{
+      console.log("ERROR : ", err);
+    })
+  }
+
+  // Auth logic to run auth providers
+  googleLogin() {
+    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((socialResp)=>{
+      this.requestData.data = {
+        full_name: socialResp.additionalUserInfo.profile['name'],
+        email: socialResp.additionalUserInfo.profile['email'],
+        password: socialResp.additionalUserInfo.profile['id'],
+        profile_image: socialResp.additionalUserInfo.profile['picture'],
+        login_type: 'google'
+      }
+      this.requestData.url = 'social-login';
+      this.isLoading = true;
+      this.commonService.postAPICall(this.requestData).subscribe((result)=>{
+        this.isLoading = false;
+        if(result.status == 200) {
+          localStorage.setItem('artist-access-token',result.data.access_token);
+          localStorage.setItem('artist-refresh-token',result.data.refresh_token);
+          this.helperService.showSuccess(result.msg);
+          this.router.navigate(['/dashboard']);
+        }
+        else{
+          this.helperService.showError(result.msg);
+        }
+      },(err)=>{
+        this.isLoading = false;
+        this.helperService.showError(err.error.msg);
+      })
+    }).catch((err)=>{
+      console.log("ERROR : ", err);
+      this.helperService.showError('Something Went Wrong!!!');
     })
   }
 }

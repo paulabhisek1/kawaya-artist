@@ -33,18 +33,15 @@
                     <span *ngIf="f.email.errors.required || f.email.errors.noSpace" style="color: #ff301e;">*Please enter the email</span>
                   </ng-container>
               </div>
-              <div *ngIf="isLoading" class="loder">
-                <img src="assets/images/loader.gif" alt="loader" />  
-              </div> 
               <div class="form-group small clearfix">
-                <a href="#" class="forgot-link">Forgot Password?</a>
+                <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
               </div> 
               <input type="submit" class="btn btn-primary btn-block btn-lg" value="Sign In">   
               
               <div class="social_area">
                 <p>Or Sign In With</p>
-                <h4><a href="#"><img src="assets/images/facebook.png"alt /></a></h4>
-                <h4><a href="#"><img src="assets/images/google_plus.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="facebookLogin()"><img src="assets/images/facebook.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="googleLogin()"><img src="assets/images/google_plus.png"alt /></a></h4>
               </div>
             </form>
           </div>
@@ -90,14 +87,14 @@
                   <span *ngIf="(!rf.confirm_password.errors.required && !rf.confirm_password.errors.noSpace) && (rf.confirm_password.value !== rf.password.value)" style="color: #ff301e;">*Password & confirm password must be same</span>
                 </ng-container>
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <mat-form-field appearance="fill">
                   <mat-label>Choose a date</mat-label>
                   <input matInput [matDatepicker]="picker">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-              </div> -->
+              </div>
               <div class="form-group">
                 <select class="form-control" placeholder="Select Country*" required="required" formControlName="country_id">
                   <option *ngFor="let country of countries" value="country.id">{{ country.name }}</option>
@@ -111,11 +108,14 @@
               
               <div class="social_area">
                 <p>Or Sign In With</p>
-                <h4><a href="#"><img src="assets/images/facebook.png"alt /></a></h4>
-                <h4><a href="#"><img src="assets/images/google_plus.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="facebookLogin()"><img src="assets/images/facebook.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="googleLogin()"><img src="assets/images/google_plus.png"alt /></a></h4>
               </div>
             </form>
           </div>
       </form>
     </div>
+  </div>
+  <div *ngIf="isLoading" class="loder">
+    <img src="assets/images/loader.gif" alt="loader" />  
   </div>
