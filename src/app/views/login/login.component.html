@@ -50,14 +50,14 @@
           <div *ngIf="shwSignUp" class="for_register">
             <form [formGroup]="regForm" autocomplete="off" (ngSubmit)="submitRegForm()">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Full Name*" formControlName="full_name" required="required">
+                <input type="text" class="form-control" placeholder="Full Name" formControlName="full_name" required="required">
                 <i class="fa fa-envelope login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.full_name.errors">
                   <span *ngIf="rf.full_name.errors.required || rf.full_name.errors.noSpace" style="color: #ff301e;">*Please enter the email</span>
                 </ng-container>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Email*" formControlName="email" required="required">
+                <input type="text" class="form-control" placeholder="Email" formControlName="email" required="required">
                 <i class="fa fa-envelope login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.email.errors">
                   <span *ngIf="rf.email.errors.required || rf.email.errors.noSpace" style="color: #ff301e;">*Please enter the email</span>
@@ -65,14 +65,14 @@
                 </ng-container>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Mobile Number*" formControlName="mobile_no" required="required">
+                <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_no" required="required">
                 <i class="fa fa-phone login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.mobile_no.errors">
                   <span *ngIf="rf.mobile_no.errors.required || rf.mobile_no.errors.noSpace" style="color: #ff301e;">*Please enter the mobile no</span>
                 </ng-container>
               </div>
               <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password*" formControlName="password" required="required">
+                  <input type="password" class="form-control" placeholder="Password" formControlName="password" required="required">
                   <i class="fa fa-lock login_icon" aria-hidden="true"></i>
                   <ng-container *ngIf="regFormSubmitted && rf.password.errors">
                     <span *ngIf="rf.password.errors.required || rf.password.errors.noSpace" style="color: #ff301e;">*Please enter the password</span>
@@ -80,7 +80,7 @@
                   </ng-container>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Confirm Password*" formControlName="confirm_password" required="required">
+                <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirm_password" required="required">
                 <i class="fa fa-lock login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.confirm_password.errors">
                   <span *ngIf="rf.confirm_password.errors.required || rf.confirm_password.errors.noSpace" style="color: #ff301e;">*Please enter the confirm password</span>
@@ -96,7 +96,7 @@
                 </mat-form-field>
               </div>
               <div class="form-group">
-                <select class="form-control" placeholder="Select Country*" required="required" formControlName="country_id">
+                <select class="form-control country_style" placeholder="Select Country" required="required" formControlName="country_id">
                   <option *ngFor="let country of countries" value="country.id">{{ country.name }}</option>
                 </select>
                 <i class="fa fa-flag login_icon" aria-hidden="true"></i>

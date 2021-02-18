@@ -159,7 +159,7 @@ section {
       border: none; 
       border-radius: 5px;
       padding: 0 20px 0 45px; 
-      color: #fff !important;
+      color: #fff;
       outline-style: none;
       font-size: 18px;
 }
@@ -167,6 +167,7 @@ section {
 {
   background: rgba(255, 255, 255, 0.15);
   box-shadow: none;
+  color: #fff;
 }
 .login-form .btn {
   min-height: 50px;
@@ -405,3 +406,93 @@ section {
   color: #ff301e !important;
 }
 
+.login-form .form-control option
+{
+  color: #000;
+}
+.country_style
+{
+  appearance:none;
+  background: rgba(255, 255, 255, 0.15) url(../images/down_arrow.png) no-repeat !important;
+  background-position: calc(100% - 20px) center !important;
+}
+.mat-form-field
+{
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 0 20px;
+  border-radius: 5px;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 4px 4px 0 0;
+  padding: 0 !important;
+  position: relative;
+}
+.mat-form-field-empty.mat-form-field-label
+{
+  color: #fff !important;
+  font-size: 18px;
+}
+.mat-form-field-flex {
+  align-items: center !important;
+}
+.cdk-overlay-container
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+}
+.mat-datepicker-content-container
+{
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 10px 20px 20px 25px !important;
+  border-radius: 15px !important;
+}
+.mat-datepicker-content .mat-datepicker-close-button {
+  position: relative !important;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+}
+.mat-calendar-table-header th
+{
+  color: #fff;
+}
+.mat-calendar-body-label
+{
+  color: #fff;
+}
+.mat-calendar-body-cell-content
+{
+  color: #fff !important;
+}
+.mat-button-base:focus
+{
+  outline: none !important;
+}
+.mat-ng-star-inserted-field-label
+{
+  display: none !;
+}
+
+.mat-datepicker-input
+{
+  height: 54px;
+}
+.mat-form-field-empty
+{
+  margin-top: 12px;
+}
+.mat-form-field-label 
+{
+  color: #fff !important;
+}
+.for_login .btn-primary:disabled {
+  color: #fff;
+  background-color: #696969;
+  border-color: #fff;
+}
