@@ -165,6 +165,7 @@ export class LoginComponent {
       console.log("FACEBOOK RESP : ", socialResp);
     }).catch((err)=>{
       console.log("ERROR : ", err);
+      this.helperService.showError('Something Went Wrong!!!');
     })
   }
 
