@@ -50,6 +50,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
+import { OtpVerificationComponent } from './views/otp-verification/otp-verification.component';
+
+
+//***************  TEST FIREBASE CONFIGURATION  ******************/
+export const firebaseConfig = {
+    apiKey: "AIzaSyBfpYU_7DfmnE9rj30SJ8ufsccKY2lmptU",
+    authDomain: "kawawa-music-68cb9.firebaseapp.com",
+    projectId: "kawawa-music-68cb9",
+    storageBucket: "kawawa-music-68cb9.appspot.com",
+    messagingSenderId: "708924357464",
+    appId: "1:708924357464:web:cdbd722e10f6e645f5032d",
+    measurementId: "G-S635QSEVKY"
+};
 
 @NgModule({
   imports: [
@@ -74,7 +91,9 @@ import { MatInputModule } from '@angular/material/input';
     IconSetModule.forRoot(),
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
   ],
   declarations: [
     AppComponent,
@@ -82,12 +101,16 @@ import { MatInputModule } from '@angular/material/input';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    OtpVerificationComponent
   ],
   providers: [
     IconSetService,
     MatDatepickerModule,
     MatNativeDateModule,
+    AngularFireAuth
   ],
   bootstrap: [ AppComponent ]
 })

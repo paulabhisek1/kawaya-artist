@@ -4,15 +4,15 @@
 
   <div class="login_container">
     <div class="login-form">    
-      <form class="login_form_style" action="/examples/actions/confirmation.php" method="post">
+      <div class="login_form_style">
         <img src="assets/images/logo.svg" alt="" class="logo" /> 
         <h2 class="logo_text">Kawawa Sounds</h2> 
         <h3 class="logo_subtext">The African Rhythm</h3>
 
           <div class="tab_area">
             <ul>
-                <li (click)="shwSignUp = false; shwSignIn = true;" class="active_login login_tab">Sign In</li>
-                <li (click)="shwSignUp = true; shwSignIn = false;" class="register_tab">Sign Up</li>
+                <li (click)="shwSignUp = false; shwSignIn = true;" [ngClass]="{'active_login': shwSignIn === true}" class="login_tab">Sign In</li>
+                <li (click)="shwSignUp = true; shwSignIn = false;" [ngClass]="{'active_login': shwSignUp === true}" class="register_tab">Sign Up</li>
             </ul>
           </div>
 
@@ -113,7 +113,7 @@
               </div>
             </form>
           </div>
-      </form>
+      </div>
     </div>
   </div>
   <div *ngIf="isLoading" class="loder">

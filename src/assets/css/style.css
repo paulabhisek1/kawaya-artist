@@ -248,12 +248,12 @@ section {
 }
 .for_login
 {
-  display: inline-block;
+  /* display: inline-block; */
   width: 100%;
 }
 .for_register
 {
-  display: none;
+  /* display: none; */
   width: 100%;
 }
 .active_login
@@ -355,5 +355,53 @@ section {
   z-index: 999;
   left: 0;
   top: 0;
+}
+.forgot_password_heading
+{
+  font-family: 'Calibri';
+  font-size: 24px !important;
+  text-align: center;
+  color: #fff;
+  margin-top: 25px !important; 
+  display: inline-block;
+  width: 100%;
+}
+.forgot_password_text
+{
+  font-family: 'Calibri';
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  width: 100%; 
+  margin-bottom: 15px !important;
+}
+.jpa 
+{
+  list-style: none;
+  display: flex;
+  flex-direction: row; 
+}
+.jpa input 
+{
+  margin-right: .5rem;
+  margin-left: .5rem;
+  text-align: center; 
+}
+.jpa input:first-child 
+{
+  margin-left: 0; 
+}
+.jpa input:last-child 
+{
+  margin-right: 0; 
+}
+.verification
+{
+  padding: 0 20px !important;
+}
+.forgot_password_text a
+{
+  color: #ff301e !important;
 }
 
