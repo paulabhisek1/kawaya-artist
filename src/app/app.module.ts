@@ -55,6 +55,7 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { OtpVerificationComponent } from './views/otp-verification/otp-verification.component';
+import { AutoTabDirective, AutoTabDirectivePrev } from './shared/directives/autotabdirective';
 
 
 //***************  TEST FIREBASE CONFIGURATION  ******************/
@@ -93,7 +94,7 @@ export const firebaseConfig = {
     MatNativeDateModule,
     MatInputModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   declarations: [
     AppComponent,
@@ -104,7 +105,9 @@ export const firebaseConfig = {
     RegisterComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    OtpVerificationComponent
+    OtpVerificationComponent,
+    AutoTabDirective,
+    AutoTabDirectivePrev
   ],
   providers: [
     IconSetService,
