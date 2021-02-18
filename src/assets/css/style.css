@@ -159,7 +159,7 @@ section {
       border: none; 
       border-radius: 5px;
       padding: 0 20px 0 45px; 
-      color: #fff;
+      color: #fff !important;
       outline-style: none;
       font-size: 18px;
 }
