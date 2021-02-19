@@ -29,6 +29,12 @@ export class LoginComponent {
   countries:any = [];
   shwSignIn: boolean = true;
   shwSignUp: boolean = false;
+
+  hideLogin: boolean = false;
+  hideReg: boolean = false;
+  hideRegCon: boolean = false;
+
+  maxDate: Date;
   
 
   constructor(
@@ -37,7 +43,9 @@ export class LoginComponent {
     private commonService: CommonService,
     private router: Router,
     public afAuth: AngularFireAuth,
-  ) {}
+  ) {
+    this.maxDate = new Date();
+  }
 
   ngOnInit() {
     this.createForm();
@@ -59,7 +67,8 @@ export class LoginComponent {
       mobile_no: ['', [Validators.required, noSpace]],
       password: ['', [Validators.required, Validators.minLength(6), noSpace]],
       confirm_password: ['', [Validators.required, Validators.minLength(6)]],
-      country_id: ['', [Validators.required]]
+      country_id: ['', [Validators.required]],
+      dob: ['', [Validators.required]]
     })
   }
 
@@ -112,9 +121,6 @@ export class LoginComponent {
       this.isLoading = false;
       if(result.status == 200) {
         this.countries = result.data.countries;
-        this.regForm.patchValue({
-          country_id: this.countries[0].id
-        })
       }
       else{
         this.helperService.showError(result.msg);
@@ -127,7 +133,6 @@ export class LoginComponent {
 
   submitRegForm() {
     this.regFormSubmitted = true;
-    console.log("CONTROL : ", this.rf);
     if(this.regForm.invalid) return;
 
     this.regRequestData.url = 'register';
@@ -137,7 +142,7 @@ export class LoginComponent {
       mobile_no: this.regForm.get('mobile_no').value,
       password: this.regForm.get('password').value,
       confirm_password: this.regForm.get('confirm_password').value,
-      dob: '1996-06-01',
+      dob: moment(this.regForm.get('dob').value).format('YYYY-MM-DD'),
       country_id: this.regForm.get('country_id').value
     }
 

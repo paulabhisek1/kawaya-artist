@@ -27,11 +27,13 @@
                 </ng-container>
               </div>
               <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                  <input [type]="hideLogin ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password">
                   <i class="fa fa-lock login_icon" aria-hidden="true"></i>
                   <ng-container *ngIf="formSubmitted && f.password.errors">
                     <span *ngIf="f.password.errors.required || f.email.password.noSpace" style="color: #ff301e;">*Please enter the password</span>
                   </ng-container>
+                  <i (click)="hideLogin = !hideLogin" *ngIf="hideLogin" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                  <i (click)="hideLogin = !hideLogin" *ngIf="!hideLogin" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
               </div>
               <div class="form-group small clearfix">
                 <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
@@ -51,9 +53,9 @@
             <form [formGroup]="regForm" autocomplete="off" (ngSubmit)="submitRegForm()">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Full Name" formControlName="full_name" required="required">
-                <i class="fa fa-envelope login_icon" aria-hidden="true"></i>
+                <i class="fa fa-user login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.full_name.errors">
-                  <span *ngIf="rf.full_name.errors.required || rf.full_name.errors.noSpace" style="color: #ff301e;">*Please enter the name</span>
+                  <span *ngIf="rf.full_name.errors.required || rf.full_name.errors.noSpace" style="color: #ff301e;">*Please enter the full name</span>
                 </ng-container>
               </div>
               <div class="form-group">
@@ -72,31 +74,39 @@
                 </ng-container>
               </div>
               <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password" formControlName="password" required="required">
+                  <input [type]="hideReg ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password" required="required">
                   <i class="fa fa-lock login_icon" aria-hidden="true"></i>
                   <ng-container *ngIf="regFormSubmitted && rf.password.errors">
                     <span *ngIf="rf.password.errors.required || rf.password.errors.noSpace" style="color: #ff301e;">*Please enter the password</span>
                     <span *ngIf="rf.password.errors.minlength" style="color: #ff301e;">*Password must be minimum 6 characters in length</span>
                   </ng-container>
+                  <i (click)="hideReg = !hideReg" *ngIf="hideReg" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                  <i (click)="hideReg = !hideReg" *ngIf="!hideReg" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirm_password" required="required">
+                <input [type]="hideRegCon ? 'text' : 'password'" class="form-control" placeholder="Confirm Password" formControlName="confirm_password" required="required">
                 <i class="fa fa-lock login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.confirm_password.errors">
                   <span *ngIf="rf.confirm_password.errors.required || rf.confirm_password.errors.noSpace" style="color: #ff301e;">*Please enter the confirm password</span>
                   <span *ngIf="(!rf.confirm_password.errors.required && !rf.confirm_password.errors.noSpace) && (rf.confirm_password.value !== rf.password.value)" style="color: #ff301e;">*Password & confirm password must be same</span>
                 </ng-container>
+                <i (click)="hideRegCon = !hideRegCon" *ngIf="hideRegCon" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                <i (click)="hideRegCon = !hideRegCon" *ngIf="!hideRegCon" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
               </div>
               <div class="form-group">
                 <mat-form-field appearance="fill">
-                  <mat-label>Choose a date</mat-label>
-                  <input matInput [matDatepicker]="picker">
+                  <mat-label>Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="dob">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
+                <ng-container *ngIf="regFormSubmitted && rf.dob.errors">
+                  <span *ngIf="rf.dob.errors.required || rf.dob.errors.noSpace" style="color: #ff301e;">*Please select date of birth</span>
+                </ng-container>
               </div>
               <div class="form-group">
                 <select class="form-control country_style" placeholder="Select Country" required="required" formControlName="country_id">
+                  <option value="" selected hidden>Select Country</option>
                   <option *ngFor="let country of countries" value="country.id">{{ country.name }}</option>
                 </select>
                 <i class="fa fa-flag login_icon" aria-hidden="true"></i>

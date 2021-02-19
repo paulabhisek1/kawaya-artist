@@ -230,6 +230,15 @@ section {
   top: 19px;
   font-size: 20px;
 }
+.login_icon_custom
+{
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  left: 382px;
+  top: 19px;
+  font-size: 20px;
+}
 .tab_area
 {
   display: inline-block;
