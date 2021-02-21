@@ -107,7 +107,7 @@
               <div class="form-group">
                 <select class="form-control country_style" placeholder="Select Country" required="required" formControlName="country_id">
                   <option value="" selected hidden>Select Country</option>
-                  <option *ngFor="let country of countries" value="country.id">{{ country.name }}</option>
+                  <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
                 </select>
                 <i class="fa fa-flag login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.country_id.errors">
