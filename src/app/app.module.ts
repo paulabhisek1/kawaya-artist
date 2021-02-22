@@ -56,6 +56,7 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { OtpVerificationComponent } from './views/otp-verification/otp-verification.component';
 import { AutoTabDirective, AutoTabDirectivePrev } from './shared/directives/autotabdirective';
+import { NumberDirective } from './shared/directives/numbers-only.directive';
 
 
 //***************  TEST FIREBASE CONFIGURATION  ******************/
@@ -107,7 +108,8 @@ export const firebaseConfig = {
     ResetPasswordComponent,
     OtpVerificationComponent,
     AutoTabDirective,
-    AutoTabDirectivePrev
+    AutoTabDirectivePrev,
+    NumberDirective
   ],
   providers: [
     IconSetService,

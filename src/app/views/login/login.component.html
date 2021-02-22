@@ -67,7 +67,7 @@
                 </ng-container>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_no" required="required">
+                <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_no" numbersOnly maxlength="13" required="required">
                 <i class="fa fa-phone login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.mobile_no.errors">
                   <span *ngIf="rf.mobile_no.errors.required || rf.mobile_no.errors.noSpace" style="color: #ff301e;">*Please enter the mobile no</span>
