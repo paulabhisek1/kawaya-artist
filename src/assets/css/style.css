@@ -588,3 +588,6 @@ button:focus {
     height: 40px !important;
     margin: 0 10px;
 }
+.sidebar .sidebar-minimizer {
+    flex: 0 0 63px !important;
+}

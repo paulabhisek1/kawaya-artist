@@ -36,7 +36,10 @@
 @media screen and (max-width:768px)
 
 {
+    .navbar-brand-full {
 
+        margin-top: 18px !important;
+    }
 }
 
 
