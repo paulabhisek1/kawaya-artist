@@ -10,11 +10,11 @@ export const navItems: INavData[] = [
   //   title: true,
   //   name: 'Theme'
   // },
-  // {
-  //   name: 'Colors',
-  //   url: '/theme/colors',
-  //   icon: 'icon-drop'
-  // },
+  {
+    name: 'Upload Documents',
+    url: '/upload-documents',
+    icon: 'icon-cloud-upload'
+  },
   // {
   //   name: 'Typography',
   //   url: '/theme/typography',
