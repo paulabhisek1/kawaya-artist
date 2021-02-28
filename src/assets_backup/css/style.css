@@ -1,0 +1,593 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #000;
+    font-family: 'Calibri';
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: 'Calibri-Bold';
+    src: url('../fonts/Calibri-Bold.woff2') format('woff2'), url('../fonts/Calibri-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Calibri';
+    src: url('../fonts/Calibri.woff2') format('woff2'), url('../fonts/Calibri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Calibri-Light';
+    src: url('../fonts/Calibri-Light.woff2') format('woff2'), url('../fonts/Calibri-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+a {
+    color: #ee1679;
+    transition: 0.5s;
+    outline-style: none;
+}
+
+a:hover,
+a:active,
+a:focus {
+    color: #D4A31A;
+    outline: none;
+    text-decoration: none;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Calibri-Bold';
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+section {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.login_bg_section {
+    display: block;
+    float: left;
+    position: fixed;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.login_bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+    object-position: top;
+    opacity: .4;
+    top: 0;
+    left: 0;
+}
+
+.login_container {
+    max-width: 500px;
+    width: 100%;
+    margin: 3em auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.login_container .logo {
+    width: 100px;
+}
+
+.logo_text {
+    font-family: 'Calibri';
+    font-size: 34px;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.logo_subtext {
+    font-family: 'Calibri';
+    font-size: 22px;
+    color: #fff;
+}
+
+.form-control {
+    box-shadow: none;
+    border-color: #ddd;
+}
+
+.form-control:focus {
+    border-color: #ff301e;
+}
+
+.login_form_style {
+    color: #fff;
+    padding: 30px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.25);
+    margin: 15px;
+    border-radius: 15px;
+}
+
+.login-form h4 {
+    text-align: center;
+    font-size: 22px;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login-form .form-control {
+    min-height: 50px;
+    border-radius: 2px;
+    transition: all 0.5s;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px 0 45px;
+    color: #fff;
+    outline-style: none;
+    font-size: 18px;
+}
+
+.login-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: none;
+    color: #fff;
+}
+
+.login-form .btn {
+    min-height: 50px;
+    border-radius: 2px;
+    transition: all 0.5s;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    color: #fff;
+    outline-style: none;
+    font-size: 24px;
+}
+
+.login-form .form-control::placeholder {
+    color: #fff;
+}
+
+.login-form .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.login-form .btn {
+    background: #ff301e;
+    border: none;
+    line-height: normal;
+}
+
+.login-form .btn:hover,
+.login-form .btn:focus {
+    background: #fff;
+    color: #000;
+}
+
+.login-form .checkbox-inline {
+    float: left;
+}
+
+.login-form input[type="checkbox"] {
+    margin-top: 2px;
+}
+
+.login-form .forgot-link {
+    float: right;
+}
+
+.login-form .small {
+    font-size: 16px;
+}
+
+.login-form a {
+    color: #fff;
+}
+
+.login-form a:hover {
+    color: #fff;
+}
+
+.form-control:focus {
+    box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 1);
+}
+
+.login_icon {
+    position: absolute;
+    z-index: 2;
+    left: 15px;
+    top: 19px;
+    font-size: 20px;
+}
+
+.login_icon_custom {
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    right: 27px;
+    top: 19px;
+    font-size: 20px;
+}
+
+.tab_area {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.tab_area ul {
+    list-style-type: none;
+}
+
+.tab_area ul li {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.for_login {
+    /* display: inline-block; */
+    width: 100%;
+}
+
+.for_register {
+    /* display: none; */
+    width: 100%;
+}
+
+.active_login {
+    border-bottom: 3px solid #ff301e;
+}
+
+.social_area {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.social_area p {
+    color: #fff;
+    font-size: 18px;
+    margin: 20px 0 15px 0;
+    position: relative;
+    background: url(../images/social_heading.png) center center no-repeat;
+}
+
+.social_area img {
+    width: 45px;
+    border-radius: 100%;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    transition-timing-function: ease-out;
+}
+
+.social_area img:hover {
+    box-shadow: 0px 0px 5px 0px rgb(255 255 255);
+}
+
+.social_area h4 {
+    border-right: 1px solid #fff;
+    display: inline-block;
+    vertical-align: text-top;
+    padding: 0 30px;
+}
+
+.social_area h4:last-child {
+    border-right: none;
+}
+
+.for_login input:-webkit-autofill,
+.for_login input:-webkit-autofill:hover,
+.for_login input:-webkit-autofill:focus,
+.for_login textarea:-webkit-autofill,
+.for_login textarea:-webkit-autofill:hover,
+.for_login textarea:-webkit-autofill:focus,
+.for_login select:-webkit-autofill,
+.for_login select:-webkit-autofill:hover,
+.for_login select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: #fff;
+    -webkit-box-shadow: none !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.for_register input:-webkit-autofill,
+.for_register input:-webkit-autofill:hover,
+.for_register input:-webkit-autofill:focus,
+.for_register textarea:-webkit-autofill,
+.for_register textarea:-webkit-autofill:hover,
+.for_register textarea:-webkit-autofill:focus,
+.for_register select:-webkit-autofill,
+.for_register select:-webkit-autofill:hover,
+.for_register select:-webkit-autofill:focus {
+    border: none;
+    -webkit-text-fill-color: #fff;
+    -webkit-box-shadow: none !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+.form-group span {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    color: #ff301e !important;
+}
+
+.loder {
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 999;
+    left: 0;
+    top: 0;
+}
+
+.forgot_password_heading {
+    font-family: 'Calibri';
+    font-size: 24px !important;
+    text-align: center;
+    color: #fff;
+    margin-top: 25px !important;
+    display: inline-block;
+    width: 100%;
+}
+
+.forgot_password_text {
+    font-family: 'Calibri';
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px !important;
+}
+
+.jpa {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.jpa input {
+    margin-right: .5rem;
+    margin-left: .5rem;
+    text-align: center;
+}
+
+.jpa input:first-child {
+    margin-left: 0;
+}
+
+.jpa input:last-child {
+    margin-right: 0;
+}
+
+.verification {
+    padding: 0 20px !important;
+}
+
+.forgot_password_text a {
+    color: #ff301e !important;
+}
+
+.login-form .form-control option {
+    color: #000;
+}
+
+.country_style {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.15) url(../images/down_arrow.png) no-repeat !important;
+    background-position: calc(100% - 26px) center !important;
+}
+
+.mat-form-field {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 0 15px;
+    border-radius: 5px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-radius: 4px 4px 0 0;
+    padding: 0 !important;
+    position: relative;
+}
+
+.mat-form-field-empty.mat-form-field-label {
+    color: #fff !important;
+    font-size: 18px;
+}
+
+.mat-form-field-flex {
+    align-items: center !important;
+}
+
+.cdk-overlay-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+}
+
+.mat-datepicker-content-container {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 20px 20px 25px !important;
+    border-radius: 15px !important;
+}
+
+.mat-datepicker-content .mat-datepicker-close-button {
+    position: relative !important;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+}
+
+.mat-calendar-table-header th {
+    color: #fff;
+}
+
+.mat-calendar-body-label {
+    color: #fff;
+}
+
+.mat-calendar-body-cell-content {
+    color: #fff !important;
+}
+
+.mat-button-base:focus {
+    outline: none !important;
+}
+
+.mat-ng-star-inserted-field-label {
+    display: none !;
+}
+
+.mat-datepicker-input {
+    height: 54px;
+}
+
+.mat-form-field-empty {
+    margin-top: 12px;
+}
+
+.mat-form-field-label {
+    color: #fff !important;
+}
+
+.for_login .btn-primary:disabled {
+    color: #fff;
+    background-color: #696969;
+    border-color: #fff;
+}
+
+.header-fixed .app-header {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.app-header .navbar-toggler-icon {
+    height: 23px;
+    background: url(../images/menu.svg) no-repeat !important;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.sidebar .nav-link.active .nav-icon {
+    color: #fff !important;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
+
+.mat-calendar-body-disabled {
+    opacity: .2 !important;
+}
+
+.mat-focus-indicator {
+    margin: 0 4px !important;
+}
+
+.app-header {
+    border-bottom: 0 !important;
+}
+
+.app-header {
+    height: 68px !important;
+}
+
+.header-fixed .app-body {
+    margin-top: 68px !important;
+}
+
+.navbar-brand-full {
+    width: 60px !important;
+    height: 48px !important;
+}
+
+.app-header .nav-item .nav-link>.img-avatar,
+.app-header .nav-item .avatar.nav-link>img {
+    height: 40px !important;
+    margin: 0 10px;
+}
+.sidebar .sidebar-minimizer {
+    flex: 0 0 63px !important;
+}

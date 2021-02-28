@@ -1,0 +1,36 @@
+<div class="login_bg_section">
+    <img src="assets/images/bg.jpg" alt="" class="login_bg" />  
+  </div>
+
+  <div class="login_container">
+    <div class="login-form">    
+      <form (ngSubmit)="submitForm()" class="login_form_style ">
+        <img src="assets/images/logo.svg" alt="" class="logo" /> 
+        <h2 class="logo_text">Kawawa Sounds</h2> 
+        <h3 class="logo_subtext">The African Rhythm</h3>
+        <h4 class="forgot_password_heading">Verification</h4>
+        <p class="forgot_password_text">OTP has been sent to your registered email account. Please verify</p>
+        
+
+          <div class="for_login">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-12 jpa">
+                    <input [(ngModel)]="mainOTP1" id="input1" name="num1" type="tel" class="form-control verification" maxlength="1" [libAutoTab]="'input2'">
+                    <input [(ngModel)]="mainOTP2" id="input2" name="num2" type="tel" class="form-control verification" maxlength="1" [libAutoTab]="'input3'" [libAutoTabPrev]="'input1'">
+                    <input [(ngModel)]="mainOTP3" id="input3" name="num3" type="tel" class="form-control verification" maxlength="1" [libAutoTab]="'input4'" [libAutoTabPrev]="'input2'">
+                    <input [(ngModel)]="mainOTP4" id="input4" name="num4" type="tel" class="form-control verification" maxlength="1" [libAutoTabPrev]="'input3'">
+                </div>
+              </div>
+            </div>
+
+            <p class="forgot_password_text">Don’t Receive the OTP? <a href="#">Send Again</a></p>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="(mainOTP1 && mainOTP2 && mainOTP3 && mainOTP4) ? false : true">Verify</button>   
+          </div>
+      </form>	  
+    </div>
+  </div>
+
+<div *ngIf="isLoading" class="loder">
+    <img src="assets/images/loader.gif" alt="loader" />  
+</div>

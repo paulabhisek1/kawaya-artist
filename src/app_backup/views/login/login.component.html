@@ -1,0 +1,131 @@
+<div class="login_bg_section">
+  <img src="assets/images/bg.jpg" alt="" class="login_bg" />  
+  </div>
+
+  <div class="login_container">
+    <div class="login-form">    
+      <div class="login_form_style">
+        <img src="assets/images/logo.svg" alt="" class="logo" /> 
+        <h2 class="logo_text">Kawawa Sounds</h2> 
+        <h3 class="logo_subtext">The African Rhythm</h3>
+
+          <div class="tab_area">
+            <ul>
+                <li (click)="shwSignUp = false; shwSignIn = true;" [ngClass]="{'active_login': shwSignIn === true}" class="login_tab">Sign In</li>
+                <li (click)="shwSignUp = true; shwSignIn = false;" [ngClass]="{'active_login': shwSignUp === true}" class="register_tab">Sign Up</li>
+            </ul>
+          </div>
+
+          <!--for_login-->
+          <div *ngIf="shwSignIn" class="for_login">
+            <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="submitLoginForm()">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" formControlName="email">
+                <i class="fa fa-envelope login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="formSubmitted && f.email.errors">
+                  <span *ngIf="f.email.errors.required || f.email.errors.noSpace" style="color: #ff301e;">*Please enter the email</span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                  <input [type]="hideLogin ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password">
+                  <i class="fa fa-lock login_icon" aria-hidden="true"></i>
+                  <ng-container *ngIf="formSubmitted && f.password.errors">
+                    <span *ngIf="f.password.errors.required || f.email.password.noSpace" style="color: #ff301e;">*Please enter the password</span>
+                  </ng-container>
+                  <i (click)="hideLogin = !hideLogin" *ngIf="hideLogin" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                  <i (click)="hideLogin = !hideLogin" *ngIf="!hideLogin" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
+              </div>
+              <div class="form-group small clearfix">
+                <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
+              </div> 
+              <input type="submit" class="btn btn-primary btn-block btn-lg" value="Sign In">   
+              
+              <div class="social_area">
+                <p>Or Sign In With</p>
+                <h4><a href="javascript:void(0)" (click)="facebookLogin()"><img src="assets/images/facebook.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="googleLogin()"><img src="assets/images/google_plus.png"alt /></a></h4>
+              </div>
+            </form>
+          </div>
+
+          <!--for_register-->
+          <div *ngIf="shwSignUp" class="for_register">
+            <form [formGroup]="regForm" autocomplete="off" (ngSubmit)="submitRegForm()">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Full Name" formControlName="full_name" required="required">
+                <i class="fa fa-user login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="regFormSubmitted && rf.full_name.errors">
+                  <span *ngIf="rf.full_name.errors.required || rf.full_name.errors.noSpace" style="color: #ff301e;">*Please enter the full name</span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email" formControlName="email" required="required">
+                <i class="fa fa-envelope login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="regFormSubmitted && rf.email.errors">
+                  <span *ngIf="rf.email.errors.required || rf.email.errors.noSpace" style="color: #ff301e;">*Please enter the email</span>
+                  <span *ngIf="rf.email.errors.email" style="color: #ff301e;">*Please enter a valid email id</span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_no" numbersOnly maxlength="13" required="required">
+                <i class="fa fa-phone login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="regFormSubmitted && rf.mobile_no.errors">
+                  <span *ngIf="rf.mobile_no.errors.required || rf.mobile_no.errors.noSpace" style="color: #ff301e;">*Please enter the mobile no</span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                  <input [type]="hideReg ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password" required="required">
+                  <i class="fa fa-lock login_icon" aria-hidden="true"></i>
+                  <ng-container *ngIf="regFormSubmitted && rf.password.errors">
+                    <span *ngIf="rf.password.errors.required || rf.password.errors.noSpace" style="color: #ff301e;">*Please enter the password</span>
+                    <span *ngIf="rf.password.errors.minlength" style="color: #ff301e;">*Password must be minimum 6 characters in length</span>
+                  </ng-container>
+                  <i (click)="hideReg = !hideReg" *ngIf="hideReg" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                  <i (click)="hideReg = !hideReg" *ngIf="!hideReg" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
+              </div>
+              <div class="form-group">
+                <input [type]="hideRegCon ? 'text' : 'password'" class="form-control" placeholder="Confirm Password" formControlName="confirm_password" required="required">
+                <i class="fa fa-lock login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="regFormSubmitted && rf.confirm_password.errors">
+                  <span *ngIf="rf.confirm_password.errors.required || rf.confirm_password.errors.noSpace" style="color: #ff301e;">*Please enter the confirm password</span>
+                  <span *ngIf="(!rf.confirm_password.errors.required && !rf.confirm_password.errors.noSpace) && (rf.confirm_password.value !== rf.password.value)" style="color: #ff301e;">*Password & confirm password must be same</span>
+                </ng-container>
+                <i (click)="hideRegCon = !hideRegCon" *ngIf="hideRegCon" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
+                <i (click)="hideRegCon = !hideRegCon" *ngIf="!hideRegCon" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="fill">
+                  <mat-label>Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="dob">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <ng-container *ngIf="regFormSubmitted && rf.dob.errors">
+                  <span *ngIf="rf.dob.errors.required || rf.dob.errors.noSpace" style="color: #ff301e;">*Please select date of birth</span>
+                </ng-container>
+              </div>
+              <div class="form-group">
+                <select class="form-control country_style" placeholder="Select Country" required="required" formControlName="country_id">
+                  <option value="" selected hidden>Select Country</option>
+                  <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+                </select>
+                <i class="fa fa-flag login_icon" aria-hidden="true"></i>
+                <ng-container *ngIf="regFormSubmitted && rf.country_id.errors">
+                  <span *ngIf="rf.country_id.errors.required" style="color: #ff301e;">*Please select a country</span>
+                </ng-container>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+              
+              <div class="social_area">
+                <p>Or Sign In With</p>
+                <h4><a href="javascript:void(0)" (click)="facebookLogin()"><img src="assets/images/facebook.png"alt /></a></h4>
+                <h4><a href="javascript:void(0)" (click)="googleLogin()"><img src="assets/images/google_plus.png"alt /></a></h4>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLoading" class="loder">
+    <img src="assets/images/loader.gif" alt="loader" />  
+  </div>
