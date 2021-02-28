@@ -444,74 +444,8 @@ section {
     border-radius: 5px;
 }
 
-.mat-form-field-appearance-fill .mat-form-field-flex {
-    border-radius: 4px 4px 0 0;
-    padding: 0 !important;
-    position: relative;
-}
 
-.mat-form-field-empty.mat-form-field-label {
-    color: #fff !important;
-    font-size: 18px;
-}
 
-.mat-form-field-flex {
-    align-items: center !important;
-}
-
-.cdk-overlay-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 999;
-    transform: translate(-50%, -50%);
-}
-
-.mat-datepicker-content-container {
-    display: inline-block;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 10px 20px 20px 25px !important;
-    border-radius: 15px !important;
-}
-
-.mat-datepicker-content .mat-datepicker-close-button {
-    position: relative !important;
-    top: 100%;
-    left: 0;
-    margin-top: 8px;
-}
-
-.mat-calendar-table-header th {
-    color: #fff;
-}
-
-.mat-calendar-body-label {
-    color: #fff;
-}
-
-.mat-calendar-body-cell-content {
-    color: #fff !important;
-}
-
-.mat-button-base:focus {
-    outline: none !important;
-}
-
-.mat-ng-star-inserted-field-label {
-    display: none !;
-}
-
-.mat-datepicker-input {
-    height: 54px;
-}
-
-.mat-form-field-empty {
-    margin-top: 12px;
-}
-
-.mat-form-field-label {
-    color: #fff !important;
-}
 
 .for_login .btn-primary:disabled {
     color: #fff;
@@ -558,9 +492,6 @@ button:focus {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
 }
 
-.mat-calendar-body-disabled {
-    opacity: .2 !important;
-}
 
 .mat-focus-indicator {
     margin: 0 4px !important;
@@ -591,3 +522,41 @@ button:focus {
 .sidebar .sidebar-minimizer {
     flex: 0 0 63px !important;
 }
+/*.mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}*/
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: none !important;
+}
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple, .mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+    display: none !important;
+}
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+    display: none !important;
+}
+.mat-input-element {
+    caret-color: #fff !important; 
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-radius: 4px 4px 0 0;
+    padding: .75em 0 0 0 !important;
+    color: #fff !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: rgba(0,0,0,0) !important;
+}
+.mat-datepicker-toggle-default-icon
+{
+    color: #fff;
+}
+.mat-form-field-label-wrapper mat-label
+{
+    color: #fff !important;
+}
+.mat-input-container.app-input-no-underline .mat-input-underline {
+    display: none;
+  }
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}  
