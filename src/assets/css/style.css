@@ -556,7 +556,16 @@ button:focus {
 }
 .mat-input-container.app-input-no-underline .mat-input-underline {
     display: none;
-  }
-  .mat-form-field-wrapper {
+}
+
+.mat-form-field-wrapper {
     padding-bottom: 0 !important;
-}  
+}
+
+.customClass {
+    height: 26px !important;
+}
+
+.customDatepickerIcon {
+    margin-bottom: 5px;
+}
