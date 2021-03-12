@@ -6,6 +6,11 @@ export const navItems: INavData[] = [
     url: '/dashboard',
     icon: 'icon-speedometer',
   },
+  {
+    name: 'Upload Document',
+    url: '/upload-document',
+    icon: 'icon-speedometer',
+  },
   // {
   //   title: true,
   //   name: 'Theme'

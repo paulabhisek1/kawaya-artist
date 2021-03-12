@@ -7,16 +7,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./upload-documents.component.scss']
 })
 export class UploadDocumentsComponent implements OnInit {
-  isEditable = true;
-  isStepOneComplete: boolean = false;
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
-  firstStepForm: FormGroup
+  constructor(private _formBuilder: FormBuilder) {}
 
-  constructor(
-    private _formBuilder: FormBuilder
-  ) { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 
 }

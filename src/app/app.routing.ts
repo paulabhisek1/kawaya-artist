@@ -46,6 +46,11 @@ export const routes: Routes = [
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGuardService]
       },
+      {
+        path: 'upload-document',
+        loadChildren: () => import('./views/upload-documents/upload-documents.module').then(m => m.UploadDocumentsModule),
+        canActivate: [AuthGuardService]
+      }
     ]
   },
 ];
