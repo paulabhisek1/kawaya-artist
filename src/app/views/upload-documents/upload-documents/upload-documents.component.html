@@ -1,40 +1,229 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn upload_document">
     <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
         {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
       </button>
       <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <mat-step [stepControl]="firstFormGroup">
           <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Fill out your name</ng-template>
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-            </mat-form-field>
+            <ng-template matStepLabel>Address</ng-template>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>Address and Street</mat-label>
+                  <input matInput placeholder="Address and Street" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+              
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>Building number</mat-label>
+                  <input matInput placeholder="Building number" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>City</mat-label>
+                  <input matInput placeholder="City" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>State / Province</mat-label>
+                  <input matInput placeholder="State / Province" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>Zip code/ Postal code</mat-label>
+                  <input matInput placeholder="Zip code/ Postal code" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>Country</mat-label>
+                  <input matInput placeholder="Country" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+           </div>
             <div>
               <button mat-button matStepperNext>Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+
+        <mat-step [stepControl]="secondFormGroup" label="Add your bank account">
           <form [formGroup]="secondFormGroup">
-            <mat-form-field>
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                     required>
-            </mat-form-field>
+              <div class="row">
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Account holder name</mat-label>
+                  <input matInput placeholder="Account holder name" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Account number</mat-label>
+                  <input matInput placeholder="Account number" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Branch name</mat-label>
+                  <input matInput placeholder="Branch name" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Routing no./ sort code</mat-label>
+                  <input matInput placeholder="Routing no./ sort code" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Branch address</mat-label>
+                  <input matInput placeholder="Branch address" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Country</mat-label>
+                  <input matInput placeholder="Country" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <input matInput placeholder="State" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>City</mat-label>
+                  <input matInput placeholder="City" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Postal code / zip code</mat-label>
+                  <input matInput placeholder="Postal code / zip code" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Currency</mat-label>
+                  <input matInput placeholder="currency" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Swift code</mat-label>
+                  <input matInput placeholder="Swift code" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>DOB</mat-label>
+                  <input matInput placeholder="DOB" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+              </div>
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          <p>You are now done.</p>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div>
+
+        <mat-step [stepControl]="secondFormGroup" label="Add your any govt identity">
+          <form [formGroup]="secondFormGroup">
+            <div class="row">
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Upload a clear front page ( will show identity image file)</mat-label>
+                  <input matInput placeholder="Upload a clear front page ( will show identity image file)" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Upload a clear back page ( will show identity image file)</mat-label>
+                  <input matInput placeholder="Upload a clear back page ( will show identity image file)" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Upload your clear profile picture</mat-label>
+                  <input matInput placeholder="Upload your clear profile picture" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+            </div>  
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        
+        <mat-step [stepControl]="secondFormGroup" label="Add your sample song">
+          <form [formGroup]="secondFormGroup">
+            <div class="row">
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>song name</mat-label>
+                  <input matInput placeholder="song name" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>song(will show uploaded file)</mat-label>
+                  <input matInput placeholder="song(will show uploaded file)" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Song type ( ex- Melody, pop, etc)</mat-label>
+                  <input matInput placeholder="Song type ( ex- Melody, pop, etc)" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Album/ Movie ( ex- album / dhoom 3)</mat-label>
+                  <input matInput placeholder="Album/ Movie ( ex- album / dhoom 3)" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">  
+                <mat-form-field>
+                  <mat-label>Description</mat-label>
+                  <input matInput placeholder="Description" formControlName="secondCtrl" required>
+                </mat-form-field>
+              </div>
+            </div>  
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
         </mat-step>
       </mat-horizontal-stepper>
       
