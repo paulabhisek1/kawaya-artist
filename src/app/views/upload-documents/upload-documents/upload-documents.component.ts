@@ -12,6 +12,7 @@ import { noSpace } from '../../../shared/custom-validators/nospacesvalidator';
   styleUrls: ['./upload-documents.component.scss']
 })
 export class UploadDocumentsComponent implements OnInit {
+  // FOR DESIGN MAKE `isLinear = false` To Enable All The Steps
   isLinear = true;
 
   firstFormGroup: FormGroup;
