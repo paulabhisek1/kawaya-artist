@@ -604,17 +604,7 @@ button:focus {
     background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;   
 }
-.upload_document  .mat-form-field-infix
-{
-    background: #eaeaea;
-    padding: 10px 15px !important;
 
-}
-.upload_document  .mat-form-field-label-wrapper {
-    left: 15px !important;
-    width: calc(100% - 15px) !important;
-
-}
 
 .upload_document .mat-button
 {
@@ -637,4 +627,16 @@ button:focus {
     background-color: transparent !important;
     background-image: none !important;
     color: -internal-light-dark(black, white) !important;
+}
+.upload_document_form_area
+{
+    display: block;
+    float: left;
+    width: 100%;
+    margin:25px 0;
+}
+.form_shadow {
+    -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
 }
