@@ -135,6 +135,26 @@
                         </mat-form-field>
                       </div>
 
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
+                          <mat-label>Currency</mat-label>
+                          <input matInput placeholder="currency" formControlName="currency" required>
+                          <mat-error *ngIf="f2.currency.errors">
+                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
+                          <mat-label>Swift code</mat-label>
+                          <input matInput placeholder="Swift code" formControlName="swift_code" required>
+                          <mat-error *ngIf="f2.swift_code.errors">
+                            <span *ngIf="f2.swift_code.errors.required || f2.swift_code.errors.nospace">*Please enter the swift code</span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>State</mat-label>
@@ -164,26 +184,6 @@
                           </mat-error>
                         </mat-form-field>
                       </div>
-
-                      <div class="col-md-6">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Currency</mat-label>
-                          <input matInput placeholder="currency" formControlName="currency" required>
-                          <mat-error *ngIf="f2.currency.errors">
-                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-6">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Swift code</mat-label>
-                          <input matInput placeholder="Swift code" formControlName="swift_code" required>
-                          <mat-error *ngIf="f2.swift_code.errors">
-                            <span *ngIf="f2.swift_code.errors.required || f2.swift_code.errors.nospace">*Please enter the swift code</span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
                       </div>
                     <div>
                       <button mat-button matStepperPrevious>Back</button>
@@ -197,27 +197,57 @@
                   <form [formGroup]="thirdFormGroup">
                     <div class="row">
                       <div class="col-12">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Upload a clear front page ( will show identity image file)</mat-label>
-                          <input matInput placeholder="Upload a clear front page ( will show identity image file)" formControlName="secondCtrl" required>
-                        </mat-form-field>
+                        <p class="file_upload_text">Upload a clear front page ( will show identity image file)</p>
+                        <div class="file_upload1">
+                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
+                          <div class="input--file">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3.2"/>
+                                <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                <path d="M0 0h24v24h-24z" fill="none"/>
+                              </svg>
+                            </span>
+                            <input name="Select File" type="file" />
+                          </div>
+                        </div>
                       </div>
 
                       <div class="col-12">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Upload a clear back page ( will show identity image file)</mat-label>
-                          <input matInput placeholder="Upload a clear back page ( will show identity image file)" formControlName="secondCtrl" required>
-                        </mat-form-field>
+                        <p class="file_upload_text">upload a clear back page ( will show identity image file)</p>
+                        <div class="file_upload1">
+                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
+                          <div class="input--file">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3.2"/>
+                                <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                <path d="M0 0h24v24h-24z" fill="none"/>
+                              </svg>
+                            </span>
+                            <input name="Select File" type="file" />
+                          </div>
+                        </div>
                       </div>
 
                       <div class="col-12">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Upload your clear profile picture</mat-label>
-                          <input matInput placeholder="Upload your clear profile picture" formControlName="secondCtrl" required>
-                        </mat-form-field>
+                        <p class="file_upload_text">Upload your clear profile picture</p>
+                        <div class="file_upload1">
+                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
+                          <div class="input--file">
+                            <span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3.2"/>
+                                <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                <path d="M0 0h24v24h-24z" fill="none"/>
+                              </svg>
+                            </span>
+                            <input name="Select File" type="file" />
+                          </div>
+                        </div>
                       </div>
                     </div>  
-                    <div>
+                    <div class="mt-4">
                       <button mat-button matStepperPrevious>Back</button>
                       <button mat-button matStepperNext>Next</button>
                     </div>
