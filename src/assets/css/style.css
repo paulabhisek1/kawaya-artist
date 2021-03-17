@@ -640,3 +640,14 @@ button:focus {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.20);
     box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
 }
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
+

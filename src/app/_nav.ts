@@ -9,7 +9,7 @@ export const navItems: INavData[] = [
   {
     name: 'Upload Document',
     url: '/upload-document',
-    icon: 'icon-speedometer',
+    icon: 'fa fa-file-text-o',
   },
   // {
   //   title: true,
