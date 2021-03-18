@@ -51,6 +51,8 @@ export class UploadDocumentsComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       account_holder_name: ['', [Validators.required, noSpace]],
       account_number: ['', [Validators.required, noSpace]],
+      routing_no: ['', [Validators.required, noSpace]],
+      branch_address: ['', [Validators.required, noSpace]],
       branch_name: ['', [Validators.required, noSpace]],
       bank_country: ['', [Validators.required, noSpace]],
       bank_state: ['', [Validators.required, noSpace]],
@@ -115,6 +117,8 @@ export class UploadDocumentsComponent implements OnInit {
     let requestConfig = {
       account_holder_name: this.secondFormGroup.get('account_holder_name').value,
       account_number: this.secondFormGroup.get('account_number').value,
+      routing_no: this.secondFormGroup.get('routing_no').value,
+      branch_address: this.secondFormGroup.get('branch_address').value,
       branch_name: this.secondFormGroup.get('branch_name').value,
       bank_country: this.secondFormGroup.get('bank_country').value,
       bank_state: this.secondFormGroup.get('bank_state').value,

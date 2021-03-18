@@ -101,25 +101,25 @@
                         </mat-form-field>
                       </div>
 
-                      <!-- <div class="col-md-4">  
-                        <mat-form-field>
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
                           <mat-label>Routing no./ sort code</mat-label>
-                          <input matInput placeholder="Routing no./ sort code" formControlName="secondCtrl" required>
-                          <mat-error *ngIf="f2.account_holder_name.errors">
-                            <span *ngIf="f2.account_holder_name.errors.required || f2.account_holder_name.errors.nospace">*Please enter the account holder name</span>
+                          <input matInput placeholder="Routing no./ sort code" formControlName="routing_no" required>
+                          <mat-error *ngIf="f2.routing_no.errors">
+                            <span *ngIf="f2.routing_no.errors.required || f2.routing_no.errors.nospace">*Please enter the routing no</span>
                           </mat-error>
                         </mat-form-field>
-                      </div> -->
+                      </div>
 
-                      <!-- <div class="col-md-4">  
-                        <mat-form-field>
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
                           <mat-label>Branch address</mat-label>
-                          <input matInput placeholder="Branch address" formControlName="secondCtrl" required>
-                          <mat-error *ngIf="f2.account_holder_name.errors">
-                            <span *ngIf="f2.account_holder_name.errors.required || f2.account_holder_name.errors.nospace">*Please enter the account holder name</span>
+                          <input matInput placeholder="Branch address" formControlName="branch_address" required>
+                          <mat-error *ngIf="f2.branch_address.errors">
+                            <span *ngIf="f2.branch_address.errors.required || f2.branch_address.errors.nospace">*Please enter the branch address</span>
                           </mat-error>
                         </mat-form-field>
-                      </div> -->
+                      </div>
 
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
