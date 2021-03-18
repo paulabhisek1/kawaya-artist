@@ -3,8 +3,7 @@
     <div class="col-md-8 mx-auto">
         <h2>Upload Document </h2>
         <div class="animated fadeIn upload_document form_shadow">
-              <mat-vertical-stepper [linear]="isLinear" #stepper [selectedIndex]="selectedStep">
-
+              <mat-vertical-stepper [linear]="isLinear" #stepper>
                 <!-- FIRST STEP -->
                 <mat-step [stepControl]="firstFormGroup">
                   <form [formGroup]="firstFormGroup" (ngSubmit)="submitFormFirstStep()">
@@ -194,11 +193,11 @@
 
                 <!-- THIRD STEP -->
                 <mat-step [stepControl]="thirdFormGroup" label="Add your any govt identity">
-                  <form [formGroup]="thirdFormGroup">
+                  <form [formGroup]="thirdFormGroup" (ngSubmit)="submitFormThreeStep()">
                     <div class="row">
                       <div class="col-md-4 text-center">  
                         <div class="file_upload1">
-                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
+                          <img [src]="govtIDFront" alt="" class="upload_img" />
                           <div class="input--file">
                             <span>
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -207,17 +206,22 @@
                                 <path d="M0 0h24v24h-24z" fill="none"/>
                               </svg>
                             </span>
-                            <input name="Select File" type="file" />
+                            <input name="Select File" (change)="govtIDFrontUpload($event)" type="file" formControlName="file" />
                           </div>
-                        </div>
 
-                        <p class="file_upload_text">Upload a front page </p>
+                          <!-- LOADER -->
+                          <!-- <div *ngIf="isLoadingImgFront" class="loder">
+                            <img src="assets/images/loader.gif" alt="loader" />  
+                          </div> -->
+                        </div>
+                        
+                        <p class="file_upload_text">Upload Front Page of Your Govt. Identity </p>
                       </div>
 
                       <div class="col-md-4 text-center">  
                         
                         <div class="file_upload1">
-                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
+                          <img [src]="govtIDBack" alt="" class="upload_img" />
                           <div class="input--file">
                             <span>
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -226,17 +230,17 @@
                                 <path d="M0 0h24v24h-24z" fill="none"/>
                               </svg>
                             </span>
-                            <input name="Select File" type="file" />
+                            <input name="Select File" (change)="govtIDBackUpload($event)" type="file" formControlName="file" />
                           </div>
                         </div>
 
-                        <p class="file_upload_text">Upload a back page</p>
+                        <p class="file_upload_text">Upload Back Page of Your Govt. Identity</p>
                       </div>
 
                       <div class="col-md-4 text-center">  
                         <div class="file_upload1">
-                          <img src="../../../../assets/images/bg.jpg" alt="" class="upload_img" />
-                          <div class="input--file">
+                          <img [src]="profilePicture" alt="" class="upload_img" />
+                          <div style="cursor: pointer;" class="input--file">
                             <span>
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="3.2"/>
@@ -244,15 +248,15 @@
                                 <path d="M0 0h24v24h-24z" fill="none"/>
                               </svg>
                             </span>
-                            <input name="Select File" type="file" />
+                            <input name="Select File" (change)="profilePictureUpload($event)" type="file" formControlName="file" />
                           </div>
                         </div>
-                        <p class="file_upload_text">Upload your profile picture</p>
+                        <p class="file_upload_text">Upload Your Profile Picture</p>
                       </div>
                     </div>  
                     <div class="mt-4">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button mat-button matStepperNext>Next</button>
+                      <button type="submit" mat-button>Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -302,7 +306,6 @@
                     </div>
                   </form>
                 </mat-step>
-                
               </mat-vertical-stepper>
               <!-- LOADER -->
               <div *ngIf="isLoading" class="loder">

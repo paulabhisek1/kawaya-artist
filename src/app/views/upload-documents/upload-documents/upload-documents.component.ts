@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { CommonService } from '../../../core/services/Common/common.service';
 import { HelperService } from '../../../core/services/Helper/helper.service';
 import { noSpace } from '../../../shared/custom-validators/nospacesvalidator';
@@ -26,8 +27,19 @@ export class UploadDocumentsComponent implements OnInit {
   subscriptions: Subscription[] = [];
   isLoading: boolean = false;
 
-  selectedStep = 0;
+  selectedStep = 3;
   countries: any = [];
+
+  govtIDFront: any = 'assets/images/no_image.png';
+  govtIDFrontPath: any = '';
+  govtIDBack: any = 'assets/images/no_image.png';
+  govtIDBackPath: any = '';
+  profilePicture: any = 'assets/images/no_image.png';
+  profilePicturePath: any = '';
+
+  imageURL: string = environment.imageURL;
+
+  // isLoadingImgFront: boolean = true;
 
   @ViewChild('stepper', { static: false }) stepper: MatHorizontalStepper;
 
@@ -64,7 +76,7 @@ export class UploadDocumentsComponent implements OnInit {
 
     // Third Form Group
     this.thirdFormGroup = this._formBuilder.group({
-      secondCtrl: ['', [Validators.required, noSpace]],
+      file: [''],
     });
 
     // Fourth Form Group
@@ -150,6 +162,51 @@ export class UploadDocumentsComponent implements OnInit {
     )
   }
 
+  // Submit Step Three Form
+  submitFormThreeStep() {
+    if(!this.govtIDFrontPath){
+      this.helperService.showError('Please upload front page of your govt identity');
+      return;
+    }
+    
+    if(!this.govtIDBackPath){
+      this.helperService.showError('Please upload back page of your govt identity');
+      return;
+    }
+
+    if(!this.profilePicturePath){
+      this.helperService.showError('Please upload your profile picture');
+      return;
+    }
+
+    let requestConfig = {
+      govt_id_front: this.govtIDFrontPath,
+      govt_id_back: this.govtIDBackPath,
+      profile_image: this.profilePicturePath,
+    }
+
+    this.isLoading = true;
+    this.subscriptions.push(
+      this.commonService.postAPICall({
+        url: 'artist-details/step-three',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.isLoading = false;
+        if(result.status == 200) {
+          this.helperService.showSuccess(result.msg);
+          this.stepper.next();
+          this.fetchArtistDetails();
+        }
+        else{
+          this.helperService.showError(result.msg);
+        }
+      },(err)=>{
+        this.isLoading = false;
+        this.helperService.showError(err.error.msg);
+      })
+    )
+  }
+
   // Fetch Artist Details
   fetchArtistDetails() {
     this.isLoading = true;
@@ -161,8 +218,20 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
           this.artistDetails = result.data.artist_details;
+          this.profilePicture = this.imageURL + this.artistDetails.profile_image;
+          this.profilePicturePath = this.artistDetails.profile_image;
           if(result.data.artist_details.artist_account_details) {
             this.artistAccountDetails = result.data.artist_details.artist_account_details;
+
+            if(this.artistAccountDetails.govt_id_front) {
+              this.govtIDFront = this.imageURL + this.artistAccountDetails.govt_id_front;
+              this.govtIDFrontPath = this.artistAccountDetails.govt_id_front;
+            }
+
+            if(this.artistAccountDetails.govt_id_back) {
+              this.govtIDBack = this.imageURL + this.artistAccountDetails.govt_id_back;
+              this.govtIDBackPath = this.artistAccountDetails.govt_id_back;
+            }
 
             // First Step Patch Value
             this.firstFormGroup.patchValue({
@@ -177,6 +246,8 @@ export class UploadDocumentsComponent implements OnInit {
             this.secondFormGroup.patchValue({
               account_holder_name: this.artistAccountDetails.account_holder_name ? this.artistAccountDetails.account_holder_name : '',
               account_number: this.artistAccountDetails.account_number ? this.artistAccountDetails.account_number : '',
+              routing_no: this.artistAccountDetails.routing_no ? this.artistAccountDetails.routing_no : '',
+              branch_address: this.artistAccountDetails.branch_address ? this.artistAccountDetails.branch_address : '',
               branch_name: this.artistAccountDetails.branch_name ? this.artistAccountDetails.branch_name : '',
               bank_country: this.artistAccountDetails.bank_country ? this.artistAccountDetails.bank_country : '',
               bank_state: this.artistAccountDetails.zip ? this.artistAccountDetails.bank_state : '',
@@ -219,6 +290,141 @@ export class UploadDocumentsComponent implements OnInit {
         this.helperService.showError(err.error.msg);
       })
     )
+  }
+
+  govtIDFrontUpload(event) {
+    if (event.target.files && event.target.files[0]) {
+      const mainFile: File = event.target.files[0];
+      if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
+        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
+        return;
+      }
+
+      // if (event.target.files[0].size > 2097152) {
+      //   this.helperService.showError('Image size cannot be greater than 2MB!');
+      //   return;
+      // }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      // tslint:disable-next-line: no-shadowed-variable
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        // this.updateProfileRequestData.data.image = mainFile;
+        let formData: FormData = new FormData();
+
+        this.isLoading = true
+        formData.append('file', mainFile, mainFile.name);
+        this.subscriptions.push(
+          this.commonService.postAPICall({
+            url: 'artist-details/upload-govt-id-front',
+            data: formData
+          }).subscribe((result)=>{
+            this.isLoading = false;
+            if(result.status == 200) {
+              // this.helperService.showSuccess(result.msg);
+              this.govtIDFront = event.target.result;
+              this.govtIDFrontPath = result.data.filePath;
+            }
+            else{
+              this.helperService.showError(result.msg);
+            }
+          },(err)=>{
+            this.isLoading = false;
+            this.helperService.showError(err.error.msg);
+          })
+        )
+      };
+    }
+  }
+
+  govtIDBackUpload(event) {
+    if (event.target.files && event.target.files[0]) {
+      const mainFile: File = event.target.files[0];
+      if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
+        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
+        return;
+      }
+
+      // if (event.target.files[0].size > 2097152) {
+      //   this.helperService.showError('Image size cannot be greater than 2MB!');
+      //   return;
+      // }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      // tslint:disable-next-line: no-shadowed-variable
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        // this.updateProfileRequestData.data.image = mainFile;
+        let formData: FormData = new FormData();
+
+        this.isLoading = true
+        formData.append('file', mainFile, mainFile.name);
+        this.subscriptions.push(
+          this.commonService.postAPICall({
+            url: 'artist-details/upload-govt-id-back',
+            data: formData
+          }).subscribe((result)=>{
+            this.isLoading = false;
+            if(result.status == 200) {
+              // this.helperService.showSuccess(result.msg);
+              this.govtIDBack = event.target.result;
+              this.govtIDBackPath = result.data.filePath;
+            }
+            else{
+              this.helperService.showError(result.msg);
+            }
+          },(err)=>{
+            this.isLoading = false;
+            this.helperService.showError(err.error.msg);
+          })
+        )
+      };
+    }
+  }
+
+  profilePictureUpload(event) {
+    if (event.target.files && event.target.files[0]) {
+      const mainFile: File = event.target.files[0];
+      if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
+        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
+        return;
+      }
+
+      // if (event.target.files[0].size > 2097152) {
+      //   this.helperService.showError('Image size cannot be greater than 2MB!');
+      //   return;
+      // }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      // tslint:disable-next-line: no-shadowed-variable
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        // this.updateProfileRequestData.data.image = mainFile;
+        let formData: FormData = new FormData();
+
+        this.isLoading = true
+        formData.append('file', mainFile, mainFile.name);
+        this.subscriptions.push(
+          this.commonService.postAPICall({
+            url: 'artist-details/upload-profile-picture',
+            data: formData
+          }).subscribe((result)=>{
+            this.isLoading = false;
+            if(result.status == 200) {
+              // this.helperService.showSuccess(result.msg);
+              this.profilePicture = event.target.result;
+              this.profilePicturePath = result.data.filePath;
+            }
+            else{
+              this.helperService.showError(result.msg);
+            }
+          },(err)=>{
+            this.isLoading = false;
+            this.helperService.showError(err.error.msg);
+          })
+        )
+      };
+    }
   }
 
   // Get First Form Control
