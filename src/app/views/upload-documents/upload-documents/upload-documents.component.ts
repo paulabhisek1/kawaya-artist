@@ -27,7 +27,7 @@ export class UploadDocumentsComponent implements OnInit {
   subscriptions: Subscription[] = [];
   isLoading: boolean = false;
 
-  selectedStep = 3;
+  selectedStep = 0;
   countries: any = [];
 
   govtIDFront: any = 'assets/images/no_image.png';
@@ -37,7 +37,13 @@ export class UploadDocumentsComponent implements OnInit {
   profilePicture: any = 'assets/images/no_image.png';
   profilePicturePath: any = '';
 
+  sampleSong: any = '';
+  sampleSongPath: any = '';
+
   imageURL: string = environment.imageURL;
+
+  albumsList: any = [];
+  genreList: any = [];
 
   // isLoadingImgFront: boolean = true;
 
@@ -81,9 +87,15 @@ export class UploadDocumentsComponent implements OnInit {
 
     // Fourth Form Group
     this.fourthFormGroup = this._formBuilder.group({
-      secondCtrl: ['', [Validators.required, noSpace]],
+      sample_song_name: ['', [Validators.required, noSpace]],
+      sample_song: [{ value: '', disabled: true }],
+      sample_song_file: [''],
+      sample_song_type: ['', [Validators.required, noSpace]],
+      sample_song_album: [''],
+      sample_song_description: ['', [Validators.required, noSpace]],
     });
 
+    this.fetchCommonDetails(); // Fetch Common Details
     this.fetchCountries(); // Fetch Countries
     this.fetchArtistDetails(); // Fetch Artist Details
   }
@@ -207,6 +219,42 @@ export class UploadDocumentsComponent implements OnInit {
     )
   }
 
+  // Submit Step Four Form
+  submitFormFourStep() {
+    if(!this.sampleSongPath){
+      this.helperService.showError('Please upload a sample song');
+      return;
+    }
+
+    let requestConfig = {
+      sample_song_name: this.fourthFormGroup.get('sample_song_name').value,
+      sample_song_path: this.sampleSongPath,
+      sample_song_type: this.fourthFormGroup.get('sample_song_type').value,
+      sample_song_album: this.fourthFormGroup.get('sample_song_album').value,
+      sample_song_description: this.fourthFormGroup.get('sample_song_description').value,
+    }
+
+    this.isLoading = true;
+    this.subscriptions.push(
+      this.commonService.postAPICall({
+        url: 'artist-details/step-four',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.isLoading = false;
+        if(result.status == 200) {
+          this.helperService.showSuccess(result.msg);
+          this.fetchArtistDetails();
+        }
+        else{
+          this.helperService.showError(result.msg);
+        }
+      },(err)=>{
+        this.isLoading = false;
+        this.helperService.showError(err.error.msg);
+      })
+    )
+  }
+
   // Fetch Artist Details
   fetchArtistDetails() {
     this.isLoading = true;
@@ -233,6 +281,10 @@ export class UploadDocumentsComponent implements OnInit {
               this.govtIDBackPath = this.artistAccountDetails.govt_id_back;
             }
 
+            if(this.artistAccountDetails.sample_song_path) {
+              this.sampleSongPath = this.artistAccountDetails.sample_song_path;
+            }
+
             // First Step Patch Value
             this.firstFormGroup.patchValue({
               street: this.artistAccountDetails.street ? this.artistAccountDetails.street : '',
@@ -255,6 +307,15 @@ export class UploadDocumentsComponent implements OnInit {
               bank_zip: this.artistAccountDetails.bank_zip ? this.artistAccountDetails.bank_zip : '',
               currency: this.artistAccountDetails.currency ? this.artistAccountDetails.currency : '',
               swift_code: this.artistAccountDetails.swift_code ? this.artistAccountDetails.swift_code : '',
+            })
+
+            // Fourth Step Patch Value
+            this.fourthFormGroup.patchValue({
+              sample_song_name: this.artistAccountDetails.sample_song_name ? this.artistAccountDetails.sample_song_name : '',
+              sample_song_type: this.artistAccountDetails.sample_song_type ? this.artistAccountDetails.sample_song_type : '',
+              sample_song_description: this.artistAccountDetails.sample_song_description ? this.artistAccountDetails.sample_song_description : '',
+              sample_song_album: this.artistAccountDetails.sample_song_album ? this.artistAccountDetails.sample_song_album : '',
+              sample_song: this.artistAccountDetails.sample_song_name ? this.artistAccountDetails.sample_song_name : ''
             })
           }
         } 
@@ -292,6 +353,7 @@ export class UploadDocumentsComponent implements OnInit {
     )
   }
 
+  // Upload Govt ID Front Page
   govtIDFrontUpload(event) {
     if (event.target.files && event.target.files[0]) {
       const mainFile: File = event.target.files[0];
@@ -337,6 +399,7 @@ export class UploadDocumentsComponent implements OnInit {
     }
   }
 
+  // Upload Govt ID Back Page
   govtIDBackUpload(event) {
     if (event.target.files && event.target.files[0]) {
       const mainFile: File = event.target.files[0];
@@ -381,7 +444,8 @@ export class UploadDocumentsComponent implements OnInit {
       };
     }
   }
-
+  
+  // Upload Profile Picture
   profilePictureUpload(event) {
     if (event.target.files && event.target.files[0]) {
       const mainFile: File = event.target.files[0];
@@ -427,6 +491,55 @@ export class UploadDocumentsComponent implements OnInit {
     }
   }
 
+  // Upload Sample Song
+  sampleSongUpload(event) {
+    if (event.target.files && event.target.files[0]) {
+      const mainFile: File = event.target.files[0];
+      // if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
+      //   this.helperService.showError('Only JPG/JPEG/PNG files allowed');
+      //   return;
+      // }
+
+      // if (event.target.files[0].size > 2097152) {
+      //   this.helperService.showError('Image size cannot be greater than 2MB!');
+      //   return;
+      // }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      // tslint:disable-next-line: no-shadowed-variable
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        // this.updateProfileRequestData.data.image = mainFile;
+        let formData: FormData = new FormData();
+
+        this.isLoading = true
+        formData.append('file', mainFile, mainFile.name);
+        this.subscriptions.push(
+          this.commonService.postAPICall({
+            url: 'artist-details/upload-sample-song',
+            data: formData
+          }).subscribe((result)=>{
+            this.isLoading = false;
+            if(result.status == 200) {
+              // this.helperService.showSuccess(result.msg);
+              this.sampleSong = mainFile.name;
+              this.fourthFormGroup.patchValue({
+                sample_song: this.sampleSong
+              })
+              this.sampleSongPath = result.data.filePath;
+            }
+            else{
+              this.helperService.showError(result.msg);
+            }
+          },(err)=>{
+            this.isLoading = false;
+            this.helperService.showError(err.error.msg);
+          })
+        )
+      };
+    }
+  }
+
   // Get First Form Control
   get f1() {
     return this.firstFormGroup.controls;
@@ -435,6 +548,27 @@ export class UploadDocumentsComponent implements OnInit {
   // Get Second Form Control
   get f2() {
     return this.secondFormGroup.controls;
+  }
+
+  // Get Fourth Form Control
+  get f4() {
+    return this.fourthFormGroup.controls;
+  }
+
+  fetchCommonDetails() {
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'common-details'
+      }).subscribe((result)=>{
+        if(result.status == 200) {
+          console.log("RESULT : ", result.data);
+          this.genreList = result.data.genres;
+          this.albumsList = result.data.albums;
+        }
+      },(err)=>{
+        this.helperService.showError(err.error.msg);
+      })
+    )
   }
 
   ngOnDestroy() {
