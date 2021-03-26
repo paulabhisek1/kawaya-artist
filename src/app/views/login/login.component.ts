@@ -114,7 +114,7 @@ export class LoginComponent {
   }
 
   fetchCountries() {
-    this.commonRequestData.url = 'countries';
+    this.commonRequestData.url = 'active-countries';
 
     this.isLoading = true;
     this.commonService.getAPICall(this.commonRequestData).subscribe((result)=>{
