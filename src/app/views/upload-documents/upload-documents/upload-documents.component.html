@@ -53,7 +53,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>Zip code/ Postal code</mat-label>
-                          <input matInput placeholder="Zip code/ Postal code" formControlName="zip" required>
+                          <input matInput placeholder="Zip code/ Postal code" maxlength="10" formControlName="zip" required>
                           <mat-error *ngIf="f1.zip.errors">
                             <span *ngIf="f1.zip.errors.required || f1.zip.errors.nospace">*Please enter the zip</span>
                           </mat-error>
@@ -61,7 +61,7 @@
                       </div>
                   </div>
                     <div>
-                      <button type="submit" mat-button>Next</button>
+                      <button type="submit" mat-button>Save & Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -112,6 +112,26 @@
 
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
+                          <mat-label>Currency</mat-label>
+                          <input matInput placeholder="currency" formControlName="currency" required>
+                          <mat-error *ngIf="f2.currency.errors">
+                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
+                          <mat-label>Swift code</mat-label>
+                          <input matInput placeholder="Swift code" formControlName="swift_code" required>
+                          <mat-error *ngIf="f2.swift_code.errors">
+                            <span *ngIf="f2.swift_code.errors.required || f2.swift_code.errors.nospace">*Please enter the swift code</span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
                           <mat-label>Branch address</mat-label>
                           <input matInput placeholder="Branch address" formControlName="branch_address" required>
                           <mat-error *ngIf="f2.branch_address.errors">
@@ -130,26 +150,6 @@
                           </mat-select>
                           <mat-error *ngIf="f2.bank_country.errors">
                             <span *ngIf="f2.bank_country.errors.required || f2.bank_country.errors.nospace">*Please select the bank country</span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-6">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Currency</mat-label>
-                          <input matInput placeholder="currency" formControlName="currency" required>
-                          <mat-error *ngIf="f2.currency.errors">
-                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-6">  
-                        <mat-form-field appearance="outline">
-                          <mat-label>Swift code</mat-label>
-                          <input matInput placeholder="Swift code" formControlName="swift_code" required>
-                          <mat-error *ngIf="f2.swift_code.errors">
-                            <span *ngIf="f2.swift_code.errors.required || f2.swift_code.errors.nospace">*Please enter the swift code</span>
                           </mat-error>
                         </mat-form-field>
                       </div>
@@ -177,7 +177,7 @@
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>Postal code / zip code</mat-label>
-                          <input matInput placeholder="Postal code / zip code" formControlName="bank_zip" required>
+                          <input matInput placeholder="Postal code / zip code" maxlength="10" formControlName="bank_zip" required>
                           <mat-error *ngIf="f2.bank_zip.errors">
                             <span *ngIf="f2.bank_zip.errors.required || f2.bank_zip.errors.nospace">*Please enter the bank zip</span>
                           </mat-error>
@@ -186,7 +186,7 @@
                       </div>
                     <div>
                       <button mat-button matStepperPrevious>Back</button>
-                      <button type="submit" mat-button >Next</button>
+                      <button type="submit" mat-button >Save & Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -256,7 +256,7 @@
                     </div>  
                     <div class="mt-4">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button type="submit" mat-button>Next</button>
+                      <button type="submit" mat-button>Save & Next</button>
                     </div>
                   </form>
                 </mat-step>

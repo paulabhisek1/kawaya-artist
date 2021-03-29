@@ -71,6 +71,7 @@
                 <i class="fa fa-phone login_icon" aria-hidden="true"></i>
                 <ng-container *ngIf="regFormSubmitted && rf.mobile_no.errors">
                   <span *ngIf="rf.mobile_no.errors.required || rf.mobile_no.errors.noSpace" style="color: #ff301e;">*Please enter the mobile no</span>
+                  <span *ngIf="rf.mobile_no.errors.minlength" style="color: #ff301e;">*Mobile must be minimum 10 digits</span>
                 </ng-container>
               </div>
               <div class="form-group">
