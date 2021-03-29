@@ -186,15 +186,9 @@ export class UploadDocumentsComponent implements OnInit {
       return;
     }
 
-    if(!this.profilePicturePath){
-      this.helperService.showError('Please upload your profile picture');
-      return;
-    }
-
     let requestConfig = {
       govt_id_front: this.govtIDFrontPath,
       govt_id_back: this.govtIDBackPath,
-      profile_image: this.profilePicturePath,
     }
 
     this.isLoading = true;
