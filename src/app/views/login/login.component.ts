@@ -64,7 +64,7 @@ export class LoginComponent {
     this.regForm = this.fb.group({
       full_name: ['', [Validators.required, noSpace]],
       email: ['', [Validators.required,Validators.email, noSpace]],
-      mobile_no: ['', [Validators.required, noSpace]],
+      mobile_no: ['', [Validators.required, Validators.minLength(10), noSpace]],
       password: ['', [Validators.required, Validators.minLength(6), noSpace]],
       confirm_password: ['', [Validators.required, Validators.minLength(6)]],
       country_id: ['', [Validators.required]],
@@ -98,8 +98,10 @@ export class LoginComponent {
     this.commonService.postAPICall(this.requestData).subscribe((result)=>{
       this.isLoading = false;
       if(result.status == 200) {
+        console.log("DATA : ", result.data);
         localStorage.setItem('artist-access-token',result.data.access_token);
         localStorage.setItem('artist-refresh-token',result.data.refresh_token);
+        localStorage.setItem('is_active',result.data.is_active);
         this.helperService.showSuccess(result.msg);
         this.router.navigate(['/dashboard']);
       }

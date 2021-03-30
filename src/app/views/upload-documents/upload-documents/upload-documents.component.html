@@ -53,7 +53,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>Zip code/ Postal code</mat-label>
-                          <input matInput placeholder="Zip code/ Postal code" formControlName="zip" required>
+                          <input matInput placeholder="Zip code/ Postal code" maxlength="10" formControlName="zip" required>
                           <mat-error *ngIf="f1.zip.errors">
                             <span *ngIf="f1.zip.errors.required || f1.zip.errors.nospace">*Please enter the zip</span>
                           </mat-error>
@@ -177,7 +177,7 @@
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>Postal code / zip code</mat-label>
-                          <input matInput placeholder="Postal code / zip code" formControlName="bank_zip" required>
+                          <input matInput placeholder="Postal code / zip code" maxlength="10" formControlName="bank_zip" required>
                           <mat-error *ngIf="f2.bank_zip.errors">
                             <span *ngIf="f2.bank_zip.errors.required || f2.bank_zip.errors.nospace">*Please enter the bank zip</span>
                           </mat-error>
@@ -195,7 +195,7 @@
                 <mat-step [stepControl]="thirdFormGroup" label="Add your any govt identity">
                   <form [formGroup]="thirdFormGroup" (ngSubmit)="submitFormThreeStep()">
                     <div class="row">
-                      <div class="col-md-4 text-center">  
+                      <div class="col-md-6 text-center">  
                         <div class="file_upload1">
                           <img [src]="govtIDFront" alt="" class="upload_img" />
                           <div class="input--file">
@@ -218,7 +218,7 @@
                         <p class="file_upload_text">Upload Front Page of Your Govt. Identity </p>
                       </div>
 
-                      <div class="col-md-4 text-center">  
+                      <div class="col-md-6 text-center">  
                         
                         <div class="file_upload1">
                           <img [src]="govtIDBack" alt="" class="upload_img" />
@@ -237,7 +237,7 @@
                         <p class="file_upload_text">Upload Back Page of Your Govt. Identity</p>
                       </div>
 
-                      <div class="col-md-4 text-center">  
+                      <!-- <div class="col-md-4 text-center">  
                         <div class="file_upload1">
                           <img [src]="profilePicture" alt="" class="upload_img" />
                           <div style="cursor: pointer;" class="input--file">
@@ -252,7 +252,7 @@
                           </div>
                         </div>
                         <p class="file_upload_text">Upload Your Profile Picture</p>
-                      </div>
+                      </div> -->
                     </div>  
                     <div class="mt-4">
                       <button mat-button matStepperPrevious>Back</button>
