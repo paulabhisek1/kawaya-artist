@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { HelperService } from '../Helper/helper.service';
 import { catchError } from 'rxjs/operators';
 
@@ -29,6 +29,27 @@ export class CommonService {
 
     return this.http.post<any>(this.apiURL + requestData.url, requestData.data, { headers })
       .pipe(
+        catchError(this.helperService.handleError('error ', []))
+    );
+  }
+
+  // Post API Call
+  postUploadAPICall(requestData: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (requestData.contentType) {
+      headers = headers.append('Accept', requestData.contentType);
+    } else {
+      headers = headers.append('Accept', 'application/json');
+    }
+    if(localStorage.getItem('artist-access-token')) {
+      headers = headers.append('Authorization', `Bearer ${localStorage.getItem('artist-access-token')}`)
+    }
+
+    return this.http.post<any>(this.apiURL + requestData.url, requestData.data, {
+      headers: headers,
+      reportProgress: true,
+      responseType: 'json'
+    }).pipe(
         catchError(this.helperService.handleError('error ', []))
     );
   }

@@ -1,3 +1,4 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatHorizontalStepper } from '@angular/material/stepper';
@@ -44,6 +45,7 @@ export class UploadDocumentsComponent implements OnInit {
 
   albumsList: any = [];
   genreList: any = [];
+  progress: number = 0;
 
   // isLoadingImgFront: boolean = true;
 
@@ -279,6 +281,12 @@ export class UploadDocumentsComponent implements OnInit {
               this.sampleSongPath = this.artistAccountDetails.sample_song_path;
             }
 
+            this.secondFormGroup.patchValue({
+              bank_country: result.data.artist_details.country_id
+            })
+
+            this.f2.bank_country.disable();
+
             // First Step Patch Value
             this.firstFormGroup.patchValue({
               street: this.artistAccountDetails.street ? this.artistAccountDetails.street : '',
@@ -513,6 +521,7 @@ export class UploadDocumentsComponent implements OnInit {
             url: 'artist-details/upload-sample-song',
             data: formData
           }).subscribe((result)=>{
+            console.log("RESULT : ", result);
             this.isLoading = false;
             if(result.status == 200) {
               // this.helperService.showSuccess(result.msg);
@@ -529,6 +538,18 @@ export class UploadDocumentsComponent implements OnInit {
             this.isLoading = false;
             this.helperService.showError(err.error.msg);
           })
+          
+          // this.commonService.postUploadAPICall({
+          //   url: 'artist-details/upload-sample-song',
+          //   data: formData
+          // }).subscribe(event => {
+          //   if (event.type === HttpEventType.UploadProgress) {
+          //     this.progress = Math.round(100 * event.loaded / event.total);
+          //     console.log("PROGRESS : ", this.progress);
+          //   } else if (event instanceof HttpResponse) {
+          //     console.log("BODY : ", event.body);
+          //   }
+          // })
         )
       };
     }

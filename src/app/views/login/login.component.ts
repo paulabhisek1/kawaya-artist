@@ -98,12 +98,11 @@ export class LoginComponent {
     this.commonService.postAPICall(this.requestData).subscribe((result)=>{
       this.isLoading = false;
       if(result.status == 200) {
-        console.log("DATA : ", result.data);
         localStorage.setItem('artist-access-token',result.data.access_token);
         localStorage.setItem('artist-refresh-token',result.data.refresh_token);
         localStorage.setItem('is_active',result.data.is_active);
         this.helperService.showSuccess(result.msg);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/upload-document']);
       }
       else{
         this.helperService.showError(result.msg);
