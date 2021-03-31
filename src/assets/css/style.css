@@ -737,11 +737,26 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     font-size: inherit;
-    width: 2.2em !important;
-    height: 2.5em;
+    width: 2em !important;
+    height: 2em !important;
+    margin-left: -8px !important;
 }
 
 .song_upload {
     padding: 11px 15px !important;
     height: 50px !important;
+}
+.calender .mat-form-field-flex {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    box-sizing: border-box;
+    width: 100%;
+ 
+}
+.calender .mat-form-field-infix {
+    padding-left: 8px !important;
+}
+.calender .mat-form-field-label-wrapper mat-label {
+    padding-left: 10px;
 }
