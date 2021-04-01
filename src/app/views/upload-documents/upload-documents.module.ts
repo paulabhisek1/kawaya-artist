@@ -5,16 +5,20 @@ import { UploadDocumentsRoutingModule } from './upload-documents-routing.module'
 import { UploadDocumentsComponent } from './upload-documents/upload-documents.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NumberDirective } from '../../shared/directives/numbers-only.directive';
 
 
 @NgModule({
-  declarations: [UploadDocumentsComponent],
+  declarations: [
+    UploadDocumentsComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    UploadDocumentsRoutingModule
+    UploadDocumentsRoutingModule,
+    SharedModule
   ]
 })
 export class UploadDocumentsModule { }

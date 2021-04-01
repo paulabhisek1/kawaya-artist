@@ -57,6 +57,7 @@ import { ResetPasswordComponent } from './views/reset-password/reset-password.co
 import { OtpVerificationComponent } from './views/otp-verification/otp-verification.component';
 import { AutoTabDirective, AutoTabDirectivePrev } from './shared/directives/autotabdirective';
 import { NumberDirective } from './shared/directives/numbers-only.directive';
+import { SharedModule } from './shared/shared.module';
 
 
 //***************  TEST FIREBASE CONFIGURATION  ******************/
@@ -78,8 +79,6 @@ const firebaseConfig = {
   appId: "1:557957380656:web:a8f021d1dab2955f960bf5",
   measurementId: "G-N95M2KF20H"
 };
-
-console.log("FIREBASE CONFIG : ", firebaseConfig);
 
 @NgModule({
   imports: [
@@ -107,6 +106,7 @@ console.log("FIREBASE CONFIG : ", firebaseConfig);
     MatInputModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,
@@ -120,7 +120,6 @@ console.log("FIREBASE CONFIG : ", firebaseConfig);
     OtpVerificationComponent,
     AutoTabDirective,
     AutoTabDirectivePrev,
-    NumberDirective
   ],
   providers: [
     IconSetService,

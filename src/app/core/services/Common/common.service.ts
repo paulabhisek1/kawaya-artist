@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { HelperService } from '../Helper/helper.service';
 import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,8 @@ export class CommonService {
     );
   }
 
-  // Post API Call
-  postUploadAPICall(requestData: any) {
+  // Post Upload API Call
+  postUploadAPICall(requestData: any): Observable<HttpEvent<any>> {
     let headers: HttpHeaders = new HttpHeaders();
     if (requestData.contentType) {
       headers = headers.append('Accept', requestData.contentType);
@@ -45,13 +46,13 @@ export class CommonService {
       headers = headers.append('Authorization', `Bearer ${localStorage.getItem('artist-access-token')}`)
     }
 
-    return this.http.post<any>(this.apiURL + requestData.url, requestData.data, {
+    const req = new HttpRequest('POST', `${this.apiURL}${requestData.url}`, requestData.data, {
       headers: headers,
       reportProgress: true,
       responseType: 'json'
-    }).pipe(
-        catchError(this.helperService.handleError('error ', []))
-    );
+    });
+
+    return this.http.request(req);
   }
 
   // Get API Call

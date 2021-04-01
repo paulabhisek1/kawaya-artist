@@ -58,6 +58,8 @@ export class UploadDocumentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.fetchCountries(); // Fetch Countries
+
     // First Form Group
     this.firstFormGroup = this._formBuilder.group({
       street: ['', [Validators.required, noSpace]],
@@ -93,12 +95,10 @@ export class UploadDocumentsComponent implements OnInit {
       sample_song: [{ value: '', disabled: true }],
       sample_song_file: [''],
       sample_song_type: ['', [Validators.required, noSpace]],
-      sample_song_album: [''],
       sample_song_description: ['', [Validators.required, noSpace]],
     });
 
     this.fetchCommonDetails(); // Fetch Common Details
-    this.fetchCountries(); // Fetch Countries
     this.fetchArtistDetails(); // Fetch Artist Details
   }
 
@@ -142,8 +142,8 @@ export class UploadDocumentsComponent implements OnInit {
 
     let requestConfig = {
       account_holder_name: this.secondFormGroup.get('account_holder_name').value,
-      account_number: this.secondFormGroup.get('account_number').value,
-      routing_no: this.secondFormGroup.get('routing_no').value,
+      account_number: this.secondFormGroup.get('account_number').value.toString(),
+      routing_no: this.secondFormGroup.get('routing_no').value.toString(),
       branch_address: this.secondFormGroup.get('branch_address').value,
       branch_name: this.secondFormGroup.get('branch_name').value,
       bank_country: this.secondFormGroup.get('bank_country').value,
@@ -151,7 +151,7 @@ export class UploadDocumentsComponent implements OnInit {
       bank_city: this.secondFormGroup.get('bank_city').value,
       bank_zip: this.secondFormGroup.get('bank_zip').value,
       currency: this.secondFormGroup.get('currency').value,
-      swift_code: this.secondFormGroup.get('swift_code').value,
+      swift_code: this.secondFormGroup.get('swift_code').value.toString(),
     }
 
     this.isLoading = true;
@@ -226,7 +226,6 @@ export class UploadDocumentsComponent implements OnInit {
       sample_song_name: this.fourthFormGroup.get('sample_song_name').value,
       sample_song_path: this.sampleSongPath,
       sample_song_type: this.fourthFormGroup.get('sample_song_type').value,
-      sample_song_album: this.fourthFormGroup.get('sample_song_album').value,
       sample_song_description: this.fourthFormGroup.get('sample_song_description').value,
     }
 
@@ -239,6 +238,8 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
           this.helperService.showSuccess(result.msg);
+          this.f4.sample_song_file.reset();
+          this.progress = 0;
           this.fetchArtistDetails();
         }
         else{
@@ -281,12 +282,6 @@ export class UploadDocumentsComponent implements OnInit {
               this.sampleSongPath = this.artistAccountDetails.sample_song_path;
             }
 
-            this.secondFormGroup.patchValue({
-              bank_country: result.data.artist_details.country_id
-            })
-
-            this.f2.bank_country.disable();
-
             // First Step Patch Value
             this.firstFormGroup.patchValue({
               street: this.artistAccountDetails.street ? this.artistAccountDetails.street : '',
@@ -303,13 +298,15 @@ export class UploadDocumentsComponent implements OnInit {
               routing_no: this.artistAccountDetails.routing_no ? this.artistAccountDetails.routing_no : '',
               branch_address: this.artistAccountDetails.branch_address ? this.artistAccountDetails.branch_address : '',
               branch_name: this.artistAccountDetails.branch_name ? this.artistAccountDetails.branch_name : '',
-              bank_country: this.artistAccountDetails.bank_country ? this.artistAccountDetails.bank_country : '',
+              bank_country: result.data.artist_details.country_id ? result.data.artist_details.country_id : '',
               bank_state: this.artistAccountDetails.zip ? this.artistAccountDetails.bank_state : '',
               bank_city: this.artistAccountDetails.bank_city ? this.artistAccountDetails.bank_city : '',
               bank_zip: this.artistAccountDetails.bank_zip ? this.artistAccountDetails.bank_zip : '',
               currency: this.artistAccountDetails.currency ? this.artistAccountDetails.currency : '',
               swift_code: this.artistAccountDetails.swift_code ? this.artistAccountDetails.swift_code : '',
             })
+
+            this.f2.bank_country.disable();
 
             // Fourth Step Patch Value
             this.fourthFormGroup.patchValue({
@@ -497,10 +494,11 @@ export class UploadDocumentsComponent implements OnInit {
   sampleSongUpload(event) {
     if (event.target.files && event.target.files[0]) {
       const mainFile: File = event.target.files[0];
-      // if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
-      //   this.helperService.showError('Only JPG/JPEG/PNG files allowed');
-      //   return;
-      // }
+      if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
+        this.f4.sample_song_file.reset();
+        this.helperService.showError('Only mp3 files are allowed');
+        return;
+      }
 
       // if (event.target.files[0].size > 2097152) {
       //   this.helperService.showError('Image size cannot be greater than 2MB!');
@@ -509,47 +507,33 @@ export class UploadDocumentsComponent implements OnInit {
 
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      // tslint:disable-next-line: no-shadowed-variable
       reader.onload = (event) => { // called once readAsDataURL is completed
-        // this.updateProfileRequestData.data.image = mainFile;
         let formData: FormData = new FormData();
 
-        this.isLoading = true
         formData.append('file', mainFile, mainFile.name);
         this.subscriptions.push(
-          this.commonService.postAPICall({
+          this.commonService.postUploadAPICall({
             url: 'artist-details/upload-sample-song',
             data: formData
-          }).subscribe((result)=>{
-            console.log("RESULT : ", result);
-            this.isLoading = false;
-            if(result.status == 200) {
-              // this.helperService.showSuccess(result.msg);
-              this.sampleSong = mainFile.name;
-              this.fourthFormGroup.patchValue({
-                sample_song: this.sampleSong
-              })
-              this.sampleSongPath = result.data.filePath;
-            }
-            else{
-              this.helperService.showError(result.msg);
+          }).subscribe(event => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              let result = event.body;
+              if(result.status == 200) {
+                this.sampleSong = mainFile.name;
+                this.fourthFormGroup.patchValue({
+                  sample_song: this.sampleSong
+                })
+                this.sampleSongPath = result.data.filePath;
+              }
+              else{
+                this.helperService.showError(result.msg);
+              }
             }
           },(err)=>{
-            this.isLoading = false;
             this.helperService.showError(err.error.msg);
           })
-          
-          // this.commonService.postUploadAPICall({
-          //   url: 'artist-details/upload-sample-song',
-          //   data: formData
-          // }).subscribe(event => {
-          //   if (event.type === HttpEventType.UploadProgress) {
-          //     this.progress = Math.round(100 * event.loaded / event.total);
-          //     console.log("PROGRESS : ", this.progress);
-          //   } else if (event instanceof HttpResponse) {
-          //     console.log("BODY : ", event.body);
-          //   }
-          // })
         )
       };
     }
@@ -576,7 +560,6 @@ export class UploadDocumentsComponent implements OnInit {
         url: 'common-details'
       }).subscribe((result)=>{
         if(result.status == 200) {
-          console.log("RESULT : ", result.data);
           this.genreList = result.data.genres;
           this.albumsList = result.data.albums;
         }
@@ -584,6 +567,16 @@ export class UploadDocumentsComponent implements OnInit {
         this.helperService.showError(err.error.msg);
       })
     )
+  }
+
+  updateColor(progress) {
+    if (progress<21){
+       return 'primary';
+    } else if (progress>80){
+       return 'accent';
+    } else {
+      return 'warn';
+    }
   }
 
   ngOnDestroy() {

@@ -154,7 +154,7 @@ export class LoginComponent {
         localStorage.setItem('artist-access-token',result.data.access_token);
         localStorage.setItem('artist-refresh-token',result.data.refresh_token);
         this.helperService.showSuccess(result.msg);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/upload-document']);
       }
       else{
         this.helperService.showError(result.msg);
