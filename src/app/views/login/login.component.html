@@ -94,7 +94,7 @@
                 <i (click)="hideRegCon = !hideRegCon" *ngIf="hideRegCon" class="fa fa-eye login_icon_custom" aria-hidden="true"></i>
                 <i (click)="hideRegCon = !hideRegCon" *ngIf="!hideRegCon" class="fa fa-eye-slash login_icon_custom" aria-hidden="true"></i>
               </div>
-              <div class="form-group">
+              <div class="form-group calender">
                 <mat-form-field appearance="none">
                   <mat-label>Date of Birth</mat-label>
                   <input class="customClass" matInput [matDatepicker]="picker" [max]="maxDate" formControlName="dob" (click)="picker.open()" readonly> 
