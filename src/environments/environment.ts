@@ -6,5 +6,7 @@
 export const environment = {
   production: false,
   apiURL: 'http://45.90.108.110:3000/artist/',
-  imageURL: 'http://45.90.108.110:3000'
+  imageURL: 'http://45.90.108.110:3000',
+  songURL: 'http://45.90.108.110:3000',
+  statusText: ""
 };

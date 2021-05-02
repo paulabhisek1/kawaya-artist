@@ -30,12 +30,14 @@ export class SongAddComponent implements OnInit {
 	songFileObj:any;
 	songFilePath: any = '';
 	songFileLength:any= 0
+	progress: number  = 0;
 
 	albumDataList     = [];
 	currentPage:any   = 1;
 	searchText:any    = "";
 	sortKey:any       = 2;
 	sortType:any      = "DESC";
+	songURL:any       = "";
 
 
 	genreList = [];
@@ -51,21 +53,20 @@ export class SongAddComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.createAddForm();
-		this.fetchAlbumList();
-		//this.getGenreList();
+		this.fetchAlbumGenreList();
 	}
 
 	// Create Form
   	createAddForm() {
 	    this.addForm = this._formBuilder.group({
 			name: ['', [Validators.required, noSpace]],
-			cover_picture: [''],
+			cover_picture: ['', [Validators.required, noSpace]],
 			length: ['0'],
-			file_name: [''],
+			file_name: ['', [Validators.required, noSpace]],
 			details: ['', [Validators.required, noSpace]],
 			is_paid: ['', [Validators.required, noSpace]],
 			album_id: [''],
-			genre_id: ['0', [Validators.required, noSpace]],
+			genre_id: ['', [Validators.required, noSpace]],
 	    })
 	}
 
@@ -132,59 +133,45 @@ export class SongAddComponent implements OnInit {
 
 	      	let formData: FormData = new FormData();
 
-	        this.isLoading = true
 	        formData.append('file', this.songFileObj, this.songFileObj.name);
 	        this.subscriptions.push(
-	          this.commonService.postAPICall({
+	          this.commonService.postUploadAPICall({
 	            url: 'upload-song',
 	            data: formData
-	          }).subscribe((result)=>{
-	            this.isLoading = false;
-	            if(result.status == 200) {
-	              this.songFile     = event.target.result;
-	              this.songFilePath = result.data.filePath;
-	            }
-	            else{
-	              this.helperService.showError(result.msg);
+	          }).subscribe(event => {
+	            if (event.type === HttpEventType.UploadProgress) {
+	              this.progress = Math.round(100 * event.loaded / event.total);
+	            } else if (event instanceof HttpResponse) {
+	              let result = event.body;
+	              if(result.status == 200) {
+	                this.songFilePath = result.data.filePath;
+	                this.songURL      = environment.songURL + result.data.filePath;
+	              }
+	              else{
+	                this.helperService.showError(result.msg);
+	              }
 	            }
 	          },(err)=>{
-	            this.isLoading = false;
 	            this.helperService.showError(err.error.msg);
 	          })
-	        )	      	
+	        )
 	      };
 	    }
   	}
 
 
-  	// Fetch Countries
-  	fetchAlbumList() {
-	    this.isLoading = true;
-
-	    this.subscriptions.push(
-	      this.commonService.getAPICall({
-	        url :'album-list',
-	        data: {page: this.currentPage, search: this.searchText, sortKey: this.sortKey, sortType: this.sortType}
-	      }).subscribe((result)=>{
-	        this.isLoading = false;
-	        if(result.status == 200) {
-	          for(let item of result.data.albumsList) {
-	            this.albumDataList.push(item);
-	          }
-	        }
-	        else{
-	          this.helperService.showError(result.msg);
-	        }
-	      },(err)=>{
-	        this.isLoading = false;
-	        this.helperService.showError(err.error.msg);
-	      })
-	    )
+  	updateColor(progress) {
+	    if (progress<21){
+	       return 'primary';
+	    } else if (progress>80){
+	       return 'accent';
+	    } else {
+	      return 'warn';
+	    }
 	}
 
-
 	// Fetch Genre List
-  	getGenreList() {
+  	fetchAlbumGenreList() {
 	    let requestConfig = {
 	      page: 1,
 	      search: '',
@@ -195,13 +182,17 @@ export class SongAddComponent implements OnInit {
 	    this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.getAPICall({
-	        url: 'genre-list',
+	        url: 'common-details',
 	        data: requestConfig
 	      }).subscribe((result)=>{
 	        this.isLoading = false;
 	        if(result.status == 200) {
-	          for(let item of result.data.genre_list) {
+	          for(let item of result.data.genres) {
 	            this.genreList.push(item);
+	          }
+
+	          for(let item of result.data.albums) {
+	            this.albumDataList.push(item);
 	          }
 	        }
 	        else{
@@ -223,7 +214,7 @@ export class SongAddComponent implements OnInit {
 		let postData = {
 			name : this.addForm.get('name').value,
 			cover_picture : this.songCoverImagePath,
-			length : '2.3',
+			length : '230',
 			file_name : this.songFilePath,
 			details : this.addForm.get('details').value,
 			is_paid : this.addForm.get('is_paid').value,

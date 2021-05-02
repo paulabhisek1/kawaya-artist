@@ -61,7 +61,8 @@
                       </div>
                   </div>
                     <div>
-                      <button type="submit" mat-button>Save & Next</button>
+                      <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
+                      <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -186,7 +187,8 @@
                       </div>
                     <div>
                       <button mat-button matStepperPrevious>Back</button>
-                      <button type="submit" mat-button >Save & Next</button>
+                      <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
+                      <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -256,7 +258,8 @@
                     </div>  
                     <div class="mt-4">
                       <button mat-button matStepperPrevious>Back</button>
-                      <button type="submit" mat-button>Save & Next</button>
+                      <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
+                      <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
                   </form>
                 </mat-step>
@@ -287,7 +290,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Song type</mat-label>
-                          <mat-select placeholder="Song type" formControlName="sample_song_type" required [attr.disabled]="activeStatus? true : null">
+                          <mat-select placeholder="Song type" formControlName="sample_song_type" required [disabled]="activeStatus? true : null">
                             <mat-option *ngFor="let type of genreList" [value]="type.id">
                               {{type.name}}
                             </mat-option>
@@ -309,7 +312,7 @@
                     </div>  
                     <div>
                       <button mat-button matStepperPrevious>Back</button>
-                      <button type="submit" mat-button >Done</button>
+                      <button type="submit" mat-button *ngIf="activeStatus==false">Done</button>
                     </div>
                   </form>
                 </mat-step>

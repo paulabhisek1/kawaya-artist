@@ -30,19 +30,22 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="input-group">
+                <div class="input-group" *ngIf="songDetails?.album_details!=''">
                    Album: {{songDetails?.album_details?.name}}
+                </div>
+
+                <div class="input-group" *ngIf="songDetails?.album_details==''">
+                   Album: NA
                 </div>
             </div>
         </div>
         <br>
         <hr>
-        <div class="row">
+        <div class="row" *ngIf="songDetails?.length>0">
 
             <div class="col-md-4">
-                
-                <audio controls autoplay="true">
-				  	<source src="{{songURL}}" type="audio/mpeg">
+                <audio controls>
+				  	<source src="{{songDetails.song_url}}" type="audio/mpeg">
 				</audio>
             
             </div>
@@ -62,7 +65,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="input-group">
-                   Genre: {{songDetails?.genre_details}}
+                   Genre: {{songDetails?.genre_details?.name}}
                 </div>
             </div>
         </div>

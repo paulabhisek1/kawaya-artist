@@ -29,6 +29,9 @@
                         </div>
                         <input class="form-control" name="Select File" id="coverImage" (change)="coverSongUpload($event)" type="file" formControlName="cover_picture"/>
                         <p class="file_upload_text">Upload Cover Image </p>
+                        <mat-error *ngIf="formSubmitted && f.cover_picture.errors">
+                            <div *ngIf="f.cover_picture.errors.required || f.cover_picture.errors.nospace">*Please upload cover image</div>
+                        </mat-error>
                     </div>
 
 
@@ -43,10 +46,15 @@
 
                     <div class="form-group">
                         <label for="file_name">Upload Song</label>
-                        <audio controls  class="form-control">
-						  	<source src="{{songURL}}" type="audio/mpeg">
-						</audio>             
-                        <input class="form-control" name="Select File" id="file_name" (change)="fileSongUpload($event)" type="file" formControlName="file_name"/>
+
+                        <input name="Select Song" class="form-control song_upload" formControlName="file_name" (change)="fileSongUpload($event)" type="file" />
+                        <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)"></mat-progress-bar>
+                        <audio controls *ngIf="songURL!=''" style="width: 418px;padding: 5px 5px;">
+                            <source src="{{songURL}}" type="audio/mpeg" class="form-control">
+                        </audio>
+                        <mat-error *ngIf="formSubmitted && f.file_name.errors">
+                            <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload song</div>
+                        </mat-error>
                     </div>
 
 

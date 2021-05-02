@@ -241,6 +241,7 @@ export class UploadDocumentsComponent implements OnInit {
           this.helperService.showSuccess(result.msg);
           this.f4.sample_song_file.reset();
           this.progress = 0;
+          environment.statusText = "Admin need to be approve your request.";
           this.fetchArtistDetails();
         }
         else{
@@ -272,6 +273,20 @@ export class UploadDocumentsComponent implements OnInit {
           }
 
           localStorage.setItem('active_status', result.data.artist_details.is_active);
+          if (result.data.artist_details.is_active=='3') {
+            localStorage.setItem('text_status', "Admin need to be approve your request.");
+          }
+
+          if (result.data.artist_details.is_active=='2') {
+            localStorage.setItem('text_status', "Admin declined your request.");
+          }
+
+          if (result.data.artist_details.is_active=='1') {
+            localStorage.setItem('text_status', "");
+          }
+
+
+
           console.log(this.activeStatus);
           
           this.profilePicture = this.imageURL + this.artistDetails.profile_image;
@@ -596,6 +611,10 @@ export class UploadDocumentsComponent implements OnInit {
         sub.unsubscribe();
       }
     }
+  }
+
+  nextStep(){
+    this.stepper.next();
   }
 
 }

@@ -6,6 +6,7 @@ import { CommonService } from '../../../core/services/Common/common.service';
 import { HelperService } from '../../../core/services/Helper/helper.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-song-list',
@@ -39,7 +40,7 @@ export class SongListComponent implements OnInit {
 	startSearch() {
 		if((this.searchText && this.searchText.length >= 3) || (this.searchText === '')) {
 			this.currentPage = 1;
-            this.songDataList = [];
+      this.songDataList = [];
 			this.fetchSongList();
 		}
 	}
@@ -49,7 +50,7 @@ export class SongListComponent implements OnInit {
 	 if(this.searchText) {
 			this.searchText = '';
 			this.currentPage = 1;
-      		this.songDataList = [];
+      this.songDataList = [];
 			this.fetchSongList();
 		}
 	}
@@ -103,6 +104,49 @@ export class SongListComponent implements OnInit {
 
   navigateToEdit(songID) {
     this.router.navigate(['song/edit/'+btoa(songID)])
+  }
+
+
+  // Open Status Change Confirmation
+  openDeleteConfirmation(songId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this song ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteSong(songId)
+      } 
+    })
+  }
+
+
+  deleteSong(songId){
+    this.isLoading = true;
+
+    this.subscriptions.push(
+      this.commonService.deleteAPICall({
+        url :'song-delete/' + songId,
+      }).subscribe((result)=>{
+        this.isLoading = false;
+        if(result.status == 200) {
+          this.helperService.showSuccess(result.msg);
+          this.currentPage = 1;
+          this.songDataList = [];
+          this.fetchSongList();
+            
+        }
+        else{
+          this.helperService.showError(result.msg);
+        }
+      },(err)=>{
+        this.isLoading = false;
+        this.helperService.showError(err.error.msg);
+      })
+    )
   }
 
 }

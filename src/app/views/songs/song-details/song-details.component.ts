@@ -15,7 +15,7 @@ export class SongDetailsComponent implements OnInit {
 
 	songDetails:any   = [];
 	imgURL:string     = environment.imageURL;
-	songURL:string    = environment.imageURL;
+	songURL:string    = environment.songURL;
 	isLoading:boolean = false;
 	subscriptions: Subscription[] = [];
   	songID: any;
@@ -59,6 +59,8 @@ export class SongDetailsComponent implements OnInit {
 	          }else{
 	          	this.songURL  = "";
 	          }
+
+	          this.songDetails.song_url = environment.songURL + this.songDetails.file_name;
 
 	          
 	        }

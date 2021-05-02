@@ -60,7 +60,7 @@
 							</td>
                             <td valign="middle">{{ song?.album_details?.name }}</td>
                             <td valign="middle">{{ song?.details }}</td>
-                            <td valign="middle" *ngIf="song?.genre_details!=''">{{ song?.genre_details }}</td>
+                            <td valign="middle" *ngIf="song?.genre_details!=''">{{ song?.genre_details?.name }}</td>
                             <td valign="middle" *ngIf="song?.genre_details==''">--</td>
                             <td valign="middle">
                             	<span *ngIf="song.is_paid==0">Free</span>
@@ -78,6 +78,13 @@
                                     <a class="btn btn-light btn-sm" title="Details"
                                         (click)="navigateToEdit(song.id)">
                                     <i class="fa fa-edit fa-lg"></i>
+                                    </a>
+                                </div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="openDeleteConfirmation(song.id)">
+                                    <i class="fa fa-trash fa-lg"></i>
                                     </a>
                                 </div>
                             </td>

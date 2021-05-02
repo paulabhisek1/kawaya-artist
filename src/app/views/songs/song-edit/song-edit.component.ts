@@ -41,9 +41,10 @@ export class SongEditComponent implements OnInit {
 
 	songDetails:any   = [];
 	imgURL:string     = environment.imageURL;
-	songURL:string    = environment.imageURL;
+	songURL:string    = "";
   	songID: any;
   	imageStatus:number = 0;
+  	progress: number   = 0;
 
 	constructor(
 		private _formBuilder: FormBuilder,
@@ -60,8 +61,7 @@ export class SongEditComponent implements OnInit {
 	ngOnInit(): void {
 		this.getSongDetails()
 		this.createAddForm();
-		this.fetchAlbumList();
-		//this.getGenreList();
+		this.fetchAlbumGenreList();
 	}
 
 
@@ -77,7 +77,7 @@ export class SongEditComponent implements OnInit {
 			details: ['', [Validators.required, noSpace]],
 			is_paid: ['', [Validators.required, noSpace]],
 			album_id: [''],
-			genre_id: ['0', [Validators.required, noSpace]],
+			genre_id: ['', [Validators.required, noSpace]],
 	    })
 	}
 
@@ -108,7 +108,7 @@ export class SongEditComponent implements OnInit {
 				}
 
 				if (this.songDetails.file_name) {
-					this.songURL  = this.songURL  + this.songDetails.file_name;
+					this.songURL  = environment.songURL  + this.songDetails.file_name;
 				}else{
 					this.songURL  = "";
 				}
@@ -180,11 +180,12 @@ export class SongEditComponent implements OnInit {
   	// Upload Song File
   	fileSongUpload(event) {
 	    if (event.target.files && event.target.files[0]) {
-	      const mainFile: File = event.target.files[0];
-	      if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
-	        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
-	        return;
-	      }	   
+			this.songURL = "";
+			const mainFile: File = event.target.files[0];
+			if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
+				this.helperService.showError('Only MP3/MPEG files allowed');
+				return;
+			}	   
 	      const reader = new FileReader();
 	      reader.readAsDataURL(event.target.files[0]); // read file as data url
 	      reader.onload = (event) => { 
@@ -193,59 +194,45 @@ export class SongEditComponent implements OnInit {
 
 	      	let formData: FormData = new FormData();
 
-	        this.isLoading = true
 	        formData.append('file', this.songFileObj, this.songFileObj.name);
 	        this.subscriptions.push(
-	          this.commonService.postAPICall({
+	          this.commonService.postUploadAPICall({
 	            url: 'upload-song',
 	            data: formData
-	          }).subscribe((result)=>{
-	            this.isLoading = false;
-	            if(result.status == 200) {
-	              this.songFile     = event.target.result;
-	              this.songFilePath = result.data.filePath;
-	            }
-	            else{
-	              this.helperService.showError(result.msg);
+	          }).subscribe(event => {
+	            if (event.type === HttpEventType.UploadProgress) {
+	              this.progress = Math.round(100 * event.loaded / event.total);
+	            } else if (event instanceof HttpResponse) {
+	              let result = event.body;
+	              if(result.status == 200) {
+	                this.songFilePath = result.data.filePath;
+	                this.songURL      = environment.songURL + result.data.filePath;
+	              }
+	              else{
+	                this.helperService.showError(result.msg);
+	              }
 	            }
 	          },(err)=>{
-	            this.isLoading = false;
 	            this.helperService.showError(err.error.msg);
 	          })
-	        )	      	
+	        )   	
 	      };
 	    }
   	}
 
 
-  	// Fetch Countries
-  	fetchAlbumList() {
-	    this.isLoading = true;
-
-	    this.subscriptions.push(
-	      this.commonService.getAPICall({
-	        url :'album-list',
-	        data: {page: this.currentPage, search: this.searchText, sortKey: this.sortKey, sortType: this.sortType}
-	      }).subscribe((result)=>{
-	        this.isLoading = false;
-	        if(result.status == 200) {
-	          for(let item of result.data.albumsList) {
-	            this.albumDataList.push(item);
-	          }
-	        }
-	        else{
-	          this.helperService.showError(result.msg);
-	        }
-	      },(err)=>{
-	        this.isLoading = false;
-	        this.helperService.showError(err.error.msg);
-	      })
-	    )
+  	updateColor(progress) {
+	    if (progress<21){
+	       return 'primary';
+	    } else if (progress>80){
+	       return 'accent';
+	    } else {
+	      return 'warn';
+	    }
 	}
 
-
 	// Fetch Genre List
-  	getGenreList() {
+  	fetchAlbumGenreList() {
 	    let requestConfig = {
 	      page: 1,
 	      search: '',
@@ -256,13 +243,17 @@ export class SongEditComponent implements OnInit {
 	    this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.getAPICall({
-	        url: 'genre-list',
+	        url: 'common-details',
 	        data: requestConfig
 	      }).subscribe((result)=>{
 	        this.isLoading = false;
 	        if(result.status == 200) {
-	          for(let item of result.data.genre_list) {
+	          for(let item of result.data.genres) {
 	            this.genreList.push(item);
+	          }
+
+	           for(let item of result.data.albums) {
+	            this.albumDataList.push(item);
 	          }
 	        }
 	        else{
