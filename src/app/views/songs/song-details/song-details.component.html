@@ -1,0 +1,90 @@
+<br>
+<br>
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+    	<div class="row">
+            <div class="col-md-6">
+                <span><h3>Song Details</h3></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <img class="customeImage" width="90px" height="90px" *ngIf="imgURL" [src]="imgURL" alt="">
+                    <span *ngIf="imgURL==''">NA</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="input-group">
+                   Name: {{songDetails?.name}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="input-group">
+                   Album: {{songDetails?.album_details?.name}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                
+                <audio controls autoplay="true">
+				  	<source src="{{songURL}}" type="audio/mpeg">
+				</audio>
+            
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="input-group">
+                   Datails: {{songDetails?.details}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                   Genre: {{songDetails?.genre_details}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group" *ngIf="songDetails?.is_paid==0">
+                   Payemn: Free
+                </div>
+
+                <div class="input-group" *ngIf="songDetails?.is_paid==1">
+                   Payemn: Paid
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+    </div>
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+</div>

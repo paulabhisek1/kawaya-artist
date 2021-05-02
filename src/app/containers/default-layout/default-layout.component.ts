@@ -8,11 +8,14 @@ import { navItems } from '../../_nav';
 })
 export class DefaultLayoutComponent {
   public sidebarMinimized = false;
-  public navItems = navItems;
+  public navItems  = navItems;
+  public is_active:any = localStorage.getItem('active_status');
 
   constructor(
     private router: Router
-  ) {}
+  ) {
+    //console.log(navItems)
+  }
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;

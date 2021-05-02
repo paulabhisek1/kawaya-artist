@@ -13,7 +13,7 @@
                       <div class="col-12">
                         <mat-form-field appearance="outline">
                           <mat-label>Address and Street</mat-label>
-                          <input matInput placeholder="Address and Street" formControlName="street" required>
+                          <input matInput placeholder="Address and Street" formControlName="street" required [attr.disabled]="activeStatus? true : false">
                           <mat-error *ngIf="f1.street.errors">
                             <span *ngIf="f1.street.errors.required || f1.street.errors.nospace">*Please enter the street</span>
                           </mat-error>
@@ -23,7 +23,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>Building number</mat-label>
-                          <input matInput placeholder="Building number" formControlName="building_no" required>
+                          <input matInput placeholder="Building number" formControlName="building_no" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f1.building_no.errors">
                             <span *ngIf="f1.building_no.errors.required || f1.building_no.errors.nospace">*Please enter the building number</span>
                           </mat-error>
@@ -33,7 +33,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>City</mat-label>
-                          <input matInput placeholder="City" formControlName="city" required>
+                          <input matInput placeholder="City" formControlName="city" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f1.city.errors">
                             <span *ngIf="f1.city.errors.required || f1.city.errors.nospace">*Please enter the city name</span>
                           </mat-error>
@@ -43,7 +43,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>State / Province</mat-label>
-                          <input matInput placeholder="State / Province" formControlName="state" required>
+                          <input matInput placeholder="State / Province" formControlName="state" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f1.state.errors">
                             <span *ngIf="f1.state.errors.required || f1.state.errors.nospace">*Please enter the state name</span>
                           </mat-error>
@@ -53,7 +53,7 @@
                       <div class="col-md-6">
                         <mat-form-field appearance="outline">
                           <mat-label>Zip code/ Postal code</mat-label>
-                          <input matInput placeholder="Zip code/ Postal code" maxlength="10" formControlName="zip" required>
+                          <input matInput placeholder="Zip code/ Postal code" maxlength="10" formControlName="zip" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f1.zip.errors">
                             <span *ngIf="f1.zip.errors.required || f1.zip.errors.nospace">*Please enter the zip</span>
                           </mat-error>
@@ -73,7 +73,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Account holder name</mat-label>
-                          <input matInput placeholder="Account holder name" formControlName="account_holder_name" required>
+                          <input matInput placeholder="Account holder name" formControlName="account_holder_name" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.account_holder_name.errors">
                             <span *ngIf="f2.account_holder_name.errors.required || f2.account_holder_name.errors.nospace">*Please enter the account holder name</span>
                           </mat-error>
@@ -83,7 +83,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Account number</mat-label>
-                          <input matInput placeholder="Account number" numbersOnly formControlName="account_number" maxlength="16" required>
+                          <input matInput placeholder="Account number" numbersOnly formControlName="account_number" maxlength="16" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.account_number.errors">
                             <span *ngIf="f2.account_number.errors.required || f2.account_number.errors.nospace">*Please enter the account number</span>
                           </mat-error>
@@ -93,7 +93,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Branch name</mat-label>
-                          <input matInput placeholder="Branch name" formControlName="branch_name" required>
+                          <input matInput placeholder="Branch name" formControlName="branch_name" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.branch_name.errors">
                             <span *ngIf="f2.branch_name.errors.required || f2.branch_name.errors.nospace">*Please enter the branch name</span>
                           </mat-error>
@@ -103,7 +103,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Routing no./ sort code</mat-label>
-                          <input matInput placeholder="Routing no./ sort code" numbersOnly formControlName="routing_no" maxlength="13" required>
+                          <input matInput placeholder="Routing no./ sort code" numbersOnly formControlName="routing_no" maxlength="13" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.routing_no.errors">
                             <span *ngIf="f2.routing_no.errors.required || f2.routing_no.errors.nospace">*Please enter the routing no</span>
                           </mat-error>
@@ -113,7 +113,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Currency</mat-label>
-                          <input matInput placeholder="currency" formControlName="currency" required>
+                          <input matInput placeholder="currency" formControlName="currency" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.currency.errors">
                             <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
                           </mat-error>
@@ -123,7 +123,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Swift code</mat-label>
-                          <input type="text" matInput placeholder="Swift code" formControlName="swift_code" required>
+                          <input type="text" matInput placeholder="Swift code" formControlName="swift_code" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.swift_code.errors">
                             <span *ngIf="f2.swift_code.errors.required || f2.swift_code.errors.nospace">*Please enter the swift code</span>
                           </mat-error>
@@ -133,7 +133,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Branch address</mat-label>
-                          <input matInput placeholder="Branch address" formControlName="branch_address" required>
+                          <input matInput placeholder="Branch address" formControlName="branch_address" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.branch_address.errors">
                             <span *ngIf="f2.branch_address.errors.required || f2.branch_address.errors.nospace">*Please enter the branch address</span>
                           </mat-error>
@@ -143,7 +143,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Country</mat-label>
-                          <mat-select placeholder="Branch Country" formControlName="bank_country" required>
+                          <mat-select placeholder="Branch Country" formControlName="bank_country" required [attr.disabled]="activeStatus? true : null">
                             <mat-option *ngFor="let country of countries" [value]="country.id">
                               {{country.name}}
                             </mat-option>
@@ -157,7 +157,7 @@
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>State</mat-label>
-                          <input matInput placeholder="State" formControlName="bank_state" required>
+                          <input matInput placeholder="State" formControlName="bank_state" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.bank_state.errors">
                             <span *ngIf="f2.bank_state.errors.required || f2.bank_state.errors.nospace">*Please enter the state</span>
                           </mat-error>
@@ -167,7 +167,7 @@
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>City</mat-label>
-                          <input matInput placeholder="City" formControlName="bank_city" required>
+                          <input matInput placeholder="City" formControlName="bank_city" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.bank_city.errors">
                             <span *ngIf="f2.bank_city.errors.required || f2.bank_city.errors.nospace">*Please enter the city</span>
                           </mat-error>
@@ -177,7 +177,7 @@
                       <div class="col-md-4">  
                         <mat-form-field appearance="outline">
                           <mat-label>Postal code / zip code</mat-label>
-                          <input matInput placeholder="Postal code / zip code" maxlength="10" formControlName="bank_zip" required>
+                          <input matInput placeholder="Postal code / zip code" maxlength="10" formControlName="bank_zip" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.bank_zip.errors">
                             <span *ngIf="f2.bank_zip.errors.required || f2.bank_zip.errors.nospace">*Please enter the zip</span>
                           </mat-error>
@@ -206,7 +206,7 @@
                                 <path d="M0 0h24v24h-24z" fill="none"/>
                               </svg>
                             </span>
-                            <input name="Select File" (change)="govtIDFrontUpload($event)" type="file" formControlName="file" />
+                            <input name="Select File" (change)="govtIDFrontUpload($event)" type="file" formControlName="file" [attr.disabled]="activeStatus? true : null"/>
                           </div>
 
                           <!-- LOADER -->
@@ -268,7 +268,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Song Name</mat-label>
-                          <input matInput placeholder="song name" formControlName="sample_song_name" required>
+                          <input matInput placeholder="song name" formControlName="sample_song_name" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f4.sample_song_name.errors">
                             <span *ngIf="f4.sample_song_name.errors.required || f4.sample_song_name.errors.nospace">*Please select the song type</span>
                           </mat-error>
@@ -278,16 +278,16 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Upload Sample Song</mat-label>
-                          <input matInput placeholder="Song Name" formControlName="sample_song">
+                          <input matInput placeholder="Song Name" formControlName="sample_song" [attr.disabled]="activeStatus? true : null">
                         </mat-form-field>
-                        <input name="Select Song" class="form-control song_upload" formControlName="sample_song_file" (change)="sampleSongUpload($event)" type="file" />
+                        <input name="Select Song" class="form-control song_upload" formControlName="sample_song_file" (change)="sampleSongUpload($event)" type="file" [attr.disabled]="activeStatus? true : null"/>
                         <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)"></mat-progress-bar>
                       </div>
 
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Song type</mat-label>
-                          <mat-select placeholder="Song type" formControlName="sample_song_type" required>
+                          <mat-select placeholder="Song type" formControlName="sample_song_type" required [attr.disabled]="activeStatus? true : null">
                             <mat-option *ngFor="let type of genreList" [value]="type.id">
                               {{type.name}}
                             </mat-option>
@@ -301,7 +301,7 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Description</mat-label>
-                          <textarea cols="30" rows="10" matInput placeholder="Description" formControlName="sample_song_description" required>
+                          <textarea cols="30" rows="10" matInput placeholder="Description" formControlName="sample_song_description" required [attr.disabled]="activeStatus? true : null">
 
                           </textarea>
                         </mat-form-field>

@@ -1,0 +1,88 @@
+
+<br>
+<br>
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search Albums...">
+                    <div class="input-group-append search_button">
+                        <button *ngIf="!searchText" class="btn btn-danger search_button_style" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button *ngIf="searchText && searchText.length > 0" (click)="clearSearch()" class="btn btn-danger search_button_style" type="button">
+                        <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div style="float: right;">
+                    <button class="btn btn-success" routerLink="add">Add Album</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4" 
+            infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()">
+            <table class="table table-striped" *ngIf="albumDataList.length > 0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th (click)="toggleSort('name')">Name 
+                            <!-- <span style="cursor: pointer;" *ngIf="!(currentSort.field==='name')">
+                                <i class="cil-elevator"></i>
+                            </span>
+                            <span style="cursor: pointer;" *ngIf="currentSort.field==='name'">
+                                <i *ngIf="currentSort.type==='asc'" class="cil-caret-top"></i>
+                                <i *ngIf="currentSort.type==='desc'" class="cil-caret-bottom"></i>
+                            </span> -->
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let album of albumDataList; let i=index">
+                        <tr class="row_shadow">
+                            <td valign="middle">{{ i+1 }}</td>
+                            <td valign="middle">
+                                <img class="customeImage" width="40px" height="40px" *ngIf="album.imgURL" [src]="album.imgURL" alt="">
+                                <span *ngIf="!album.imgURL">NA</span>
+                            </td>
+                            <td valign="middle">{{ album.name }}</td>
+                            <td valign="middle">
+                               <!--  <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details" [popover]="'Details'"
+                                        [appendToBody]="true" popoverPlacement="top-center"
+                                        [popoverCloseOnMouseOutside]="true" (click)="navigateToDetails(album.id)">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                    </a>
+                                </div> -->
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details" [popover]="'Edit'"
+                                        [appendToBody]="true" popoverPlacement="top-center"
+                                        [popoverCloseOnMouseOutside]="true" (click)="navigateToEdit(album.id)">
+                                    <i class="fa fa-edit fa-lg"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+
+            <h3 style="text-align: center;" *ngIf="albumList?.length === 0">No Results Found.</h3>
+        </div>
+    </div>
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+</div>

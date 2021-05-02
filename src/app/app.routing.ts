@@ -50,6 +50,16 @@ export const routes: Routes = [
         path: 'upload-document',
         loadChildren: () => import('./views/upload-documents/upload-documents.module').then(m => m.UploadDocumentsModule),
         canActivate: [AuthGuardService]
+      },
+      {
+        path: 'album',
+        loadChildren: () => import('./views/albums/albums.module').then(m => m.AlbumsModule),
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'song',
+        loadChildren: () => import('./views/songs/songs.module').then(m => m.SongsModule),
+        canActivate: [AuthGuardService]
       }
     ]
   },

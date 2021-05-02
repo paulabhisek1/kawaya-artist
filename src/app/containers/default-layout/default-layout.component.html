@@ -11,7 +11,14 @@
     </li> -->
     </ul>
     <ul class="nav navbar-nav ml-auto">
+        <div style="color: white" *ngIf="is_active==3">
+            Admin need to be approve your request.
+        </div>
+        <div style="color: white" *ngIf="is_active==2">
+            Admin declined your request.
+        </div>
         <li class="nav-item dropdown" dropdown placement="bottom right">
+            
             <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
                 <img src="assets/images/default_avatar.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
             </a>

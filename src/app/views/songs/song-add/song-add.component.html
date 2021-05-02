@@ -1,0 +1,111 @@
+<br>
+<br>
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-6">
+                <span><h3>Add Song</h3></span>
+            </div>
+        </div>
+        <div class="row">
+             
+            <div class="col-md-4">
+                <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitCreateSong()">
+                    <div class="form-group">
+                       <!--  -->
+                        <div class="file_upload1">
+                            <img [src]="songCoverImage" alt="" class="upload_img" />
+                            <div class="input--file">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="3.2"/>
+                                        <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                        <path d="M0 0h24v24h-24z" fill="none"/>
+                                    </svg>
+                                </span>
+                                <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
+                            </div>                
+                        </div>
+                        <input class="form-control" name="Select File" id="coverImage" (change)="coverSongUpload($event)" type="file" formControlName="cover_picture"/>
+                        <p class="file_upload_text">Upload Cover Image </p>
+                    </div>
+
+
+                   
+                    <div class="form-group">
+                        <label for="songName">Song Name</label>
+                        <input type="text" class="form-control" id="songName" placeholder="Enter Album Name..." formControlName="name">
+                        <mat-error *ngIf="formSubmitted && f.name.errors">
+                            <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter song name</div>
+                        </mat-error>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file_name">Upload Song</label>
+                        <audio controls  class="form-control">
+						  	<source src="{{songFile}}" type="audio/mpeg">
+						</audio>             
+                        <input class="form-control" name="Select File" id="file_name" (change)="fileSongUpload($event)" type="file" formControlName="file_name"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="songDetails">Song Details</label>
+                        <textarea class="form-control" formControlName="details" cols="15" id="songDetails">
+                        	
+                        </textarea>
+                        <mat-error *ngIf="formSubmitted && f.details.errors">
+                            <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter song details</div>
+                        </mat-error>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="albumName">Song Album</label>
+                        <select class="form-control" name="albumName" formControlName="album_id">
+                        	<option value="0">Select Album</option>
+                        	<option *ngFor="let album of albumDataList" value="{{album.id}}">
+                        		{{album.name}}
+                        	</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="albumName">Song Genre</label>
+                        <select class="form-control" name="albumName" formControlName="genre_id">
+                        	<option value="0">Select Genre</option>
+                        	<option *ngFor="let genre of genreList" value="{{genre.id}}">
+                        		{{genre.name}}
+                        	</option>
+                        </select>
+                        <mat-error *ngIf="formSubmitted && f.genre_id.errors">
+                            <div *ngIf="f.genre_id.errors.required || f.genre_id.errors.nospace">*Please enter song details</div>
+                        </mat-error>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="albumName">Song Payment</label>
+                        <select class="form-control" name="albumName" formControlName="is_paid">
+                        	<option value="">Select Payment</option>
+                        	<option value="0">Free</option>
+                        	<option value="1">Paid</option>
+                        </select>
+
+                        <mat-error *ngIf="formSubmitted && f.is_paid.errors">
+                            <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please enter song details</div>
+                        </mat-error>
+                    </div>
+
+                    <button type="submit" class="btn btn btn-danger">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+    
+</div>

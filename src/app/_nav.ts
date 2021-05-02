@@ -1,30 +1,31 @@
 import { INavData } from '@coreui/angular';
 
-// const isActive: any = localStorage.getItem('is_active');
-const isActive: any = 0;
+const isActive: any = localStorage.getItem('active_status');
+console.log(isActive)
 export let navItems: INavData[] = [];
 
-if(isActive == 1) {
   navItems = [
-    {
+     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer',
+      icon: 'fa fa-file-text-o',
+      attributes: { disabled: isActive == 1 ? false : true }
+    },
+    {
+      name: 'Upload Document',
+      url: '/upload-document',
+      icon: 'fa fa-file-text-o',
+    },
+    {
+      name: 'Albums',
+      url: '/album',
+      icon: 'fa fa-file-text-o',
       attributes: { disabled: isActive == 1 ? false : true },
     },
     {
-      name: 'Upload Document',
-      url: '/upload-document',
+      name: 'Songs',
+      url: '/song',
       icon: 'fa fa-file-text-o',
+      attributes: { disabled: isActive == 1 ? false : true },
     },
   ];
-}
-else{
-  navItems = [
-    {
-      name: 'Upload Document',
-      url: '/upload-document',
-      icon: 'fa fa-file-text-o',
-    },
-  ];
-}

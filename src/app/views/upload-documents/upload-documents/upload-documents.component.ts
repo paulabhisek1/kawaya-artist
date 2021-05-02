@@ -46,6 +46,7 @@ export class UploadDocumentsComponent implements OnInit {
   albumsList: any = [];
   genreList: any = [];
   progress: number = 0;
+  activeStatus:boolean = false;
 
   // isLoadingImgFront: boolean = true;
 
@@ -263,6 +264,16 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
           this.artistDetails = result.data.artist_details;
+
+          if (result.data.artist_details.is_active==3 || result.data.artist_details.is_active==1) {
+            this.activeStatus  = true;
+          }else{
+            this.activeStatus  = false;
+          }
+
+          localStorage.setItem('active_status', result.data.artist_details.is_active);
+          console.log(this.activeStatus);
+          
           this.profilePicture = this.imageURL + this.artistDetails.profile_image;
           this.profilePicturePath = this.artistDetails.profile_image;
           if(result.data.artist_details.artist_account_details) {

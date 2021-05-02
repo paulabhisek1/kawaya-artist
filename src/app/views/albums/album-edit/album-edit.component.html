@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-6">
+                <span><h3>Edit Album</h3></span>
+            </div>
+        </div>
+        <div class="row">
+             
+            <div class="col-md-4">
+                <form [formGroup]="editForm" autocomplete="off" (ngSubmit)="submitUpdateAlbum()">
+                    <div class="form-group">
+                       <!--  -->
+                        <div class="file_upload1">
+                            <img [src]="imgURL" alt="" class="upload_img" *ngIf="imageStatus==1"/>
+                            <img [src]="albumImage" alt="" class="upload_img" *ngIf="imageStatus==0"/>
+                            <div class="input--file">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="3.2"/>
+                                        <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                        <path d="M0 0h24v24h-24z" fill="none"/>
+                                    </svg>
+                                </span>
+                                <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
+                            </div>                
+                        </div>
+                        <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/>
+                        <p class="file_upload_text">Upload Cover Image </p>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="albumName">Album Name</label>
+                        <input type="text" class="form-control" id="albumName" placeholder="Enter Album Name..." formControlName="name">
+                        <mat-error *ngIf="formSubmitted && f.name.errors">
+                            <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter album name</div>
+                        </mat-error>
+                    </div>
+                    <button type="submit" class="btn btn btn-danger">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+    
+</div>

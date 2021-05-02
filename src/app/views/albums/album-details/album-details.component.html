@@ -1,0 +1,32 @@
+
+<br>
+<br>
+
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-6">
+                <span><h3>Album Details</h3></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <img class="customeImage" width="40px" height="40px" *ngIf="imgURL" [src]="imgURL" alt="">
+                    <span *ngIf="imgURL==''">NA</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="input-group">
+                   Name: {{albumDetails?.name}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+</div>
