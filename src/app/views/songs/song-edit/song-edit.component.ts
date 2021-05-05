@@ -76,7 +76,7 @@ export class SongEditComponent implements OnInit {
 			file_name: [''],
 			details: ['', [Validators.required, noSpace]],
 			is_paid: ['', [Validators.required, noSpace]],
-			album_id: [''],
+			album_id: ['0'],
 			genre_id: ['', [Validators.required, noSpace]],
 	    })
 	}
@@ -89,7 +89,7 @@ export class SongEditComponent implements OnInit {
 
 
 
-	// Fetch Countries
+	// Fetch Songs
 	getSongDetails() {
 	    this.isLoading = true;
 

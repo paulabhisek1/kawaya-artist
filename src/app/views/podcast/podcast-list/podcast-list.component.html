@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="input-group">
-                    <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search by album name">
+                    <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search by podcast name">
                     <div class="input-group-append search_button">
                         <button *ngIf="!searchText" class="btn btn-danger search_button_style" type="button">
                             <i class="fa fa-search"></i>
@@ -20,7 +20,7 @@
 
             <div class="col-md-8">
                 <div style="float: right;">
-                    <button class="btn btn-success" routerLink="add">Add Album</button>
+                    <button class="btn btn-success" routerLink="add">Add podcast</button>
                 </div>
             </div>
         </div>
@@ -30,44 +30,61 @@
             [infiniteScrollDistance]="2"
             [infiniteScrollThrottle]="50"
             (scrolled)="onScroll()">
-            <table class="table table-striped" *ngIf="albumDataList.length > 0">
+            <table class="table table-striped" *ngIf="podcastList.length > 0">
                 <thead>
                     <tr>
                         <th>Sl No.</th>
                         <th>Cover Image</th>
                         <th>Name</th>
+                        <th>Podcast</th>
+                        <th>Details</th>
+                        <th>Podcast Category</th>
+                        <th>Payment</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let album of albumDataList; let i=index">
+                    <ng-container *ngFor="let podcast of podcastList; let i=index">
                         <tr class="row_shadow">
                             <td valign="middle">{{ i+1 }}</td>
                             <td valign="middle">
-                                <img class="customeImage" width="40px" height="40px" *ngIf="album.imgURL" [src]="album.imgURL" alt="">
-                                <span *ngIf="!album.imgURL">NA</span>
+                                <img class="customeImage" width="40px" height="40px" *ngIf="podcast.imgURL" [src]="podcast.imgURL" alt="">
+                                <span *ngIf="!podcast.imgURL">NA</span>
                             </td>
-                            <td valign="middle">{{ album.name }}</td>
+                            <td valign="middle">{{ podcast.name }}</td>
                             <td valign="middle">
-                               <!--  <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                    <a class="btn btn-light btn-sm" title="Details" [popover]="'Details'"
-                                        [appendToBody]="true" popoverPlacement="top-center"
-                                        [popoverCloseOnMouseOutside]="true" (click)="navigateToDetails(album.id)">
+                            	<audio controls>
+								  	<source src="{{podcast.podcastURL}}" type="audio/mpeg">
+								</audio>
+							</td>
+
+                            <td valign="middle"  *ngIf="podcast?.details!=''">{{ podcast?.details }}</td>
+                            
+
+                            <td valign="middle" *ngIf="podcast?.category_details!=''">{{ podcast?.category_details?.name }}</td>
+                            <td valign="middle" *ngIf="podcast?.category_details==''">--</td>
+                            <td valign="middle">
+                            	<span *ngIf="podcast.is_paid==0">Free</span>
+                            	<span *ngIf="podcast.is_paid==1">Paid</span>
+                            </td>
+
+                            <td valign="middle">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"  (click)="navigateToDetails(podcast.id)">
                                     <i class="fa fa-eye fa-lg"></i>
                                     </a>
-                                </div> -->
+                                </div>
 
                                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                    <a class="btn btn-light btn-sm" title="Details" [popover]="'Edit'"
-                                        [appendToBody]="true" popoverPlacement="top-center"
-                                        [popoverCloseOnMouseOutside]="true" (click)="navigateToEdit(album.id)">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="navigateToEdit(podcast.id)">
                                     <i class="fa fa-edit fa-lg"></i>
                                     </a>
                                 </div>
 
                                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                     <a class="btn btn-light btn-sm" title="Details"
-                                        (click)="openDeleteConfirmation(album.id)">
+                                        (click)="openDeleteConfirmation(podcast.id)">
                                     <i class="fa fa-trash fa-lg"></i>
                                     </a>
                                 </div>
@@ -77,7 +94,7 @@
                 </tbody>
             </table>
 
-            <h3 style="text-align: center;" *ngIf="albumDataList?.length === 0">No Results Found.</h3>
+            <h3 style="text-align: center;" *ngIf="podcastList?.length === 0">No Results Found.</h3>
         </div>
     </div>
     <!-- LOADER -->

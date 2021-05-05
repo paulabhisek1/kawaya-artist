@@ -6,6 +6,9 @@ import { CommonService } from '../../../core/services/Common/common.service';
 import { HelperService } from '../../../core/services/Helper/helper.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-album-list',
@@ -27,6 +30,7 @@ export class AlbumListComponent implements OnInit {
 	sortType:any    	  = "DESC";
   imgURL: string  	  = environment.imageURL;
   totalAlbums: number = 0;
+  searchStatus:number = 0;
 
 	constructor(
 		  private _formBuilder: FormBuilder,
@@ -47,8 +51,9 @@ export class AlbumListComponent implements OnInit {
 	// Start Search
 	startSearch() {
 		if((this.searchText && this.searchText.length >= 3) || (this.searchText === '')) {
-			this.currentPage = 1;
+			this.currentPage   = 1;
       this.albumDataList = [];
+      this.searchStatus  = 1;
 			this.fetchAlbumList();
 		}
 	}
@@ -66,7 +71,11 @@ export class AlbumListComponent implements OnInit {
 
 	// Fetch Countries
   fetchAlbumList() {
-    this.isLoading = true;
+
+    if (this.searchStatus==0) {
+      this.isLoading = true;
+    }
+    
 
     this.subscriptions.push(
       this.commonService.getAPICall({
@@ -76,12 +85,18 @@ export class AlbumListComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
 
+          if(this.currentPage == 1) {
+            this.albumDataList = [];
+          }
+
           for(let item of result.data.albumsList) {
             item.imgURL = this.imgURL + item.cover_picture;
             this.albumDataList.push(item);
           }
 
           this.totalAlbums = result.data.totalCount;
+
+          this.searchStatus = 0;
         }
         else{
           this.helperService.showError(result.msg);
@@ -111,6 +126,49 @@ export class AlbumListComponent implements OnInit {
 
   navigateToEdit(artistID) {
     this.router.navigate(['album/edit/'+btoa(artistID)])
+  }
+
+
+    // Open Status Change Confirmation
+  openDeleteConfirmation(albumId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this album?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteAlbum(albumId)
+      } 
+    })
+  }
+
+
+  deleteAlbum(albumId){
+    this.isLoading = true;
+
+    this.subscriptions.push(
+      this.commonService.deleteAPICall({
+        url :'album-delete/' + albumId,
+      }).subscribe((result)=>{
+        this.isLoading = false;
+        if(result.status == 200) {
+          this.helperService.showSuccess(result.msg);
+          this.currentPage = 1;
+          this.albumDataList = [];
+          this.fetchAlbumList();
+            
+        }
+        else{
+          this.helperService.showError(result.msg);
+        }
+      },(err)=>{
+        this.isLoading = false;
+        this.helperService.showError(err.error.msg);
+      })
+    )
   }
 
 }

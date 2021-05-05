@@ -38,10 +38,11 @@
                    
                     <div class="form-group">
                         <label for="songName">Song Name</label>
-                        <input type="text" class="form-control" id="songName" placeholder="Enter Album Name..." formControlName="name">
+                        <input type="text" class="form-control" id="songName" placeholder="Enter Album Name..." formControlName="name" maxlength="100">
                         <mat-error *ngIf="formSubmitted && f.name.errors">
                             <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter song name</div>
                         </mat-error>
+                        <p>Maximum 100 character</p>
                     </div>
 
                     <div class="form-group">
@@ -89,7 +90,7 @@
                         	</option>
                         </select>
                         <mat-error *ngIf="formSubmitted && f.genre_id.errors">
-                            <div *ngIf="f.genre_id.errors.required || f.genre_id.errors.nospace">*Please enter song details</div>
+                            <div *ngIf="f.genre_id.errors.required || f.genre_id.errors.nospace">*Please select genre</div>
                         </mat-error>
                     </div>
 
@@ -103,7 +104,7 @@
                         </select>
 
                         <mat-error *ngIf="formSubmitted && f.is_paid.errors">
-                            <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please enter song details</div>
+                            <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please select payment</div>
                         </mat-error>
                     </div>
 

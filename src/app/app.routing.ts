@@ -60,6 +60,11 @@ export const routes: Routes = [
         path: 'song',
         loadChildren: () => import('./views/songs/songs.module').then(m => m.SongsModule),
         canActivate: [AuthGuardService]
+      },
+      {
+        path: 'podcast',
+        loadChildren: () => import('./views/podcast/podcast.module').then(m => m.PodcastModule),
+        canActivate: [AuthGuardService]
       }
     ]
   },

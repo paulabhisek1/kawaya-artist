@@ -19,11 +19,12 @@ export class SongListComponent implements OnInit {
 	songsList             = [];
 	songDataList          = [];
 	isLoading: boolean 	  = false;
-	currentPage:any 	  = 1;
-	searchText:any  	  = "";
-  	imgURL: string  	  = environment.imageURL;
-  	songURL: string  	  = environment.imageURL;
-  	totalSongs: number = 0;
+	currentPage:any 	    = 1;
+	searchText:any  	    = "";
+	imgURL: string  	    = environment.imageURL;
+	songURL: string  	    = environment.songURL;
+	totalSongs: number    = 0;
+  searchStatus:number   = 0;
 
 	constructor(private _formBuilder: FormBuilder,
     	private commonService: CommonService,
@@ -32,7 +33,7 @@ export class SongListComponent implements OnInit {
 	{ }
 
 	ngOnInit(): void {
-		this.fetchSongList(); // Fetch Album
+		this.fetchSongList(); // Fetch Songs
 	}
 
 
@@ -41,6 +42,7 @@ export class SongListComponent implements OnInit {
 		if((this.searchText && this.searchText.length >= 3) || (this.searchText === '')) {
 			this.currentPage = 1;
       this.songDataList = [];
+      this.searchStatus = 1;
 			this.fetchSongList();
 		}
 	}
@@ -58,7 +60,11 @@ export class SongListComponent implements OnInit {
 
 	// Fetch Countries
   fetchSongList() {
-    this.isLoading = true;
+
+    if (this.searchStatus==0) {
+      this.isLoading = true;
+    }
+    
 
     this.subscriptions.push(
       this.commonService.getAPICall({
@@ -68,13 +74,19 @@ export class SongListComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
 
-          	for(let item of result.data.songsList) {
-	            item.imgURL  = this.imgURL + item.cover_picture;
-	            item.songURL = this.songURL + item.file_name;
-	            this.songDataList.push(item);
-          	}
+          if(this.currentPage == 1) {
+            this.songDataList = [];
+          }
 
-          	this.totalSongs = result.data.totalCount;
+        	for(let item of result.data.songsList) {
+            item.imgURL  = this.imgURL + item.cover_picture;
+            item.songURL = this.songURL + item.file_name;
+            this.songDataList.push(item);
+        	}
+
+        	this.totalSongs = result.data.totalCount;
+
+          this.searchStatus = 0;
         }
         else{
           this.helperService.showError(result.msg);

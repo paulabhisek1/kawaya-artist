@@ -28,4 +28,10 @@ export let navItems: INavData[] = [];
       icon: 'fa fa-file-text-o',
       attributes: { disabled: isActive == 1 ? false : true },
     },
+    {
+      name: 'Podcast',
+      url: '/podcast',
+      icon: 'fa fa-podcast',
+      attributes: { disabled: isActive == 1 ? false : true },
+    },
   ];

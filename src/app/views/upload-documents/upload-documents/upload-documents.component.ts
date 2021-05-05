@@ -241,7 +241,6 @@ export class UploadDocumentsComponent implements OnInit {
           this.helperService.showSuccess(result.msg);
           this.f4.sample_song_file.reset();
           this.progress = 0;
-          environment.statusText = "Admin need to be approve your request.";
           this.fetchArtistDetails();
         }
         else{

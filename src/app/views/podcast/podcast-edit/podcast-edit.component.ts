@@ -5,68 +5,70 @@ import { environment } from '../../../../environments/environment';
 import { CommonService } from '../../../core/services/Common/common.service';
 import { HelperService } from '../../../core/services/Helper/helper.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';;
+import { ActivatedRoute, Router } from '@angular/router';
 import { noSpace } from '../../../shared/custom-validators/nospacesvalidator';
 
-
 @Component({
-  selector: 'app-song-add',
-  templateUrl: './song-add.component.html',
-  styleUrls: ['./song-add.component.scss']
+  selector: 'app-podcast-edit',
+  templateUrl: './podcast-edit.component.html',
+  styleUrls: ['./podcast-edit.component.scss']
 })
-export class SongAddComponent implements OnInit {
+export class PodcastEditComponent implements OnInit {
 
-	addForm: FormGroup;
+  	addForm: FormGroup;
 	formSubmitted: boolean = false;
 	subscriptions: Subscription[] = [];
 	isLoading: boolean = false;
 
+	podcastDetails:any   = [];
+	podcastCoverImage: any 		= 'assets/images/no_image.png';
+	podcastCoverImageObj:any;
+	podcastCoverImagePath: any 	= '';
 
-	songCoverImage: any = 'assets/images/no_image.png';
-	songCoverImageObj:any;
-	songCoverImagePath: any = '';
-
-	songFile: any 	  = 'assets/images/no_image.png';
-	songFileObj:any;
-	songFilePath: any = '';
-	songFileLength:any= 0
+	podcastFile: any 	  		= 'assets/images/no_image.png';
+	podcastFileObj:any;
+	podcastFilePath: any 		= '';
+	podcastFileLength:any		= 0
 	progress: number  = 0;
 
-	albumDataList     = [];
+	podcastCategories = [];
 	currentPage:any   = 1;
 	searchText:any    = "";
 	sortKey:any       = 2;
 	sortType:any      = "DESC";
-	songURL:any       = "";
-
-
-	genreList = [];
+	podcastURL:any    = "";
+	podcastId:any;
+	imgURL:string     = environment.imageURL;
+	imageStatus:number = 0;
 
 	constructor(
 		private _formBuilder: FormBuilder,
-		private commonService: CommonService,
-		private helperService: HelperService,
-		private router: Router
-	) {  
-
+    	private commonService: CommonService,
+    	private activatedRoute: ActivatedRoute,
+    	private helperService: HelperService,
+    	private router: Router
+	) {
+		this.subscriptions.push(this.activatedRoute.params.subscribe(params => {
+	      this.podcastId = atob(params['id']);
+	    }));
 	}
 
 	ngOnInit(): void {
+		this.getPodcastDetails()
 		this.createAddForm();
-		this.fetchAlbumGenreList();
+		this.fetchCommonList();
 	}
 
 	// Create Form
   	createAddForm() {
 	    this.addForm = this._formBuilder.group({
 			name: ['', [Validators.required, noSpace]],
-			cover_picture: ['', [Validators.required, noSpace]],
+			cover_picture: [''],
 			length: ['0'],
-			file_name: ['', [Validators.required, noSpace]],
+			file_name: [''],
 			details: ['', [Validators.required, noSpace]],
 			is_paid: ['', [Validators.required, noSpace]],
-			album_id: ['0'],
-			genre_id: ['', [Validators.required, noSpace]],
+			category_id: ['', [Validators.required, noSpace]],
 	    })
 	}
 
@@ -76,8 +78,54 @@ export class SongAddComponent implements OnInit {
 		return this.addForm.controls;
 	}
 
+
+	// Fetch Countries
+	getPodcastDetails() {
+	    this.isLoading = true;
+
+	    this.subscriptions.push(
+	      this.commonService.getAPICall({
+	        url :'podcast-details/'+this.podcastId,
+	      }).subscribe((result)=>{
+	        this.isLoading = false;
+	        if(result.status == 200) {
+				this.podcastDetails = result.data;
+				if (this.podcastDetails.cover_picture) {
+					this.imageStatus = 1;
+					this.imgURL = this.imgURL + this.podcastDetails.cover_picture;
+				}else{
+					this.imgURL = "";
+				}
+
+				if (this.podcastDetails.file_name) {
+					this.podcastURL  = environment.songURL  + this.podcastDetails.file_name;
+				}else{
+					this.podcastURL  = "";
+				}
+
+	          	this.addForm.patchValue({
+            	   	name         : this.podcastDetails.name,
+            	   	details      : this.podcastDetails.details,
+					is_paid      : this.podcastDetails.is_paid,
+					category_id  : this.podcastDetails.category_id,
+            	});
+
+            	this.podcastCoverImagePath  = this.podcastDetails.cover_picture;
+            	this.podcastFilePath 		= this.podcastDetails.file_name;
+            	this.podcastFileLength      = this.podcastDetails.length;
+	        }
+	        else{
+	          this.helperService.showError(result.msg);
+	        }
+	      },(err)=>{
+	        this.isLoading = false;
+	        this.helperService.showError(err.error.msg);
+	      })
+	    )
+	}
+
 	// Upload Song Cover Image
-  	coverSongUpload(event) {
+  	coverPodcastUpload(event) {
 	    if (event.target.files && event.target.files[0]) {
 	      const mainFile: File = event.target.files[0];
 	      if (event.target.files[0].type.split('/')[1] != 'png' && event.target.files[0].type.split('/')[1] != 'jpg' && event.target.files[0].type.split('/')[1] != 'jpeg') {
@@ -88,12 +136,12 @@ export class SongAddComponent implements OnInit {
 	      reader.readAsDataURL(event.target.files[0]); // read file as data url
 	      reader.onload = (event) => { 
 	      
-	      	this.songCoverImageObj = mainFile;
+	      	this.podcastCoverImageObj = mainFile;
 
 	      	let formData: FormData = new FormData();
 
 	        this.isLoading = true
-	        formData.append('file', this.songCoverImageObj, this.songCoverImageObj.name);
+	        formData.append('file', this.podcastCoverImageObj, this.podcastCoverImageObj.name);
 	        this.subscriptions.push(
 	          this.commonService.postAPICall({
 	            url: 'upload-song-cover-image',
@@ -101,8 +149,9 @@ export class SongAddComponent implements OnInit {
 	          }).subscribe((result)=>{
 	            this.isLoading = false;
 	            if(result.status == 200) {
-	              this.songCoverImage     = event.target.result;
-	              this.songCoverImagePath = result.data.filePath;
+	            	this.imageStatus = 0;
+	              	this.podcastCoverImage     = event.target.result;
+	              	this.podcastCoverImagePath = result.data.filePath;
 	            }
 	            else{
 	              this.helperService.showError(result.msg);
@@ -118,8 +167,9 @@ export class SongAddComponent implements OnInit {
 
 
   	// Upload Song File
-  	fileSongUpload(event) {
+  	filePodcastUpload(event) {
 	    if (event.target.files && event.target.files[0]) {
+	    	this.podcastURL    = "";
 	      const mainFile: File = event.target.files[0];
 	      if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
 	        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
@@ -129,11 +179,11 @@ export class SongAddComponent implements OnInit {
 	      reader.readAsDataURL(event.target.files[0]); // read file as data url
 	      reader.onload = (event) => { 
 	      
-	      	this.songFileObj = mainFile;
+	      	this.podcastFileObj = mainFile;
 
 	      	let formData: FormData = new FormData();
 
-	        formData.append('file', this.songFileObj, this.songFileObj.name);
+	        formData.append('file', this.podcastFileObj, this.podcastFileObj.name);
 	        this.subscriptions.push(
 	          this.commonService.postUploadAPICall({
 	            url: 'upload-song',
@@ -144,9 +194,9 @@ export class SongAddComponent implements OnInit {
 	            } else if (event instanceof HttpResponse) {
 	              let result = event.body;
 	              if(result.status == 200) {
-	                this.songFilePath 	= result.data.filePath;
-	                this.songURL      	= environment.songURL + result.data.filePath;
-	                this.songFileLength = result.data.fileDuration.toString();
+	                this.podcastFilePath 	= result.data.filePath;
+	                this.podcastURL      	= environment.songURL + result.data.filePath;
+	                this.podcastFileLength  = result.data.fileDuration.toString();
 	              }
 	              else{
 	                this.helperService.showError(result.msg);
@@ -172,7 +222,7 @@ export class SongAddComponent implements OnInit {
 	}
 
 	// Fetch Genre List
-  	fetchAlbumGenreList() {
+  	fetchCommonList() {
 	    let requestConfig = {
 	      page: 1,
 	      search: '',
@@ -188,12 +238,8 @@ export class SongAddComponent implements OnInit {
 	      }).subscribe((result)=>{
 	        this.isLoading = false;
 	        if(result.status == 200) {
-	          for(let item of result.data.genres) {
-	            this.genreList.push(item);
-	          }
-
-	          for(let item of result.data.albums) {
-	            this.albumDataList.push(item);
+	          for(let item of result.data.podcastCategories) {
+	            this.podcastCategories.push(item);
 	          }
 	        }
 	        else{
@@ -207,31 +253,30 @@ export class SongAddComponent implements OnInit {
 	}
 
 
-	submitCreateSong(){
+	submitUpdatePodcast(){
 		this.formSubmitted = true;
 		//console.log(this.addForm);
 	    if(this.addForm.invalid) return;
 
 		let postData = {
 			name : this.addForm.get('name').value,
-			cover_picture : this.songCoverImagePath,
-			length : this.songFileLength,
-			file_name : this.songFilePath,
+			cover_picture : this.podcastCoverImagePath,
+			length : this.podcastFileLength,
+			file_name : this.podcastFilePath,
 			details : this.addForm.get('details').value,
 			is_paid : this.addForm.get('is_paid').value,
-			album_id : this.addForm.get('album_id').value,
-			genre_id : this.addForm.get('genre_id').value
+			category_id : this.addForm.get('category_id').value,
 		}
 
 	    this.subscriptions.push(
-	      this.commonService.postAPICall({
-	        url: 'create-song',
+	      this.commonService.putAPICall({
+	        url: 'update-podcast/'+this.podcastId,
 	        data: postData
 	      }).subscribe((result)=>{
 	        this.isLoading = false;
 	        if(result.status == 200) {
 	          this.helperService.showSuccess(result.msg);
-	          this.router.navigate(['/song'])
+	          this.router.navigate(['/podcast'])
 	        }
 	        else{
 	          this.helperService.showError(result.msg);

@@ -4,17 +4,17 @@
     <div class="country_list_main_area">
         <div class="row">
             <div class="col-md-6">
-                <span><h3>Add Song</h3></span>
+                <span><h3>Add Podcast</h3></span>
             </div>
         </div>
         <div class="row">
              
             <div class="col-md-4">
-                <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitCreateSong()">
+                <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitCreatePodcast()">
                     <div class="form-group">
                        <!--  -->
                         <div class="file_upload1">
-                            <img [src]="songCoverImage" alt="" class="upload_img" />
+                            <img [src]="podcastCoverImage" alt="" class="upload_img" />
                             <div class="input--file">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -26,7 +26,7 @@
                                 <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
                             </div>                
                         </div>
-                        <input class="form-control" name="Select File" id="coverImage" (change)="coverSongUpload($event)" type="file" formControlName="cover_picture"/>
+                        <input class="form-control" name="Select File" id="coverImage" (change)="coverPodcastUpload($event)" type="file" formControlName="cover_picture"/>
                         <p class="file_upload_text">Upload Cover Image </p>
                         <mat-error *ngIf="formSubmitted && f.cover_picture.errors">
                             <div *ngIf="f.cover_picture.errors.required || f.cover_picture.errors.nospace">*Please upload cover image</div>
@@ -36,66 +36,55 @@
 
                    
                     <div class="form-group">
-                        <label for="songName">Song Name</label>
-                        <input type="text" class="form-control" id="songName" placeholder="Enter Album Name..." formControlName="name" maxlength="100">
+                        <label for="podcastName">Podcast Name</label>
+                        <input type="text" class="form-control" id="podcastName" placeholder="Enter Podcast Name" formControlName="name" maxlength="100">
                         <mat-error *ngIf="formSubmitted && f.name.errors">
-                            <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter song name</div>
+                            <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter podcast name</div>
                         </mat-error>
                         <p>Maximum 100 character</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="file_name">Upload Song</label>
-                        <input name="Select Song" class="form-control song_upload" formControlName="file_name" (change)="fileSongUpload($event)" type="file" />
+                        <label for="file_name">Upload Podcast</label>
+                        <input name="Select podcast" class="form-control podcast_upload" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
                         <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)" class="mat-progress-bar mat-progress-bar-buffer"></mat-progress-bar>
-                        <audio controls *ngIf="songURL!=''" style="width: 418px;padding: 5px 5px;">
-                            <source src="{{songURL}}" type="audio/mpeg" class="form-control">
+                        <audio controls *ngIf="podcastURL!=''" style="width: 418px;padding: 5px 5px;">
+                            <source src="{{podcastURL}}" type="audio/mpeg" class="form-control">
                         </audio>
                         <mat-error *ngIf="formSubmitted && f.file_name.errors">
-                            <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload song</div>
+                            <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload podcast podcast</div>
                         </mat-error>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="songDetails">Song Details</label>
-                        <textarea class="form-control" formControlName="details" cols="25" id="songDetails">
+                        <label for="podcastDetails">Podcast Details</label>
+                        <textarea class="form-control" formControlName="details" cols="25" id="podcastDetails">
                         	
                         </textarea>
                         <mat-error *ngIf="formSubmitted && f.details.errors">
-                            <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter song details</div>
+                            <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter podcast details</div>
                         </mat-error>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="albumName">Song Album</label>
-                        <select class="form-control" name="albumName" formControlName="album_id">
-                        	<option value="0">Select Album</option>
-                        	<option *ngFor="let album of albumDataList" value="{{album.id}}">
-                        		{{album.name}}
+                        <label for="podcastCategory">Podcast Category</label>
+                        <select class="form-control" name="podcastCategory" formControlName="category_id">
+                        	<option value="">Select Podcast Category</option>
+                        	<option *ngFor="let podcastCategory of podcastCategories" value="{{podcastCategory.id}}">
+                        		{{podcastCategory.name}}
                         	</option>
                         </select>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="albumName">Song Genre</label>
-                        <select class="form-control" name="albumName" formControlName="genre_id">
-                        	<option value="">Select Genre</option>
-                        	<option *ngFor="let genre of genreList" value="{{genre.id}}">
-                        		{{genre.name}}
-                        	</option>
-                        </select>
-                        <mat-error *ngIf="formSubmitted && f.genre_id.errors">
-                            <div *ngIf="f.genre_id.errors.required || f.genre_id.errors.nospace">*Please select genre</div>
+                        <mat-error *ngIf="formSubmitted && f.category_id.errors">
+                            <div *ngIf="f.category_id.errors.required || f.category_id.errors.nospace">*Please select podcast category</div>
                         </mat-error>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="albumName">Song Payment</label>
-                        <select class="form-control" name="albumName" formControlName="is_paid">
+                        <label for="podcastPayment">Podcast Payment</label>
+                        <select class="form-control" name="podcastPayment" formControlName="is_paid">
                         	<option value="">Select Payment</option>
                         	<option value="0">Free</option>
                         	<option value="1">Paid</option>
