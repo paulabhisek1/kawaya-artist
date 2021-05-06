@@ -15,35 +15,10 @@
                 </div>
             </div>
         </div>
-        <br>
-        <hr>
-        <div class="row">
 
-            <div class="col-md-4">
-                <div class="input-group">
-                   Name: {{songDetails?.name}}
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
+        <div class="row mt-4" *ngIf="songDetails?.length>0">
 
-            <div class="col-md-4">
-                <div class="input-group" *ngIf="songDetails?.album_details!=''">
-                   Album: {{songDetails?.album_details?.name}}
-                </div>
-
-                <div class="input-group" *ngIf="songDetails?.album_details==''">
-                   Album: NA
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row" *ngIf="songDetails?.length>0">
-
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <audio controls>
 				  	<source src="{{songDetails.song_url}}" type="audio/mpeg">
 				</audio>
@@ -53,37 +28,55 @@
         <br>
         <hr>
         <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                   <strong>Name:</strong> {{songDetails?.name}}
+                </div>
+            </div>
 
-            <div class="col-md-4">
-                <div class="input-group">
-                   Details: {{songDetails?.details}}
+            <div class="col-md-6">
+                <div class="input-group" *ngIf="songDetails?.album_details!=''">
+                    <strong>Album:</strong> {{songDetails?.album_details?.name}}
+                </div>
+
+                <div class="input-group" *ngIf="songDetails?.album_details==''">
+                    <strong>Album:</strong> NA
                 </div>
             </div>
         </div>
         <br>
         <hr>
+
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group">
-                   Genre: {{songDetails?.genre_details?.name}}
+                    <strong>Genre:</strong> {{songDetails?.genre_details?.name}}
                 </div>
             </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
+
+            <div class="col-md-6">
                 <div class="input-group" *ngIf="songDetails?.is_paid==0">
-                   Payment: Free
+                    <strong>Payment:</strong> Free
                 </div>
 
                 <div class="input-group" *ngIf="songDetails?.is_paid==1">
-                   Payment: Paid
+                    <strong>Payment:</strong> Paid
                 </div>
             </div>
         </div>
         <br>
         <hr>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="input-group">
+                    <strong>Details:</strong> {{songDetails?.details}}
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        
         <br>
     </div>
     <!-- LOADER -->

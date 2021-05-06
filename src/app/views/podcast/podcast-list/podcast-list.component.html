@@ -20,7 +20,7 @@
 
             <div class="col-md-8">
                 <div style="float: right;">
-                    <button class="btn btn-success" routerLink="add">Add podcast</button>
+                    <button class="btn btn-danger" routerLink="add"><i _ngcontent-jlk-c84="" class="fa fa-plus fa-md"></i> Add podcast</button>
                 </div>
             </div>
         </div>
@@ -30,17 +30,19 @@
             [infiniteScrollDistance]="2"
             [infiniteScrollThrottle]="50"
             (scrolled)="onScroll()">
-            <table class="table table-striped" *ngIf="podcastList.length > 0">
+
+            <div class="podcast_table">
+            <table class="table table-striped podcast_table_inner" *ngIf="podcastList.length > 0">
                 <thead>
                     <tr>
-                        <th>Sl No.</th>
-                        <th>Cover Image</th>
-                        <th>Name</th>
-                        <th>Podcast</th>
-                        <th>Details</th>
-                        <th>Podcast Category</th>
-                        <th>Payment</th>
-                        <th>Action</th>
+                        <th width="5%">Sl No.</th>
+                        <th width="5%">Cover Image</th>
+                        <th width="10%">Name</th>
+                        <th width="15%">Podcast</th>
+                        <th width="20%">Details</th>
+                        <th width="20%">Podcast Category</th>
+                        <th width="10%">Payment</th>
+                        <th width="15%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,8 +95,11 @@
                     </ng-container>
                 </tbody>
             </table>
+            </div>
 
-            <h3 style="text-align: center;" *ngIf="podcastList?.length === 0">No Results Found.</h3>
+            <h3 style="text-align: center; width: 100%;" *ngIf="podcastList?.length === 0">
+                <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+            </h3>
         </div>
     </div>
     <!-- LOADER -->

@@ -1,3 +1,5 @@
+<br>
+<br>
 <div class="animated fadeIn">
     <div class="country_list_main_area">
         <div class="row">
@@ -9,7 +11,7 @@
              
             <div class="col-md-4">
                 <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitAlbum()">
-                    <div class="form-group">
+                    <div class="form-group upload_document_form_area mt-0">
                        <!--  -->
                         <div class="file_upload1">
                             <img [src]="albumImage" alt="" class="upload_img" />
@@ -22,9 +24,10 @@
                                     </svg>
                                 </span>
                                 <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
+                                <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/>
                             </div>                
                         </div>
-                        <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/>
+                        
                         <p class="file_upload_text">Upload Cover Image </p>
                     </div>
 
@@ -36,7 +39,7 @@
                         <mat-error *ngIf="formSubmitted && f.name.errors">
                             <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter album name</div>
                         </mat-error>
-                        <p>Maximum 100 character</p>
+                        <p class="exclamation_style"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Maximum 100 character</p>
                     </div>
                     <button type="submit" class="btn btn btn-danger">Add</button>
                 </form>
@@ -49,3 +52,6 @@
     </div>
     
 </div>
+
+<br>
+<br>

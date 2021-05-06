@@ -15,19 +15,8 @@
                 </div>
             </div>
         </div>
-        <br>
-        <hr>
-        <div class="row">
 
-            <div class="col-md-4">
-                <div class="input-group">
-                   Name: {{podcastDetails?.name}}
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row" *ngIf="podcastDetails?.length>0">
+        <div class="row mt-4" *ngIf="podcastDetails?.length>0">
 
             <div class="col-md-4">
                 <audio controls>
@@ -40,36 +29,50 @@
         <hr>
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group">
-                   Details: {{podcastDetails?.details}}
+                    <strong>Name:</strong> {{podcastDetails?.name}}
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="input-group">
+                    <strong>Podcast Category:</strong> {{podcastDetails?.category_details?.name}}
+                </div>
+            </div>
+
+
         </div>
         <br>
         <hr>
+
         <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                   Podcast Category: {{podcastDetails?.category_details?.name}}
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group" *ngIf="podcastDetails?.is_paid==0">
-                   Payment: Free
+                    <strong>Payment:</strong> Free
                 </div>
 
                 <div class="input-group" *ngIf="podcastDetails?.is_paid==1">
-                   Payment: Paid
+                    <strong>Payment:</strong> Paid
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        <hr>
+        <div class="row">
+
+            <div class="col-12">
+                <div class="input-group">
+                    <strong>Details:</strong> {{podcastDetails?.details}}
                 </div>
             </div>
         </div>
         <br>
         <hr>
+ 
+        
+
         <br>
     </div>
     <!-- LOADER -->

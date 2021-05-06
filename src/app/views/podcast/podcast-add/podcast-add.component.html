@@ -9,9 +9,11 @@
         </div>
         <div class="row">
              
-            <div class="col-md-4">
+            <div class="col-md-10">
                 <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitCreatePodcast()">
-                    <div class="form-group">
+                    <div class="row">
+                    <div class="col-12">   
+                    <div class="form-group upload_document_form_area mt-0">
                        <!--  -->
                         <div class="file_upload1">
                             <img [src]="podcastCoverImage" alt="" class="upload_img" />
@@ -24,17 +26,19 @@
                                     </svg>
                                 </span>
                                 <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
+                                <input class="form-control" name="Select File" id="coverImage" (change)="coverPodcastUpload($event)" type="file" formControlName="cover_picture"/>
                             </div>                
                         </div>
-                        <input class="form-control" name="Select File" id="coverImage" (change)="coverPodcastUpload($event)" type="file" formControlName="cover_picture"/>
+                        
                         <p class="file_upload_text">Upload Cover Image </p>
                         <mat-error *ngIf="formSubmitted && f.cover_picture.errors">
                             <div *ngIf="f.cover_picture.errors.required || f.cover_picture.errors.nospace">*Please upload cover image</div>
                         </mat-error>
                     </div>
+                    </div>
 
 
-                   
+                    <div class="col-md-6">
                     <div class="form-group">
                         <label for="podcastName">Podcast Name</label>
                         <input type="text" class="form-control" id="podcastName" placeholder="Enter Podcast Name" formControlName="name" maxlength="100">
@@ -43,7 +47,39 @@
                         </mat-error>
                         <p>Maximum 100 character</p>
                     </div>
+                    </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="podcastCategory">Podcast Category</label>
+                            <select class="form-control" name="podcastCategory" formControlName="category_id">
+                                <option value="">Select Podcast Category</option>
+                                <option *ngFor="let podcastCategory of podcastCategories" value="{{podcastCategory.id}}">
+                                    {{podcastCategory.name}}
+                                </option>
+                            </select>
+                            <mat-error *ngIf="formSubmitted && f.category_id.errors">
+                                <div *ngIf="f.category_id.errors.required || f.category_id.errors.nospace">*Please select podcast category</div>
+                            </mat-error>
+                        </div>
+                        </div>
+    
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="podcastPayment">Podcast Payment</label>
+                            <select class="form-control" name="podcastPayment" formControlName="is_paid">
+                                <option value="">Select Payment</option>
+                                <option value="0">Free</option>
+                                <option value="1">Paid</option>
+                            </select>
+    
+                            <mat-error *ngIf="formSubmitted && f.is_paid.errors">
+                                <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please select payment</div>
+                            </mat-error>
+                        </div>
+                        </div>
+
+                    <div class="col-md-6">
                     <div class="form-group">
                         <label for="file_name">Upload Podcast</label>
                         <input name="Select podcast" class="form-control podcast_upload" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
@@ -55,8 +91,9 @@
                             <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload podcast podcast</div>
                         </mat-error>
                     </div>
+                    </div>
 
-
+                    <div class="col-md-6">
                     <div class="form-group">
                         <label for="podcastDetails">Podcast Details</label>
                         <textarea class="form-control" formControlName="details" cols="25" id="podcastDetails">
@@ -66,36 +103,15 @@
                             <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter podcast details</div>
                         </mat-error>
                     </div>
-
-
-                    <div class="form-group">
-                        <label for="podcastCategory">Podcast Category</label>
-                        <select class="form-control" name="podcastCategory" formControlName="category_id">
-                        	<option value="">Select Podcast Category</option>
-                        	<option *ngFor="let podcastCategory of podcastCategories" value="{{podcastCategory.id}}">
-                        		{{podcastCategory.name}}
-                        	</option>
-                        </select>
-                        <mat-error *ngIf="formSubmitted && f.category_id.errors">
-                            <div *ngIf="f.category_id.errors.required || f.category_id.errors.nospace">*Please select podcast category</div>
-                        </mat-error>
                     </div>
 
+                    
 
-                    <div class="form-group">
-                        <label for="podcastPayment">Podcast Payment</label>
-                        <select class="form-control" name="podcastPayment" formControlName="is_paid">
-                        	<option value="">Select Payment</option>
-                        	<option value="0">Free</option>
-                        	<option value="1">Paid</option>
-                        </select>
-
-                        <mat-error *ngIf="formSubmitted && f.is_paid.errors">
-                            <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please select payment</div>
-                        </mat-error>
-                    </div>
-
+                    <div class="col-12">
                     <button type="submit" class="btn btn btn-danger">Add</button>
+                    </div>
+
+                </div>
                 </form>
             </div>
         </div>
@@ -106,3 +122,5 @@
     </div>
     
 </div>
+<br>
+<br>
