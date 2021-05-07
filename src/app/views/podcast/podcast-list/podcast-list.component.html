@@ -1,6 +1,4 @@
-
-<br>
-<br>
+<div class="body_inner">
 <div class="animated fadeIn">
     <div class="country_list_main_area">
         <div class="row">
@@ -30,6 +28,7 @@
             [infiniteScrollDistance]="2"
             [infiniteScrollThrottle]="50"
             (scrolled)="onScroll()">
+            <div class="col-12">
 
             <div class="podcast_table">
             <table class="table table-striped podcast_table_inner" *ngIf="podcastList.length > 0">
@@ -101,9 +100,11 @@
                 <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
             </h3>
         </div>
+        </div>
     </div>
     <!-- LOADER -->
     <div *ngIf="isLoading" class="loder">
         <img src="assets/images/loader.gif" alt="loader" />  
     </div>
+</div>
 </div>
