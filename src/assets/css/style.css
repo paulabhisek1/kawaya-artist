@@ -863,3 +863,7 @@ audio
 {
     height: 68px !important;
 }
+.input-group strong
+{
+    margin-right: 5px;
+}
