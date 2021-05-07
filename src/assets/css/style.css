@@ -162,7 +162,7 @@ section {
     background: rgba(255, 255, 255, 0.15);
     border: none;
     border-radius: 5px;
-    padding: 0 20px 0 45px;
+    padding: 0 20px 0 45px !important;
     color: #fff;
     outline-style: none;
     font-size: 18px;
