@@ -30,52 +30,46 @@
                 [infiniteScrollThrottle]="50"
                 (scrolled)="onScroll()">
             <div class="col-12">    
-                <table class="table table-striped" *ngIf="albumDataList.length > 0">
-                    <thead>
-                        <tr>
-                            <th>Sl No.</th>
-                            <th>Cover Image</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let album of albumDataList; let i=index">
-                            <tr class="row_shadow">
-                                <td valign="middle">{{ i+1 }}</td>
-                                <td valign="middle">
-                                    <img class="customeImage" width="40px" height="40px" *ngIf="album.imgURL" [src]="album.imgURL" alt="">
-                                    <span *ngIf="!album.imgURL">NA</span>
-                                </td>
-                                <td valign="middle">{{ album.name }}</td>
-                                <td valign="middle">
-                                <!--  <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                        <a class="btn btn-light btn-sm" title="Details" [popover]="'Details'"
-                                            [appendToBody]="true" popoverPlacement="top-center"
-                                            [popoverCloseOnMouseOutside]="true" (click)="navigateToDetails(album.id)">
-                                        <i class="fa fa-eye fa-lg"></i>
-                                        </a>
-                                    </div> -->
+                <div class="table_main_area" *ngIf="albumDataList.length > 0">
+                    <div class="table_heading">
+                        <div style="width: 15%;">Sl No.</div>
+                        <div style="width: 20%;">Cover Image</div>
+                        <div style="width: 50%;">Name</div>
+                        <div style="width: 15%;">Action</div>
+                    </div>
 
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                        <a class="btn btn-light btn-sm" title="Details" [popover]="'Edit'"
-                                            [appendToBody]="true" popoverPlacement="top-center"
-                                            [popoverCloseOnMouseOutside]="true" (click)="navigateToEdit(album.id)">
-                                        <i class="fa fa-edit fa-lg"></i>
-                                        </a>
-                                    </div>
-
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                        <a class="btn btn-light btn-sm" title="Details"
-                                            (click)="openDeleteConfirmation(album.id)">
-                                        <i class="fa fa-trash fa-lg"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </tbody>
-                </table>
+                    <ng-container *ngFor="let album of albumDataList; let i=index">
+                    <div class="table_body">
+                        <div style="width: 15%;"><div class="mobile_heading">Sl No.</div> {{ i+1 }}</div>
+                        <div style="width: 20%;">
+                            <div class="mobile_heading">Cover Image</div>
+                            <img class="customeImage" width="40px" height="40px" *ngIf="album.imgURL" [src]="album.imgURL" alt="">
+                            <span *ngIf="!album.imgURL">NA</span>
+                        </div>
+                        <div style="width: 50%;">
+                            <div class="mobile_heading">Name</div>
+                            {{ album.name }}
+                        </div>
+                        <div style="width: 15%;">
+                            <div class="mobile_heading">Action</div>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <a class="btn btn-light btn-sm" title="Details" [popover]="'Edit'"
+                                    [appendToBody]="true" popoverPlacement="top-center"
+                                    [popoverCloseOnMouseOutside]="true" (click)="navigateToEdit(album.id)">
+                                <i class="fa fa-edit fa-lg"></i>
+                                </a>
+                            </div>
+        
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                <a class="btn btn-light btn-sm" title="Details"
+                                    (click)="openDeleteConfirmation(album.id)">
+                                <i class="fa fa-trash fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>  
+                    </div>
+                    </ng-container>
+                </div>
 
                 <h3 style="text-align: center;" *ngIf="albumDataList?.length === 0">
                     <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 

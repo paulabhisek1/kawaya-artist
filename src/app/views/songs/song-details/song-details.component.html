@@ -2,81 +2,75 @@
 <div class="animated fadeIn">
     <div class="country_list_main_area">
     	<div class="row">
-            <div class="col-md-6">
+            <div class="col-12">
                 <span><h3>Song Details</h3></span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <img class="customeImage" width="90px" height="90px" *ngIf="imgURL" [src]="imgURL" alt="">
+        <div class="row mt-4">
+            <div class="col-12 image_center">
+                <div class="details_image">
+                    <img  *ngIf="imgURL" [src]="imgURL" alt="">
                     <span *ngIf="imgURL==''">NA</span>
                 </div>
-            </div>
-        </div>
 
-        <div class="row mt-4" *ngIf="songDetails?.length>0">
+                <div class="details_right_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="full">
+                            <strong>Name:</strong> {{songDetails?.name}}
+                            </div>
+                        </div>
 
-            <div class="col-md-6">
-                <audio controls>
-				  	<source src="{{songDetails.song_url}}" type="audio/mpeg">
-				</audio>
+                        <div class="col-12">
+                            <div class="full">
+                            <div *ngIf="songDetails?.album_details!=''">
+                                <strong>Album:</strong> {{songDetails?.album_details?.name}}
+                            </div>
             
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input-group">
-                   <strong>Name:</strong> {{songDetails?.name}}
-                </div>
-            </div>
+                            <div *ngIf="songDetails?.album_details==''">
+                                <strong>Album:</strong> NA
+                            </div>
+                            </div>
+                        </div>
 
-            <div class="col-md-6">
-                <div class="input-group" *ngIf="songDetails?.album_details!=''">
-                    <strong>Album:</strong> {{songDetails?.album_details?.name}}
-                </div>
+                        <div class="col-12">
+                            <div class="full">
+                            <p> <strong>Genre: </strong> {{songDetails?.genre_details?.name}}</p>
+                            </div>
+                        </div>
 
-                <div class="input-group" *ngIf="songDetails?.album_details==''">
-                    <strong>Album:</strong> NA
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
+                        <div class="col-12">
+                            <div class="full">
+                            <div *ngIf="songDetails?.is_paid==0">
+                                <strong>Payment:</strong> Free
+                            </div>
+            
+                            <div *ngIf="songDetails?.is_paid==1">
+                                <strong>Payment:</strong> Paid
+                            </div>
+                            </div>
+                        </div>    
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input-group">
-                    <strong>Genre: </strong> {{songDetails?.genre_details?.name}}
-                </div>
-            </div>
+                        <div class="col-12">
+                            <div class="full">
+                            <p><strong>Details:</strong> {{songDetails?.details}}</p>
+                            </div>
+                        </div>
 
-            <div class="col-md-6">
-                <div class="input-group" *ngIf="songDetails?.is_paid==0">
-                    <strong>Payment:</strong> Free
-                </div>
-
-                <div class="input-group" *ngIf="songDetails?.is_paid==1">
-                    <strong>Payment:</strong> Paid
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="input-group">
-                    <strong>Details:</strong> {{songDetails?.details}}
+                        <div class="col-12">
+                            <div class="full pl-0">
+                            <div *ngIf="songDetails?.length>0">
+                                    <audio controls>
+                                        <source src="{{songDetails.song_url}}" type="audio/mpeg">
+                                    </audio>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <br>
-        <hr>
-        
-        <br>
+
     </div>
     <!-- LOADER -->
     <div *ngIf="isLoading" class="loder">

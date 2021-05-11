@@ -1,0 +1,113 @@
+<div class="body_inner">
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search by song name">
+                    <div class="input-group-append search_button">
+                        <button *ngIf="!searchText" class="btn btn-danger search_button_style" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button *ngIf="searchText && searchText.length > 0" (click)="clearSearch()" class="btn btn-danger search_button_style" type="button">
+                        <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div style="float: right;">
+                    <button class="btn btn-danger" routerLink="add"><i _ngcontent-jlk-c84="" class="fa fa-plus fa-md"></i> Add song</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4" 
+            infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()">
+        <div class="col-12">    
+            <div class="song_table">
+            <table class="table table-striped song_table_inner" *ngIf="songDataList.length > 0">
+                <thead>
+                    <tr>
+                        <th width="5%">Sl No.</th>
+                        <th width="5%">Cover Image</th>
+                        <th width="10%">Name</th>
+                        <th width="15%">Song</th>
+                        <th width="10%">Album</th>
+                        <th width="20%">Details</th>
+                        <th width="10%">Genre</th>
+                        <th width="10%">Payment</th>
+                        <th width="15%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let song of songDataList; let i=index">
+                        <tr class="row_shadow">
+                            <td valign="middle">{{ i+1 }}</td>
+                            <td valign="middle">
+                                <img class="customeImage" width="40px" height="40px" *ngIf="song.imgURL" [src]="song.imgURL" alt="">
+                                <span *ngIf="!song.imgURL">NA</span>
+                            </td>
+                            <td valign="middle">{{ song.name }}</td>
+                            <td valign="middle">
+                            	<audio controls>
+								  	<source src="{{song.songURL}}" type="audio/mpeg">
+								</audio>
+							</td>
+                            <td valign="middle" *ngIf="song?.album_details!=''">{{ song?.album_details?.name }}</td>
+                            <td valign="middle" *ngIf="song?.album_details==''">--</td>
+
+
+                            <td valign="middle"  *ngIf="song?.details!=''">{{ song?.details }}</td>
+                            
+
+                            <td valign="middle" *ngIf="song?.genre_details!=''">{{ song?.genre_details?.name }}</td>
+                            <td valign="middle" *ngIf="song?.genre_details==''">--</td>
+                            <td valign="middle">
+                            	<span *ngIf="song.is_paid==0">Free</span>
+                            	<span *ngIf="song.is_paid==1">Paid</span>
+                            </td>
+
+                            <td valign="middle">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"  (click)="navigateToDetails(song.id)">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                    </a>
+                                </div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="navigateToEdit(song.id)">
+                                    <i class="fa fa-edit fa-lg"></i>
+                                    </a>
+                                </div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="openDeleteConfirmation(song.id)">
+                                    <i class="fa fa-trash fa-lg"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            </div>
+
+            <h3  style="text-align: center; width: 100%;" *ngIf="songDataList?.length === 0">
+                <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+            </h3>
+        </div>    
+        </div>
+    </div>
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+</div>
+</div>

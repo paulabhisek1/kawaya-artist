@@ -2,73 +2,65 @@
 <div class="animated fadeIn">
     <div class="country_list_main_area">
     	<div class="row">
-            <div class="col-md-6">
+            <div class="col-12">
                 <span><h3>Podcast Details</h3></span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <img class="customeImage" width="90px" height="90px" *ngIf="imgURL" [src]="imgURL" alt="">
+        <div class="row mt-4">
+            <div class="col-12 image_center">
+                <div class="details_image">
+                    <img *ngIf="imgURL" [src]="imgURL" alt="">
                     <span *ngIf="imgURL==''">NA</span>
                 </div>
+
+                <div class="details_right_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="full">
+                                <strong>Name:</strong> {{podcastDetails?.name}}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="full">
+                                <strong>Podcast Category:</strong> {{podcastDetails?.category_details?.name}}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="full">
+                                <div *ngIf="podcastDetails?.is_paid==0">
+                                    <strong>Payment:</strong> Free
+                                </div>
+                
+                                <div *ngIf="podcastDetails?.is_paid==1">
+                                    <strong>Payment:</strong> Paid
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="full">
+                                <strong>Details:</strong> {{podcastDetails?.details}}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="full pl-0">
+                                <div *ngIf="podcastDetails?.length>0">
+                                    <audio controls>
+                                            <source src="{{podcastDetails.podcast_url}}" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row mt-4" *ngIf="podcastDetails?.length>0">
-
-            <div class="col-md-4">
-                <audio controls>
-				  	<source src="{{podcastDetails.podcast_url}}" type="audio/mpeg">
-				</audio>
-            
-            </div>
-        </div>
-        <br>
-        <hr>
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="input-group">
-                    <strong>Name:</strong> {{podcastDetails?.name}}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="input-group">
-                    <strong>Podcast Category:</strong> {{podcastDetails?.category_details?.name}}
-                </div>
-            </div>
-
-
-        </div>
-        <br>
-        <hr>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input-group" *ngIf="podcastDetails?.is_paid==0">
-                    <strong>Payment:</strong> Free
-                </div>
-
-                <div class="input-group" *ngIf="podcastDetails?.is_paid==1">
-                    <strong>Payment:</strong> Paid
-                </div>
-            </div>
-        </div>
         
-        <br>
-        <hr>
-        <div class="row">
-
-            <div class="col-12">
-                <div class="input-group">
-                    <strong>Details:</strong> {{podcastDetails?.details}}
-                </div>
-            </div>
-        </div>
-        <br>
-        <hr>
+        
  
         
 
