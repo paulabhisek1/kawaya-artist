@@ -3,13 +3,14 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { HelperService } from '../Helper/helper.service';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   apiURL: string = environment.apiURL;
+  userDetails = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -118,5 +119,13 @@ export class CommonService {
       .pipe(
         catchError(this.helperService.handleError('error ', []))
     );
+  }
+
+  setUserStatus(data) {
+    this.userDetails.next(data);
+  }
+
+  getUserStatus() {
+    return this.userDetails.asObservable();
   }
 }
