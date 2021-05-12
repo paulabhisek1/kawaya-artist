@@ -34,9 +34,8 @@
                     <div class="table_heading">
                         <div style="width: 5%;">Sl No.</div>
                         <div style="width: 10%;">Cover Image</div>
-                        <div style="width: 10%;">Name</div>
-                        <div style="width: 15%;">Podcast</div>
-                        <div style="width: 20%;">Details</div>
+                        <div style="width: 15%;">Name</div>
+                        <div style="width: 28%;">Podcast</div>
                         <div style="width: 20%;">Podcast Category</div>
                         <div style="width: 10%;">Payment</div>
                         <div style="width: 10%;">Action</div>
@@ -48,23 +47,19 @@
                             {{ i+1 }}
                             </div>
     
-                            <div style="width: 8%;"><div class="mobile_heading">Cover Image</div> 
+                            <div style="width: 10%;"><div class="mobile_heading">Cover Image</div> 
                             <img class="customeImage" width="40px" height="40px" *ngIf="podcast.imgURL" [src]="podcast.imgURL" alt="">
                         <span *ngIf="!podcast.imgURL">NA</span>
                             </div>
     
-                            <div style="width: 10%;"><div class="mobile_heading">Name</div> 
+                            <div style="width: 15%;"><div class="mobile_heading">Name</div> 
                             {{ podcast.name }}
                             </div>
     
-                            <div style="width: 15%;"><div class="mobile_heading">Podcast</div> 
+                            <div style="width: 28%;"><div class="mobile_heading">Podcast</div> 
                             <audio controls>
                                 <source src="{{podcast.podcastURL}}" type="audio/mpeg">
                             </audio>
-                            </div>
-    
-                            <div style="width: 20%;" *ngIf="podcast?.details!=''"><div class="mobile_heading">Details</div> 
-                            {{ podcast?.details }}
                             </div>
     
                             <div style="width: 20%;"><div class="mobile_heading">Podcast Category</div> 
