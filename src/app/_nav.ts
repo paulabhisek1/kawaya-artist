@@ -1,7 +1,5 @@
 import { INavData } from '@coreui/angular';
 
-const isActive: any = localStorage.getItem('active_status');
-console.log(isActive)
 export let navItems: INavData[] = [];
 
   navItems = [

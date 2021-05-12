@@ -23,21 +23,22 @@ export class DefaultLayoutComponent {
     private helperService: HelperService
   ) {
 
-    this.commonService.getUserStatus().subscribe((result)=>{
-      this.is_active = result['is_active'];
-
-      this.navItems.forEach((item, index) => {
-        if(this.is_active == 1) {
-          if(item.attributes) item.attributes.disabled = false;
-        }
-        else{
-          if(item.attributes) item.attributes.disabled = true;
-        }
-      })
-    })
-
-    if(localStorage.getItem('active_status')) {
+    if(localStorage.getItem('is_active')) {
       this.fetchArtistDetails();
+    }
+    else {
+      this.commonService.getUserStatus().subscribe((result)=>{
+        this.is_active = result['is_active'];
+  
+        this.navItems.forEach((item, index) => {
+          if(this.is_active == 1) {
+            if(item.attributes) item.attributes.disabled = false;
+          }
+          else{
+            if(item.attributes) item.attributes.disabled = true;
+          }
+        })
+      })
     }
   }
 
@@ -52,9 +53,8 @@ export class DefaultLayoutComponent {
         url: 'artist-details'
       }).subscribe((result)=>{
         if(result.status == 200) {
-          localStorage.setItem('active_status', result.data.artist_details.is_active);
+          localStorage.setItem('is_active', result.data.artist_details.is_active);
           this.is_active = result.data.artist_details.is_active;
-
           this.navItems.forEach((item, index) => {
             if(this.is_active == 1) {
               if(item.attributes) item.attributes.disabled = false;
@@ -63,6 +63,8 @@ export class DefaultLayoutComponent {
               if(item.attributes) item.attributes.disabled = true;
             }
           })
+
+          this.navItems = JSON.parse(JSON.stringify(this.navItems));
         }
       },(err)=>{
         this.helperService.showError(err.error.msg)

@@ -30,7 +30,7 @@ export class AlbumAddComponent implements OnInit {
 		private helperService: HelperService,
 		private router: Router
 	) {
-		
+		// this.commonService.checkActiveUser();
 	}
 
 	ngOnInit(): void {

@@ -103,7 +103,12 @@ export class LoginComponent {
         localStorage.setItem('is_active',result.data.is_active);
         this.commonService.setUserStatus(result.data);
         this.helperService.showSuccess(result.msg);
-        this.router.navigate(['/upload-document']);
+        if(result.data.is_active == 1) {
+          this.router.navigate(['/dashboard']);
+        }
+        else{
+          this.router.navigate(['/upload-document']);
+        }
       }
       else{
         this.helperService.showError(result.msg);

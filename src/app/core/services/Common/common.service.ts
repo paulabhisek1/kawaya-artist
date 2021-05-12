@@ -4,6 +4,7 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@an
 import { HelperService } from '../Helper/helper.service';
 import { catchError } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class CommonService {
 
   constructor(
     private http: HttpClient,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private router: Router
   ) { }
 
   // Post API Call
@@ -127,5 +129,29 @@ export class CommonService {
 
   getUserStatus() {
     return this.userDetails.asObservable();
+  }
+
+  // Fetch Artist Details
+  fetchArtistDetails() {
+      this.getAPICall({
+        url: 'artist-details'
+      }).subscribe((result)=>{
+        if(result.status == 200) {
+          localStorage.setItem('is_active', result.data.artist_details.is_active);
+          if(result.data.artist_details.is_active == 1) {
+            return;
+          }
+          else {
+            this.router.navigate(['/upload-document']);
+          }
+        }
+      },(err)=>{
+        this.router.navigate(['/upload-document']);
+        this.helperService.showError(err.error.msg)
+      })
+  }
+
+  checkActiveUser() {
+    this.fetchArtistDetails();
   }
 }
