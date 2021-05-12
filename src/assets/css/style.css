@@ -7,6 +7,9 @@ body {
     color: #000;
     font-family: 'Calibri';
     overflow-x: hidden;
+    background: #e4e5e6 url(../images/bg2.jpg) center center no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 @font-face {
@@ -127,6 +130,7 @@ section {
     box-shadow: none;
     border-color: #ddd;
     background: rgb(240, 240, 240) !important;
+    height: 50px !important;
 }
 
 .form-control:focus {
@@ -710,10 +714,12 @@ button:focus {
   
   .upload_document_form_area .input--file input[type="file"] {
 position: absolute;
-top: 0;
-left: 0;
+top: -146px;
+    left: -145px;
 opacity: 0;    
 cursor: pointer; 
+width: 200px;
+height: 200px !important;
 
 }
 
@@ -746,7 +752,6 @@ cursor: pointer;
 
 .song_upload {
     padding: 11px 15px !important;
-    height: 68px !important;
 }
 .calender .mat-form-field-flex {
     display: inline-flex;
@@ -805,8 +810,23 @@ textarea.form-control {
 }
 audio
 {
-    width: 100% !important;
+    width: 95% !important;
     max-width: 420px !important;
+    -webkit-transition: all .5s ;
+	-moz-transition: all .5s ;
+	-ms-transition: all .5s ;
+	-o-transition: all .5s ;
+	transition: all .5s ;
+	transition-timing-function:ease-out;
+    border-radius: 27px;
+    
+}
+audio:hover
+{
+    -webkit-box-shadow: 15px 15px 20px rgb(0 0 0 / 40%);
+    -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+    box-shadow: 15px 15px 20px rgb(0 0 0 / 40%);
+    -webkit-transform: scale(1.05);
 }
 .podcast_table
 {
@@ -856,16 +876,8 @@ audio
     box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
     border-radius: 10px;
 }
-.form-control {
-    padding: 1.375rem 0.75rem !important;
-
-}
 .mat-progress-bar.mat-accent .mat-progress-bar-fill::after {
     background-color: rgb(105, 158, 0) !important;
-}
-.podcast_upload
-{
-    height: 68px !important;
 }
 .input-group strong
 {
@@ -983,8 +995,7 @@ transition: 0.5s;
     display: block;
     float: left;
     width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
     position: relative;
     padding-left: 140px;
 }
@@ -1000,6 +1011,10 @@ transition: 0.5s;
     text-align: center;
     color: #ff301e;
     font-family: 'Calibri-Bold';
+}
+.submit_but
+{
+    padding: 12px 30px !important;
 }
 
 

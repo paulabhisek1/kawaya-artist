@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-12">
         <div class="body_inner">
         <div class="animated fadeIn">
             <div class="country_list_main_area">
@@ -85,7 +85,7 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="file_name">Upload Podcast</label>
-                                <input name="Select podcast" class="form-control podcast_upload" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
+                                <input name="Select podcast" class="form-control" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
                                 <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)" class="mat-progress-bar mat-progress-bar-buffer"></mat-progress-bar>
                                 <audio controls *ngIf="podcastURL!=''" style="width: 418px;padding: 5px 5px;">
                                     <source src="{{podcastURL}}" type="audio/mpeg" class="form-control">
@@ -113,7 +113,7 @@
                             
 
                             <div class="col-12">
-                            <button type="submit" class="btn btn btn-danger">Update</button>
+                            <button type="submit" class="btn btn btn-danger submit_but">Update</button>
                             </div>
 
                         </div>
