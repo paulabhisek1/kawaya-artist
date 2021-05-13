@@ -166,7 +166,7 @@ section {
     min-height: 50px;
     border-radius: 2px;
     transition: all 0.5s;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15) !important;
     border: none;
     border-radius: 5px;
     padding: 0 20px 0 45px !important;
