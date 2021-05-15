@@ -84,7 +84,8 @@
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
                           <mat-label>Account number</mat-label>
-                          <input matInput placeholder="Account number" numbersOnly formControlName="account_number" maxlength="16" required [attr.disabled]="activeStatus? true : null">
+                          <!-- <input matInput placeholder="Account number" numbersOnly formControlName="account_number" maxlength="16" required [attr.disabled]="activeStatus? true : null"> -->
+                          <input matInput placeholder="Account number" formControlName="account_number" maxlength="16" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.account_number.errors">
                             <span *ngIf="f2.account_number.errors.required || f2.account_number.errors.nospace">*Please enter the account number</span>
                           </mat-error>
@@ -113,10 +114,10 @@
 
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
-                          <mat-label>Currency</mat-label>
-                          <input matInput placeholder="currency" formControlName="currency" required [attr.disabled]="activeStatus? true : null">
+                          <mat-label>Currency Code</mat-label>
+                          <input matInput placeholder="currency code" formControlName="currency" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.currency.errors">
-                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency</span>
+                            <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency code</span>
                           </mat-error>
                         </mat-form-field>
                       </div>

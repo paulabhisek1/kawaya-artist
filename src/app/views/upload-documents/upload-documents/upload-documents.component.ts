@@ -73,7 +73,7 @@ export class UploadDocumentsComponent implements OnInit {
     // Second Form Group
     this.secondFormGroup = this._formBuilder.group({
       account_holder_name: ['', [Validators.required, noSpace]],
-      account_number: ['', [Validators.required, noSpace]],
+      account_number: ['', [Validators.required]],
       routing_no: ['', [Validators.required, noSpace]],
       branch_address: ['', [Validators.required, noSpace]],
       branch_name: ['', [Validators.required, noSpace]],
@@ -154,6 +154,8 @@ export class UploadDocumentsComponent implements OnInit {
       currency: this.secondFormGroup.get('currency').value,
       swift_code: this.secondFormGroup.get('swift_code').value.toString(),
     }
+
+    console.log(requestConfig)
 
     this.isLoading = true;
     this.subscriptions.push(

@@ -5,7 +5,10 @@ import { UploadDocumentsComponent } from './upload-documents/upload-documents.co
 const routes: Routes = [
   {
     path: '',
-    component: UploadDocumentsComponent
+    component: UploadDocumentsComponent,
+    data:{
+    	title: "Upload Document"
+    }
   }
 ];
 
