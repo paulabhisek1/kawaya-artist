@@ -41,7 +41,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="songName">Song Name</label>
-                                        <input type="text" class="form-control" id="songName" placeholder="Enter Album Name..." formControlName="name" maxlength="100">
+                                        <input type="text" class="form-control" id="songName" placeholder="Enter Song Name..." formControlName="name" maxlength="100">
                                         <mat-error *ngIf="formSubmitted && f.name.errors">
                                             <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter song name</div>
                                         </mat-error>
