@@ -41,7 +41,9 @@ export class PodcastAddComponent implements OnInit {
 	constructor(private _formBuilder: FormBuilder,
 		private commonService: CommonService,
 		private helperService: HelperService,
-		private router: Router) { }
+		private router: Router) {
+			this.commonService.checkActiveUser();
+		 }
 
 	ngOnInit(): void {
 		this.createAddForm();

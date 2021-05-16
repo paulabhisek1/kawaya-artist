@@ -31,7 +31,7 @@ export class SongListComponent implements OnInit {
     	private helperService: HelperService,
     	private router: Router) 
 	{ 
-    // this.commonService.checkActiveUser();
+    this.commonService.checkActiveUser();
   }
 
 	ngOnInit(): void {

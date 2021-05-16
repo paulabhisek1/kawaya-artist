@@ -53,7 +53,7 @@ export class SongEditComponent implements OnInit {
     	private helperService: HelperService,
     	private router: Router
 	) {
-		// this.commonService.checkActiveUser();
+		this.commonService.checkActiveUser();
 
 		this.subscriptions.push(this.activatedRoute.params.subscribe(params => {
 	      this.songID = atob(params['id']);

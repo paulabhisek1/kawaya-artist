@@ -31,7 +31,7 @@ export class PodcastListComponent implements OnInit {
     	private helperService: HelperService,
     	private router: Router) 
 	{
-
+		this.commonService.checkActiveUser();
     }
 
 	ngOnInit(): void {
