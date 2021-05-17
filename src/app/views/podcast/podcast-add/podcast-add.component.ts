@@ -115,7 +115,7 @@ export class PodcastAddComponent implements OnInit {
 	    if (event.target.files && event.target.files[0]) {
 	      const mainFile: File = event.target.files[0];
 	      if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
-	        this.helperService.showError('Only JPG/JPEG/PNG files allowed');
+	        this.helperService.showError('Only mp3 files allowed');
 	        return;
 	      }	   
 	      const reader = new FileReader();

@@ -22,7 +22,7 @@ const routes: Routes = [{
         path: 'add',
         component: AlbumAddComponent,
         data: {
-          title: 'Album Details'
+          title: 'Album Add'
         },
       },
       {

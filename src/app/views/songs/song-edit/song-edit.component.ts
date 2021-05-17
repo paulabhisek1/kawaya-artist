@@ -125,6 +125,7 @@ export class SongEditComponent implements OnInit {
 
             	this.songCoverImagePath = this.songDetails.cover_picture;
             	this.songFilePath 		= this.songDetails.file_name;
+            	this.songFileLength     = this.songDetails.length.toString();
 	          
 	        }
 	        else{
@@ -185,7 +186,7 @@ export class SongEditComponent implements OnInit {
 			this.songURL = "";
 			const mainFile: File = event.target.files[0];
 			if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
-				this.helperService.showError('Only MP3/MPEG files allowed');
+				this.helperService.showError('Only mp3 files allowed');
 				return;
 			}	   
 	      const reader = new FileReader();
@@ -207,8 +208,9 @@ export class SongEditComponent implements OnInit {
 	            } else if (event instanceof HttpResponse) {
 	              let result = event.body;
 	              if(result.status == 200) {
-	                this.songFilePath = result.data.filePath;
-	                this.songURL      = environment.songURL + result.data.filePath;
+	                this.songFilePath 	= result.data.filePath;
+	                this.songURL      	= environment.songURL + result.data.filePath;
+	                this.songFileLength = result.data.fileDuration.toString();
 	              }
 	              else{
 	                this.helperService.showError(result.msg);
@@ -277,7 +279,7 @@ export class SongEditComponent implements OnInit {
 		let postData = {
 			name : this.addForm.get('name').value,
 			cover_picture : this.songCoverImagePath,
-			length : '2.3',
+			length : this.songFileLength,
 			file_name : this.songFilePath,
 			details : this.addForm.get('details').value,
 			is_paid : this.addForm.get('is_paid').value,

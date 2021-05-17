@@ -41,7 +41,7 @@ export class AlbumAddComponent implements OnInit {
   	createAddForm() {
 	    this.addForm = this._formBuilder.group({
 	      name: ['', [Validators.required, noSpace]],
-	      file: ['']
+	      file: ['', [Validators.required, noSpace]]
 	    })
 	}
 

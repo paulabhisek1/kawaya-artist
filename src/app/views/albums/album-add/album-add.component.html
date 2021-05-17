@@ -35,6 +35,9 @@
                                             </div>
                                             
                                             <p class="file_upload_text">Upload Cover Image </p>
+                                            <mat-error *ngIf="formSubmitted && f.file.errors">
+                                            <div *ngIf="f.file.errors.required || f.file.errors.nospace">*Please upload cover image</div>
+                                        </mat-error>
                                         </div>
                                     </div>
                                     </div>

@@ -77,7 +77,7 @@ export class UploadDocumentsComponent implements OnInit {
     // Second Form Group
     this.secondFormGroup = this._formBuilder.group({
       account_holder_name: ['', [Validators.required, noSpace]],
-      account_number: ['', [Validators.required, noSpace]],
+      account_number: ['', [Validators.required]],
       routing_no: ['', [Validators.required, noSpace]],
       branch_address: ['', [Validators.required, noSpace]],
       branch_name: ['', [Validators.required, noSpace]],
@@ -158,6 +158,8 @@ export class UploadDocumentsComponent implements OnInit {
       currency: this.secondFormGroup.get('currency').value,
       swift_code: this.secondFormGroup.get('swift_code').value.toString(),
     }
+
+    console.log(requestConfig)
 
     this.isLoading = true;
     this.subscriptions.push(
@@ -246,7 +248,8 @@ export class UploadDocumentsComponent implements OnInit {
           this.f4.sample_song_file.reset();
           this.progress = 0;
           this.fetchArtistDetails();
-          this.router.navigate(['/dashboard']);
+          location.reload();
+          //this.router.navigate(['/dashboard']);
         }
         else{
           this.helperService.showError(result.msg);
@@ -284,7 +287,7 @@ export class UploadDocumentsComponent implements OnInit {
 
           if (result.data.artist_details.is_active=='2') {
             localStorage.setItem('text_status', "Admin declined your request.");
-            this.textStatus = "Admin declined your request.";
+            this.textStatus = "Admin declined your request. Please check your email for more information.";
           }
 
           if (result.data.artist_details.is_active=='1') {

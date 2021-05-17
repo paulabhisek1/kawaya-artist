@@ -159,6 +159,7 @@ export class LoginComponent {
       if(result.status == 200) {
         localStorage.setItem('artist-access-token',result.data.access_token);
         localStorage.setItem('artist-refresh-token',result.data.refresh_token);
+        localStorage.setItem('is_active',result.data.is_active);
         this.commonService.setUserStatus(result.data);
         this.helperService.showSuccess(result.msg);
         this.router.navigate(['/upload-document']);
