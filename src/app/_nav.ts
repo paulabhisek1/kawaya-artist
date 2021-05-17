@@ -6,7 +6,7 @@ export let navItems: INavData[] = [];
      {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'fa fa-file-text-o',
+      icon: 'fa fa-tachometer',
       attributes: { disabled: false }
     },
     {
@@ -17,13 +17,13 @@ export let navItems: INavData[] = [];
     {
       name: 'Albums',
       url: '/album',
-      icon: 'fa fa-file-text-o',
+      icon: 'fa fa-folder',
       attributes: { disabled: false },
     },
     {
       name: 'Songs',
       url: '/song',
-      icon: 'fa fa-file-text-o',
+      icon: 'fa fa-music',
       attributes: {  disabled: false },
     },
     {

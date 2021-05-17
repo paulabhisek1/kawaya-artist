@@ -33,7 +33,7 @@ export class AlbumEditComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private router: Router) 
 	{
-		// this.commonService.checkActiveUser();
+		this.commonService.checkActiveUser();
 
 		this.subscriptions.push(this.activatedRoute.params.subscribe(params => {
 	      this.albumID = atob(params['id']);
