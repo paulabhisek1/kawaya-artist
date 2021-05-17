@@ -1,128 +1,132 @@
-<div class="body_inner">
-<div class="animated fadeIn">
-    <div class="country_list_main_area">
-        <div class="row">
-            <div class="col-md-6">
-                <span><h3>Edit Podcast</h3></span>
-            </div>
-        </div>
-        <div class="row">
-             
-            <div class="col-md-10">
-                <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitUpdatePodcast()">
-                    <div class="row">
-
-                    <div class="col-12">
-                        <div class="form-group upload_document_form_area mt-0">
-                        <!--  -->
-                            <div class="file_upload1">
-                                <img [src]="podcastCoverImage" alt="" class="upload_img" *ngIf="imageStatus==0" />
-                                <img [src]="imgURL" alt="" class="upload_img" *ngIf="imageStatus==1"/>
-                                <div class="input--file">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="3.2"/>
-                                            <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                                            <path d="M0 0h24v24h-24z" fill="none"/>
-                                        </svg>
-                                    </span>
-                                    <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
-                                    <input class="form-control" name="Select File" id="coverImage" (change)="coverPodcastUpload($event)" type="file" formControlName="cover_picture"/>
-                                </div>                
-                            </div>
-                            
-                            <p class="file_upload_text">Upload Cover Image </p>
-                            <!-- <mat-error *ngIf="formSubmitted && f.cover_picture.errors">
-                                <div *ngIf="f.cover_picture.errors.required || f.cover_picture.errors.nospace">*Please upload cover image</div>
-                            </mat-error> -->
-                        </div>
-                    </div>
-
+<div class="row">
+    <div class="col-12">
+        <div class="body_inner">
+        <div class="animated fadeIn">
+            <div class="country_list_main_area">
+                <div class="row">
                     <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="podcastName">Podcast Name</label>
-                        <input type="text" class="form-control" id="podcastName" placeholder="Enter Podcast Name" formControlName="name" maxlength="100">
-                        <mat-error *ngIf="formSubmitted && f.name.errors">
-                            <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter podcast name</div>
-                        </mat-error>
-                        <p class="exclamation_style"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Maximum 100 character</p>
-                        
+                        <span><h3>Edit Podcast</h3></span>
                     </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="podcastPayment">Podcast Payment</label>
-                            <select class="form-control" name="podcastPayment" formControlName="is_paid">
-                                <option value="">Select Payment</option>
-                                <option value="0">Free</option>
-                                <option value="1">Paid</option>
-                            </select>
-    
-                            <mat-error *ngIf="formSubmitted && f.is_paid.errors">
-                                <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please select payment</div>
-                            </mat-error>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="podcastCategory">Podcast Category</label>
-                            <select class="form-control" name="podcastCategory" formControlName="category_id">
-                                <option value="">Select Podcast Category</option>
-                                <option *ngFor="let podcastCategory of podcastCategories" value="{{podcastCategory.id}}">
-                                    {{podcastCategory.name}}
-                                </option>
-                            </select>
-                            <mat-error *ngIf="formSubmitted && f.category_id.errors">
-                                <div *ngIf="f.category_id.errors.required || f.category_id.errors.nospace">*Please select podcast category</div>
-                            </mat-error>
-                        </div>
-                        </div>
-
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="file_name">Upload Podcast</label>
-                        <input name="Select podcast" class="form-control podcast_upload" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
-                        <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)" class="mat-progress-bar mat-progress-bar-buffer"></mat-progress-bar>
-                        <audio controls *ngIf="podcastURL!=''" style="width: 418px;padding: 5px 5px;">
-                            <source src="{{podcastURL}}" type="audio/mpeg" class="form-control">
-                        </audio>
-                       <!--  <mat-error *ngIf="formSubmitted && f.file_name.errors">
-                            <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload podcast song</div>
-                        </mat-error> -->
-                    </div>
-                    </div>
-
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="podcastDetails">Podcast Details</label>
-                        <textarea class="form-control" formControlName="details" cols="25" id="podcastDetails">
-                        	
-                        </textarea>
-                        <mat-error *ngIf="formSubmitted && f.details.errors">
-                            <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter podcast details</div>
-                        </mat-error>
-                    </div>
-                    </div>
-
-                    
-
-                    
-
-                    <div class="col-12">
-                    <button type="submit" class="btn btn btn-danger">Update</button>
-                    </div>
-
                 </div>
-                </form>
+                <div class="row">
+                    
+                    <div class="col-12">
+                        <form [formGroup]="addForm" autocomplete="off" (ngSubmit)="submitUpdatePodcast()">
+                            <div class="row">
+
+                            <div class="col-12">
+                                <div class="form-group upload_document_form_area mt-0">
+                                <!--  -->
+                                    <div class="file_upload1">
+                                        <img [src]="podcastCoverImage" alt="" class="upload_img" *ngIf="imageStatus==0" />
+                                        <img [src]="imgURL" alt="" class="upload_img" *ngIf="imageStatus==1"/>
+                                        <div class="input--file">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                    <circle cx="12" cy="12" r="3.2"/>
+                                                    <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                                    <path d="M0 0h24v24h-24z" fill="none"/>
+                                                </svg>
+                                            </span>
+                                            <!-- <input name="Select File" id="coverImage" (change)="coverAlbumUpload($event)" type="file" formControlName="file"/> -->
+                                            <input class="form-control" name="Select File" id="coverImage" (change)="coverPodcastUpload($event)" type="file" formControlName="cover_picture"/>
+                                        </div>                
+                                    </div>
+                                    
+                                    <p class="file_upload_text">Upload Cover Image </p>
+                                    <!-- <mat-error *ngIf="formSubmitted && f.cover_picture.errors">
+                                        <div *ngIf="f.cover_picture.errors.required || f.cover_picture.errors.nospace">*Please upload cover image</div>
+                                    </mat-error> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="podcastName">Podcast Name</label>
+                                <input type="text" class="form-control" id="podcastName" placeholder="Enter Podcast Name" formControlName="name" maxlength="100">
+                                <mat-error *ngIf="formSubmitted && f.name.errors">
+                                    <div *ngIf="f.name.errors.required || f.name.errors.nospace">*Please enter podcast name</div>
+                                </mat-error>
+                                <p class="exclamation_style"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Maximum 100 character</p>
+                                
+                            </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="podcastPayment">Podcast Payment</label>
+                                    <select class="form-control" name="podcastPayment" formControlName="is_paid">
+                                        <option value="">Select Payment</option>
+                                        <option value="0">Free</option>
+                                        <option value="1">Paid</option>
+                                    </select>
+            
+                                    <mat-error *ngIf="formSubmitted && f.is_paid.errors">
+                                        <div *ngIf="f.is_paid.errors.required || f.is_paid.errors.nospace">*Please select payment</div>
+                                    </mat-error>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="podcastCategory">Podcast Category</label>
+                                    <select class="form-control" name="podcastCategory" formControlName="category_id">
+                                        <option value="">Select Podcast Category</option>
+                                        <option *ngFor="let podcastCategory of podcastCategories" value="{{podcastCategory.id}}">
+                                            {{podcastCategory.name}}
+                                        </option>
+                                    </select>
+                                    <mat-error *ngIf="formSubmitted && f.category_id.errors">
+                                        <div *ngIf="f.category_id.errors.required || f.category_id.errors.nospace">*Please select podcast category</div>
+                                    </mat-error>
+                                </div>
+                                </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="file_name">Upload Podcast</label>
+                                <input name="Select podcast" class="form-control" formControlName="file_name" (change)="filePodcastUpload($event)" type="file" />
+                                <mat-progress-bar mode="determinate" [value]="progress" [color]="updateColor(progress)" class="mat-progress-bar mat-progress-bar-buffer"></mat-progress-bar>
+                                <audio controls *ngIf="podcastURL!=''" style="width: 418px;padding: 5px 5px;">
+                                    <source src="{{podcastURL}}" type="audio/mpeg" class="form-control">
+                                </audio>
+                            <!--  <mat-error *ngIf="formSubmitted && f.file_name.errors">
+                                    <div *ngIf="f.file_name.errors.required || f.file_name.errors.nospace">*Please upload podcast song</div>
+                                </mat-error> -->
+                            </div>
+                            </div>
+
+                            <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="podcastDetails">Podcast Details</label>
+                                <textarea class="form-control" formControlName="details" cols="25" id="podcastDetails">
+                                    
+                                </textarea>
+                                <mat-error *ngIf="formSubmitted && f.details.errors">
+                                    <div *ngIf="f.details.errors.required || f.details.errors.nospace">*Please enter podcast details</div>
+                                </mat-error>
+                            </div>
+                            </div>
+
+                            
+
+                            
+
+                            <div class="col-12">
+                            <button type="submit" class="btn btn btn-danger submit_but">Update</button>
+                            </div>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+            <!-- LOADER -->
+            <div *ngIf="isLoading" class="loder">
+                <img src="assets/images/loader.gif" alt="loader" />  
             </div>
+            
         </div>
-    </div>    
-    <!-- LOADER -->
-    <div *ngIf="isLoading" class="loder">
-        <img src="assets/images/loader.gif" alt="loader" />  
+        </div>
     </div>
-    
-</div>
 </div>

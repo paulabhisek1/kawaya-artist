@@ -1,0 +1,110 @@
+<div class="body_inner">
+<div class="animated fadeIn">
+    <div class="country_list_main_area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search by podcast name">
+                    <div class="input-group-append search_button">
+                        <button *ngIf="!searchText" class="btn btn-danger search_button_style" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button *ngIf="searchText && searchText.length > 0" (click)="clearSearch()" class="btn btn-danger search_button_style" type="button">
+                        <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div style="float: right;">
+                    <button class="btn btn-danger" routerLink="add"><i _ngcontent-jlk-c84="" class="fa fa-plus fa-md"></i> Add podcast</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4" 
+            infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()">
+            <div class="col-12">
+
+            <div class="podcast_table">
+            <table class="table table-striped podcast_table_inner" *ngIf="podcastList.length > 0">
+                <thead>
+                    <tr>
+                        <th width="5%">Sl No.</th>
+                        <th width="5%">Cover Image</th>
+                        <th width="10%">Name</th>
+                        <th width="15%">Podcast</th>
+                        <th width="20%">Details</th>
+                        <th width="20%">Podcast Category</th>
+                        <th width="10%">Payment</th>
+                        <th width="15%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let podcast of podcastList; let i=index">
+                        <tr class="row_shadow">
+                            <td valign="middle">{{ i+1 }}</td>
+                            <td valign="middle">
+                                <img class="customeImage" width="40px" height="40px" *ngIf="podcast.imgURL" [src]="podcast.imgURL" alt="">
+                                <span *ngIf="!podcast.imgURL">NA</span>
+                            </td>
+                            <td valign="middle">{{ podcast.name }}</td>
+                            <td valign="middle">
+                            	<audio controls>
+								  	<source src="{{podcast.podcastURL}}" type="audio/mpeg">
+								</audio>
+							</td>
+
+                            <td valign="middle"  *ngIf="podcast?.details!=''">{{ podcast?.details }}</td>
+                            
+
+                            <td valign="middle" *ngIf="podcast?.category_details!=''">{{ podcast?.category_details?.name }}</td>
+                            <td valign="middle" *ngIf="podcast?.category_details==''">--</td>
+                            <td valign="middle">
+                            	<span *ngIf="podcast.is_paid==0">Free</span>
+                            	<span *ngIf="podcast.is_paid==1">Paid</span>
+                            </td>
+
+                            <td valign="middle">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"  (click)="navigateToDetails(podcast.id)">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                    </a>
+                                </div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="navigateToEdit(podcast.id)">
+                                    <i class="fa fa-edit fa-lg"></i>
+                                    </a>
+                                </div>
+
+                                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                    <a class="btn btn-light btn-sm" title="Details"
+                                        (click)="openDeleteConfirmation(podcast.id)">
+                                    <i class="fa fa-trash fa-lg"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            </div>
+
+            <h3 style="text-align: center; width: 100%;" *ngIf="podcastList?.length === 0">
+                <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+            </h3>
+        </div>
+        </div>
+    </div>
+    <!-- LOADER -->
+    <div *ngIf="isLoading" class="loder">
+        <img src="assets/images/loader.gif" alt="loader" />  
+    </div>
+</div>
+</div>

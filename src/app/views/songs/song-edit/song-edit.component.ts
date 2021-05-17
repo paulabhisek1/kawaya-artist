@@ -53,6 +53,8 @@ export class SongEditComponent implements OnInit {
     	private helperService: HelperService,
     	private router: Router
 	) {
+		// this.commonService.checkActiveUser();
+
 		this.subscriptions.push(this.activatedRoute.params.subscribe(params => {
 	      this.songID = atob(params['id']);
 	    }));
@@ -184,7 +186,7 @@ export class SongEditComponent implements OnInit {
 			this.songURL = "";
 			const mainFile: File = event.target.files[0];
 			if (event.target.files[0].type.split('/')[1] != 'mp3' && event.target.files[0].type.split('/')[1] != 'mpeg') {
-				this.helperService.showError('Only MP3/MPEG files allowed');
+				this.helperService.showError('Only mp3 files allowed');
 				return;
 			}	   
 	      const reader = new FileReader();

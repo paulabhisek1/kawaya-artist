@@ -1,6 +1,8 @@
 <div class="upload_document_form_area">
   <div class="row">
     <div class="col-md-8 mx-auto">
+        <p *ngIf="textStatus" class="text_status">* {{ textStatus }}</p>
+
         <h2>Upload Document </h2>
         <div class="animated fadeIn upload_document form_shadow">
               <mat-vertical-stepper [linear]="isLinear" #stepper [selectedIndex]="selectedStep">

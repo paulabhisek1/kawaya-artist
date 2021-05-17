@@ -2,6 +2,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatHorizontalStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { CommonService } from '../../../core/services/Common/common.service';
@@ -48,6 +49,8 @@ export class UploadDocumentsComponent implements OnInit {
   progress: number = 0;
   activeStatus:boolean = false;
 
+  textStatus:any = localStorage.getItem('text_status');
+
   // isLoadingImgFront: boolean = true;
 
   @ViewChild('stepper', { static: false }) stepper: MatHorizontalStepper;
@@ -55,7 +58,8 @@ export class UploadDocumentsComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private commonService: CommonService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -244,6 +248,8 @@ export class UploadDocumentsComponent implements OnInit {
           this.f4.sample_song_file.reset();
           this.progress = 0;
           this.fetchArtistDetails();
+          location.reload();
+          //this.router.navigate(['/dashboard']);
         }
         else{
           this.helperService.showError(result.msg);
@@ -276,19 +282,18 @@ export class UploadDocumentsComponent implements OnInit {
           localStorage.setItem('active_status', result.data.artist_details.is_active);
           if (result.data.artist_details.is_active=='3') {
             localStorage.setItem('text_status', "Admin need to be approve your request.");
+            this.textStatus = "Admin need to be approve your request.";
           }
 
           if (result.data.artist_details.is_active=='2') {
             localStorage.setItem('text_status', "Admin declined your request.");
+            this.textStatus = "Admin declined your request. Please check your email for more information.";
           }
 
           if (result.data.artist_details.is_active=='1') {
             localStorage.setItem('text_status', "");
+            this.textStatus = "";
           }
-
-
-
-          console.log(this.activeStatus);
           
           this.profilePicture = this.imageURL + this.artistDetails.profile_image;
           this.profilePicturePath = this.artistDetails.profile_image;
