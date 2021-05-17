@@ -103,26 +103,26 @@ section {
 .login_container {
     max-width: 450px;
     width: 100%;
-    margin: 3em auto;
+    margin: 2em auto;
     position: relative;
     z-index: 2;
     text-align: center;
 }
 
 .login_container .logo {
-    width: 80px;
+    width: 60px;
 }
 
 .logo_text {
     font-family: 'Calibri';
-    font-size: 30px;
+    font-size: 20px;
     color: #fff;
     margin-top: 5px;
 }
 
 .logo_subtext {
     font-family: 'Calibri';
-    font-size: 22px;
+    font-size: 18px;
     color: #fff;
 }
 
@@ -160,6 +160,7 @@ section {
 .login-form .form-group {
     margin-bottom: 10px;
     position: relative;
+    text-align: left;
 }
 
 .login-form .form-control {
@@ -172,7 +173,7 @@ section {
     padding: 0 20px 0 45px !important;
     color: #fff;
     outline-style: none;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .login-form .form-control:focus {
@@ -308,7 +309,7 @@ section {
 }
 
 .social_area img {
-    width: 45px;
+    width: 34px;
     border-radius: 100%;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;

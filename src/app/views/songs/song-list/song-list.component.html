@@ -36,9 +36,9 @@
                         <div style="width: 15%;">Name</div>
                         <div style="width: 25%;">Song</div>
                         <div style="width: 15%;">Album</div>
-                        <div style="width: 10%;">Genre</div>
+                        <div style="width: 8%;">Genre</div>
                         <div style="width: 8%;">Payment</div>
-                        <div style="width: 12%;">Action</div>
+                        <div style="width: 14%;">Action</div>
                     </div>
     
                     <ng-container *ngFor="let song of songDataList; let i=index">
@@ -67,7 +67,7 @@
                             <span *ngIf="song?.album_details==''">--</span>
                         </div>
 
-                        <div style="width: 10%;"><div class="mobile_heading">Genre</div> 
+                        <div style="width: 8%;"><div class="mobile_heading">Genre</div> 
                             <span *ngIf="song?.genre_details!=''">{{ song?.genre_details?.name }}</span>
                             <span  *ngIf="song?.genre_details==''">--</span>
                         </div>
@@ -77,7 +77,7 @@
                             <span *ngIf="song.is_paid==1">Paid</span>
                         </div>
 
-                        <div style="width: 12%;"><div class="mobile_heading">Action</div> 
+                        <div style="width: 14%;"><div class="mobile_heading">Action</div> 
                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                             <a class="btn btn-light btn-sm" title="Details"  (click)="navigateToDetails(song.id)">
                             <i class="fa fa-eye fa-lg"></i>
