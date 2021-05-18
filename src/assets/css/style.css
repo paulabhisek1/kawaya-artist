@@ -907,6 +907,7 @@ audio:hover
     font-size: 16px;
     font-family: 'Calibri-Bold';
     margin-left: -4px;
+    padding: 0 5px;
     
 }
 .table_body
@@ -934,8 +935,10 @@ transition: 0.5s;
 {
     display: inline-block;
     vertical-align: middle;
-    font-size: 16px;
+    font-size: 14px;
     margin-left: -4px;
+    padding: 0 5px;
+    word-break: break-word;
 }
 .customeImage
 {
