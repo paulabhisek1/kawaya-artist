@@ -270,6 +270,7 @@ export class PodcastEditComponent implements OnInit {
 			category_id : this.addForm.get('category_id').value,
 		}
 
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.putAPICall({
 	        url: 'update-podcast/'+this.podcastId,

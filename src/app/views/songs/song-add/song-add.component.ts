@@ -223,6 +223,7 @@ export class SongAddComponent implements OnInit {
 			genre_id : this.addForm.get('genre_id').value
 		}
 
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.postAPICall({
 	        url: 'create-song',

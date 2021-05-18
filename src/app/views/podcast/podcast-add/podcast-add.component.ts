@@ -211,6 +211,7 @@ export class PodcastAddComponent implements OnInit {
 			category_id : this.addForm.get('category_id').value,
 		}
 
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.postAPICall({
 	        url: 'create-podcast',

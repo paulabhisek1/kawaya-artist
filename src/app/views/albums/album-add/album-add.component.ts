@@ -72,10 +72,12 @@ export class AlbumAddComponent implements OnInit {
   		
         this.formSubmitted = true;
 	    if(this.addForm.invalid) return;
-
+		
 	    let formData: FormData = new FormData();
         formData.append('file', this.albumImageObj, this.albumImageObj.name);
         formData.append('name', this.addForm.get('name').value);
+
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.postAPICall({
 	        url: 'create-album',

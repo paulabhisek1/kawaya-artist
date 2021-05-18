@@ -125,6 +125,7 @@ export class AlbumEditComponent implements OnInit {
         
         formData.append('name', this.editForm.get('name').value);
 
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.putAPICall({
 	        url: 'update-album/'+this.albumID,

@@ -287,6 +287,7 @@ export class SongEditComponent implements OnInit {
 			genre_id : this.addForm.get('genre_id').value
 		}
 
+		this.isLoading = true;
 	    this.subscriptions.push(
 	      this.commonService.putAPICall({
 	        url: 'update-song/'+this.songID,
