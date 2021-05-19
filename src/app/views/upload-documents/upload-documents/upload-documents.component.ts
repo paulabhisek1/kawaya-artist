@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { CommonService } from '../../../core/services/Common/common.service';
@@ -48,6 +49,7 @@ export class UploadDocumentsComponent implements OnInit {
   genreList: any = [];
   progress: number = 0;
   activeStatus:boolean = false;
+  mr: NgbModalRef;
 
   textStatus:any = localStorage.getItem('text_status');
 
@@ -59,8 +61,23 @@ export class UploadDocumentsComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private commonService: CommonService,
     private helperService: HelperService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
+
+  openDeclineModal(openDeclineModal) {
+    this.mr = this.modalService.open(openDeclineModal, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 
   ngOnInit() {
     this.fetchCountries(); // Fetch Countries
@@ -287,7 +304,7 @@ export class UploadDocumentsComponent implements OnInit {
 
           if (result.data.artist_details.is_active=='2') {
             localStorage.setItem('text_status', "Admin declined your request.");
-            this.textStatus = "Admin declined your request. Please check your email for more information.";
+            this.textStatus = "Admin declined your request.";
           }
 
           if (result.data.artist_details.is_active=='1') {

@@ -6,6 +6,7 @@ import { UploadDocumentsComponent } from './upload-documents/upload-documents.co
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumberDirective } from '../../shared/directives/numbers-only.directive';
+import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { NumberDirective } from '../../shared/directives/numbers-only.directive'
     FormsModule,
     ReactiveFormsModule,
     UploadDocumentsRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbCarouselModule,
+    NgbModule
   ]
 })
 export class UploadDocumentsModule { }

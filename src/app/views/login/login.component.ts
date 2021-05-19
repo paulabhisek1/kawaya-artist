@@ -51,6 +51,8 @@ export class LoginComponent {
     this.createForm();
     this.createRegForm();
     this.fetchCountries();
+
+    console.log("REG : ", this.regForm);
   }
 
   createForm() {
@@ -64,7 +66,7 @@ export class LoginComponent {
     this.regForm = this.fb.group({
       full_name: ['', [Validators.required, noSpace]],
       email: ['', [Validators.required,Validators.email, noSpace]],
-      mobile_no: ['', [Validators.required, Validators.minLength(10), noSpace]],
+      mobile_no: ['', [Validators.minLength(10), noSpace]],
       password: ['', [Validators.required, Validators.minLength(6), noSpace]],
       confirm_password: ['', [Validators.required, Validators.minLength(6)]],
       country_id: ['', [Validators.required]],
@@ -140,6 +142,7 @@ export class LoginComponent {
 
   submitRegForm() {
     this.regFormSubmitted = true;
+    console.log("INV : ", this.regForm);
     if(this.regForm.invalid) return;
 
     this.regRequestData.url = 'register';

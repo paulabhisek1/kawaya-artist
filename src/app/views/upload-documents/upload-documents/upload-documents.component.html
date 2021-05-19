@@ -1,7 +1,7 @@
 <div class="upload_document_form_area">
   <div class="row">
     <div class="col-md-8 mx-auto">
-        <p *ngIf="textStatus" class="text_status">* {{ textStatus }}</p>
+        <p *ngIf="textStatus" class="text_status">* {{ textStatus }} <ng-container *ngIf="artistDetails.is_active == 2"><a href="javascript:void(0)" (click)="openDeclineModal(declineModal)">Click Here For More Information</a> </ng-container></p>
 
         <h2>Upload Document </h2>
         <div class="animated fadeIn upload_document form_shadow">
@@ -328,4 +328,17 @@
       </div>  
   </div>    
 </div>
+
+
+<ng-template #declineModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Decline reason</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+      </button>
+  </div>
+    <div class="modal-body">
+      <p>{{ artistDetails?.declined_reason }}</p>
+    </div>
+</ng-template>
   
