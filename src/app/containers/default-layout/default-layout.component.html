@@ -22,6 +22,7 @@
                 <img src="assets/images/default_avatar.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
             </a>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+                <a class="dropdown-item" (click)="profile()" href="javascript:void(0)"><i class="fa fa-user"></i> Profile</a>
                 <a class="dropdown-item" (click)="logOut()" href="javascript:void(0)"><i class="fa fa-lock"></i> Logout</a>
             </div>
         </li>

@@ -72,6 +72,10 @@ export class DefaultLayoutComponent {
     )
   }
 
+  profile() {
+    this.router.navigate(['/profile']);
+  }
+
   toggleMinimize(e) {
     this.sidebarMinimized = e;
   }
