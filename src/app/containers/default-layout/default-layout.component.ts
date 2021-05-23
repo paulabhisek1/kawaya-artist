@@ -16,6 +16,8 @@ export class DefaultLayoutComponent {
   public navItems  = navItems;
   public is_active:any = localStorage.getItem('active_status');
   textStatus:any       = localStorage.getItem('text_status');
+  profileImage: string = '';
+  imageURL: string = environment.imageURL;
 
   constructor(
     private router: Router,
@@ -40,10 +42,18 @@ export class DefaultLayoutComponent {
         })
       })
     }
+
+    if(localStorage.getItem('artist-access-token')) {
+      this.subscriptions.push(
+        this.commonService.getUserProfileUpdate().subscribe((result)=>{
+          this.fetchArtistDetails();
+        })
+      )
+    }
   }
 
   ngOnInit(){
-    
+    this.fetchArtistDetails();
   }
 
   // Fetch Artist Details
@@ -54,6 +64,7 @@ export class DefaultLayoutComponent {
       }).subscribe((result)=>{
         if(result.status == 200) {
           localStorage.setItem('is_active', result.data.artist_details.is_active);
+          this.profileImage = this.imageURL + result.data.artist_details.profile_image;
           this.is_active = result.data.artist_details.is_active;
           this.navItems.forEach((item, index) => {
             if(this.is_active == 1) {

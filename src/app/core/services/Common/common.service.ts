@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CommonService {
   apiURL: string = environment.apiURL;
   userDetails = new Subject();
+  userProfileUpdate = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -167,6 +168,14 @@ export class CommonService {
         this.router.navigate(['/upload-document']);
         this.helperService.showError(err.error.msg)
       })
+  }
+
+  setUserProfileUpdate() {
+    this.userProfileUpdate.next();
+  }
+
+  getUserProfileUpdate() {
+    return this.userProfileUpdate.asObservable();
   }
 
   checkActiveUser() {

@@ -96,6 +96,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         if(result.status == 200) {
           this.fetchArtistDetails();
+          this.commonService.setUserProfileUpdate();
           this.helperService.showSuccess(result.msg);
         }
         else {

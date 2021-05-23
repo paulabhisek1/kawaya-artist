@@ -77,12 +77,14 @@
                                           </div>
 
                                         <div class="form-group">
-                                            <select class="form-control country_style" placeholder="Select Country" required="required" formControlName="country_id">
-                                              <option value="" selected hidden>Select Country</option>
-                                              <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
-                                            </select>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Country</mat-label>
+                                                <mat-select formControlName="country_id">
+                                                  <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
                                             <ng-container *ngIf="formSubmitted && f.country_id.errors">
-                                              <span *ngIf="f.country_id.errors.required" style="color: #ff301e;">*Please select a country</span>
+                                                <span *ngIf="f.country_id.errors.required" style="color: #ff301e;">*Please select a country</span>
                                             </ng-container>
                                         </div>
 
