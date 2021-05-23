@@ -77,6 +77,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateProfile() {
+    this.formSubmitted = true;
+    console.log(this.f);
     if(this.profileForm.invalid) return
 
     let requestConfig = {
