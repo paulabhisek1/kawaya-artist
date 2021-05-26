@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CommonService {
   apiURL: string = environment.apiURL;
   userDetails = new Subject();
+  userProfileUpdate = new Subject();
 
   constructor(
     private http: HttpClient,
@@ -105,6 +106,24 @@ export class CommonService {
     );
   }
 
+  // Put API Call
+  putAPICallUpdate(requestData: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (requestData.contentType) {
+      headers = headers.append('Accept', requestData.contentType);
+    } else {
+      headers = headers.append('Accept', 'application/json');
+    }
+    if(localStorage.getItem('artist-access-token')) {
+      headers = headers.append('Authorization', `Bearer ${localStorage.getItem('artist-access-token')}`)
+    }
+
+    return this.http.put<any>(this.apiURL + requestData.url, requestData.data, { headers })
+      .pipe(
+        catchError(this.helperService.handleError('error ', []))
+    );
+  }
+
   // Delete API Call
   deleteAPICall(requestData: any) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -149,6 +168,14 @@ export class CommonService {
         this.router.navigate(['/upload-document']);
         this.helperService.showError(err.error.msg)
       })
+  }
+
+  setUserProfileUpdate() {
+    this.userProfileUpdate.next();
+  }
+
+  getUserProfileUpdate() {
+    return this.userProfileUpdate.asObservable();
   }
 
   checkActiveUser() {
