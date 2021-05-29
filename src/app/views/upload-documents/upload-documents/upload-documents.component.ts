@@ -52,6 +52,8 @@ export class UploadDocumentsComponent implements OnInit {
   mr: NgbModalRef;
 
   textStatus:any = localStorage.getItem('text_status');
+  countryId:number = 231;
+  stripe_type:any = '';
 
   // isLoadingImgFront: boolean = true;
 
@@ -92,7 +94,7 @@ export class UploadDocumentsComponent implements OnInit {
     });
 
     // Second Form Group
-    this.secondFormGroup = this._formBuilder.group({
+    /*this.secondFormGroup = this._formBuilder.group({
       account_holder_name: ['', [Validators.required, noSpace]],
       account_number: ['', [Validators.required]],
       routing_no: ['', [Validators.required, noSpace]],
@@ -104,6 +106,27 @@ export class UploadDocumentsComponent implements OnInit {
       bank_zip: ['', [Validators.required, noSpace]],
       currency: ['', [Validators.required, noSpace]],
       swift_code: ['', [Validators.required, noSpace]],
+    });*/
+
+
+    this.secondFormGroup = this._formBuilder.group({
+      bank_country: ['', [Validators.required, noSpace]],
+      account_holder_name: ['', [Validators.required, noSpace]],
+      sort_code: [''],
+      ifsc_code: [''],
+      bsb_code: [''],
+      bank_code: [''],
+      branch_code: [''],
+      clearing_code: [''],
+      transit_number: [''],
+      institution_number: [''],
+      routing_no: [''],
+      account_number: [''],
+      clabe: [''],
+      iban: [''],
+      branch_name: [''],
+      bank_name: [''],
+      currency: [''],
     });
 
     // Third Form Group
@@ -160,9 +183,10 @@ export class UploadDocumentsComponent implements OnInit {
 
   // Submit Step Two Form
   submitFormSecondStep() {
+    //console.log(this.secondFormGroup)
     if(this.secondFormGroup.invalid) return;
 
-    let requestConfig = {
+    /*let requestConfig = {
       account_holder_name: this.secondFormGroup.get('account_holder_name').value,
       account_number: this.secondFormGroup.get('account_number').value.toString(),
       routing_no: this.secondFormGroup.get('routing_no').value.toString(),
@@ -174,11 +198,32 @@ export class UploadDocumentsComponent implements OnInit {
       bank_zip: this.secondFormGroup.get('bank_zip').value,
       currency: this.secondFormGroup.get('currency').value,
       swift_code: this.secondFormGroup.get('swift_code').value.toString(),
+    }*/
+
+
+    let requestConfig = {
+      bank_country: this.secondFormGroup.get('bank_country').value.toString(),
+      account_holder_name: this.secondFormGroup.get('account_holder_name').value.toString(),
+      sort_code: this.secondFormGroup.get('sort_code').value.toString(),
+      ifsc_code: this.secondFormGroup.get('ifsc_code').value.toString(),
+      bsb_code: this.secondFormGroup.get('bsb_code').value.toString(),
+      bank_code: this.secondFormGroup.get('bank_code').value.toString(),
+      branch_code: this.secondFormGroup.get('branch_code').value.toString(),
+      clearing_code: this.secondFormGroup.get('clearing_code').value.toString(),
+      transit_number: this.secondFormGroup.get('transit_number').value.toString(),
+      institution_number: this.secondFormGroup.get('institution_number').value.toString(),
+      routing_no: this.secondFormGroup.get('routing_no').value.toString(),
+      account_number: this.secondFormGroup.get('account_number').value.toString(),
+      clabe: this.secondFormGroup.get('clabe').value.toString(),
+      iban: this.secondFormGroup.get('iban').value.toString(),
+      branch_name: this.secondFormGroup.get('branch_name').value.toString(),
+      bank_name: this.secondFormGroup.get('bank_name').value.toString(),
+      currency: this.secondFormGroup.get('currency').value.toString(),
     }
 
     console.log(requestConfig)
 
-    this.isLoading = true;
+    /*this.isLoading = true;
     this.subscriptions.push(
       this.commonService.postAPICall({
         url: 'artist-details/step-two',
@@ -197,7 +242,7 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         this.helperService.showError(err.error.msg);
       })
-    )
+    )*/
   }
 
   // Submit Step Three Form
@@ -341,7 +386,7 @@ export class UploadDocumentsComponent implements OnInit {
             })
 
             // Second Step Patch Value
-            this.secondFormGroup.patchValue({
+            /*this.secondFormGroup.patchValue({
               account_holder_name: this.artistAccountDetails.account_holder_name ? this.artistAccountDetails.account_holder_name : '',
               account_number: this.artistAccountDetails.account_number ? this.artistAccountDetails.account_number : '',
               routing_no: this.artistAccountDetails.routing_no ? this.artistAccountDetails.routing_no : '',
@@ -353,9 +398,9 @@ export class UploadDocumentsComponent implements OnInit {
               bank_zip: this.artistAccountDetails.bank_zip ? this.artistAccountDetails.bank_zip : '',
               currency: this.artistAccountDetails.currency ? this.artistAccountDetails.currency : '',
               swift_code: this.artistAccountDetails.swift_code ? this.artistAccountDetails.swift_code : '',
-            })
+            })*/
 
-            this.f2.bank_country.disable();
+            //this.f2.bank_country.disable();
 
             // Fourth Step Patch Value
             this.fourthFormGroup.patchValue({
@@ -385,7 +430,7 @@ export class UploadDocumentsComponent implements OnInit {
 
     this.subscriptions.push(
       this.commonService.getAPICall({
-        url :'countries'
+        url :'active-countries'
       }).subscribe((result)=>{
         this.isLoading = false;
         if(result.status == 200) {
@@ -399,6 +444,19 @@ export class UploadDocumentsComponent implements OnInit {
         this.helperService.showError(err.error.msg);
       })
     )
+  }
+
+
+  slectCountry(event){
+
+    const result = this.countries.filter(country => country.id == event.value);
+
+    this.stripe_type = result[0].stripe_type;
+
+    this.secondFormGroup.patchValue({
+      currency: result[0].currency_code
+    })
+
   }
 
   // Upload Govt ID Front Page
