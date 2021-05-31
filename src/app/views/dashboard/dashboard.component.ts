@@ -2,394 +2,171 @@ import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { CommonService } from '../../core/services/Common/common.service';
+import { Subscription } from 'rxjs';
+import { HelperService } from '../../core/services/Helper/helper.service';
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  subscriptions: Subscription[] = [];
 
-  radioModel: string = 'Month';
+  graphSongFilter: number = 1;
+  graphPodcastFilter: number = 1;
+
+  graphSongLoading: boolean = false;
+  graphPodcastLoading: boolean = false;
+  kpiLoading: boolean = false;
+
+
+  songGraphData: any = [];
+  podcastGraphData: any = [];
+
+  private songChart: am4charts.XYChart;
+
+  songSeries: any = undefined;
+  podcastSeries: any = undefined;
 
   constructor(
-    private commonService: CommonService
+    private commonService: CommonService,
+    private helperService: HelperService
   ) {
     this.commonService.checkActiveUser();
   }
 
-  // lineChart1
-  public lineChart1Data: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart1Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 40 - 5,
-          max: 84 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart1Colours: Array<any> = [
-    {
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart1Legend = false;
-  public lineChart1Type = 'line';
-
-  // lineChart2
-  public lineChart2Data: Array<any> = [
-    {
-      data: [1, 18, 9, 17, 34, 22, 11],
-      label: 'Series A'
-    }
-  ];
-  public lineChart2Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart2Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 1 - 5,
-          max: 34 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        tension: 0.00001,
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart2Colours: Array<any> = [
-    { // grey
-      backgroundColor: getStyle('--info'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart2Legend = false;
-  public lineChart2Type = 'line';
-
-
-  // lineChart3
-  public lineChart3Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart3Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart3Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart3Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-    }
-  ];
-  public lineChart3Legend = false;
-  public lineChart3Type = 'line';
-
-
-  // barChart1
-  public barChart1Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
-      label: 'Series A',
-      barPercentage: 0.6,
-    }
-  ];
-  public barChart1Labels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
-  public barChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
-  public barChart1Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderWidth: 0
-    }
-  ];
-  public barChart1Legend = false;
-  public barChart1Type = 'bar';
-
-  // mainChart
-
-  public mainChartElements = 27;
-  public mainChartData1: Array<number> = [];
-  public mainChartData2: Array<number> = [];
-  public mainChartData3: Array<number> = [];
-
-  public mainChartData: Array<any> = [
-    {
-      data: this.mainChartData1,
-      label: 'Current'
-    },
-    {
-      data: this.mainChartData2,
-      label: 'Previous'
-    },
-    {
-      data: this.mainChartData3,
-      label: 'BEP'
-    }
-  ];
-  /* tslint:disable:max-line-length */
-  public mainChartLabels: Array<any> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  /* tslint:enable:max-line-length */
-  public mainChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips,
-      intersect: true,
-      mode: 'index',
-      position: 'nearest',
-      callbacks: {
-        labelColor: function(tooltipItem, chart) {
-          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
-        }
-      }
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          drawOnChartArea: false,
-        },
-        ticks: {
-          callback: function(value: any) {
-            return value.charAt(0);
-          }
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
-        }
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public mainChartColours: Array<any> = [
-    { // brandInfo
-      backgroundColor: hexToRgba(getStyle('--info'), 10),
-      borderColor: getStyle('--info'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandSuccess
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--success'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandDanger
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--danger'),
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5]
-    }
-  ];
-  public mainChartLegend = false;
-  public mainChartType = 'line';
-
-  // social box charts
-
-  public brandBoxChartData1: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Facebook'
-    }
-  ];
-  public brandBoxChartData2: Array<any> = [
-    {
-      data: [1, 13, 9, 17, 34, 41, 38],
-      label: 'Twitter'
-    }
-  ];
-  public brandBoxChartData3: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'LinkedIn'
-    }
-  ];
-  public brandBoxChartData4: Array<any> = [
-    {
-      data: [35, 23, 56, 22, 97, 23, 64],
-      label: 'Google+'
-    }
-  ];
-
-  public brandBoxChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public brandBoxChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false,
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public brandBoxChartColours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.1)',
-      borderColor: 'rgba(255,255,255,.55)',
-      pointHoverBackgroundColor: '#fff'
-    }
-  ];
-  public brandBoxChartLegend = false;
-  public brandBoxChartType = 'line';
-
-  public random(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  ngOnInit(): void {
+    this.fetchSongGraph();
+    this.fetchPodcastGraph();
+    this.fetchDashboardKPI();
   }
 
-  ngOnInit(): void {
-    // generate random values for mainChart
-    for (let i = 0; i <= this.mainChartElements; i++) {
-      this.mainChartData1.push(this.random(50, 200));
-      this.mainChartData2.push(this.random(80, 100));
-      this.mainChartData3.push(65);
+  fetchSongGraph() {
+    let requestConfig = {
+      filterType: this.graphSongFilter
     }
+
+    this.graphSongLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'song-graph-data',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.graphSongLoading = false;
+        if(result.status == 200) {
+          console.log("SONG GRAPH : ", result.data);
+          result.data.songsGraph.forEach((x, index) => {
+            x.date = new Date(x.date);
+          })
+
+          this.songGraphData = result.data.songsGraph;
+          this.createSongGraph();
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.graphSongLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  fetchPodcastGraph() {
+    let requestConfig = {
+      filterType: this.graphPodcastFilter
+    }
+
+    this.graphPodcastLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'podcast-graph-data',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.graphPodcastLoading = false;
+        if(result.status == 200) {
+          console.log("PODCAST GRAPH : ", result.data);
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.graphPodcastLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  fetchDashboardKPI() {
+    this.kpiLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'dashboard-data',
+      }).subscribe((result)=>{
+        this.kpiLoading = false;
+        if(result.status == 200) {
+          console.log("KPI DATA : ", result.data);
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.kpiLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  createSongGraph() {
+    let chart = am4core.create("chartdiv", am4charts.XYChart);
+    chart.data = [];
+
+    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.dateFormats.setKey("day", "MMM dd, yyyy");
+    dateAxis.renderer.grid.template.location = 0;
+
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.renderer.minWidth = 35;
+
+    this.songChart = chart;
+    this.updateSongChart();
+  }
+
+  updateSongChart() {
+    this.songGraphData.forEach((x, index)=>{
+      x.color = this.songChart.colors.getIndex(index);
+    })
+
+    this.songChart.data = this.songGraphData;
+    console.log("CHART : ", this.songChart.data);
+
+     // remove previous series
+     if (this.songSeries) {
+      this.songChart.series.removeIndex(
+        this.songChart.series.indexOf(this.songSeries)
+      ).dispose();
+    }
+
+    this.songSeries = undefined;
+
+    // Create series
+    this.songSeries = this.songChart.series.push(new am4charts.ColumnSeries());
+    this.songSeries.dataFields.valueY = "downloadCount";
+    this.songSeries.dataFields.dateX = "date";
+    this.songSeries.columns.template.stroke = am4core.color("#ff0000"); // Outline
+    this.songSeries.columns.template.fill = am4core.color("#f7dcdc"); // Fill
+    this.songSeries.propertyFields.stroke = "color";
+
+    var valueLabel = this.songSeries.bullets.push(new am4charts.LabelBullet());
+    valueLabel.label.text = "Total Downloads: {downloadCount}, Song Name: {download_song_details.name}";
+    valueLabel.label.fontWeight = "500";
+    valueLabel.label.fontSize = 20;
+    valueLabel.label.paddingTop = 30;
+
+    // Create scrollbars
+    this.songChart.scrollbarX = new am4core.Scrollbar();
+    this.songChart.scrollbarY = new am4core.Scrollbar();
   }
 }
