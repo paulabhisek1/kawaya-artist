@@ -111,7 +111,9 @@ export class UploadDocumentsComponent implements OnInit {
 
     this.secondFormGroup = this._formBuilder.group({
       bank_country: ['', [Validators.required, noSpace]],
-      account_holder_name: ['', [Validators.required, noSpace]],
+      country_code: [''],
+      account_holder_first_name: ['', [Validators.required, noSpace]],
+      account_holder_last_name: ['', [Validators.required, noSpace]],
       sort_code: [''],
       ifsc_code: [''],
       bsb_code: [''],
@@ -127,6 +129,7 @@ export class UploadDocumentsComponent implements OnInit {
       branch_name: [''],
       bank_name: [''],
       currency: [''],
+      id_number: ['', [Validators.required, noSpace]]
     });
 
     // Third Form Group
@@ -183,7 +186,7 @@ export class UploadDocumentsComponent implements OnInit {
 
   // Submit Step Two Form
   submitFormSecondStep() {
-    //console.log(this.secondFormGroup)
+    console.log(this.secondFormGroup)
     if(this.secondFormGroup.invalid) return;
 
     /*let requestConfig = {
@@ -202,8 +205,12 @@ export class UploadDocumentsComponent implements OnInit {
 
 
     let requestConfig = {
+      stripe_type: this.stripe_type,
       bank_country: this.secondFormGroup.get('bank_country').value.toString(),
-      account_holder_name: this.secondFormGroup.get('account_holder_name').value.toString(),
+      country_code: this.secondFormGroup.get('country_code').value.toString(),
+      account_holder_first_name: this.secondFormGroup.get('account_holder_first_name').value.toString(),
+      account_holder_last_name: this.secondFormGroup.get('account_holder_last_name').value.toString(),
+      id_number: this.secondFormGroup.get('id_number').value.toString(),
       sort_code: this.secondFormGroup.get('sort_code').value.toString(),
       ifsc_code: this.secondFormGroup.get('ifsc_code').value.toString(),
       bsb_code: this.secondFormGroup.get('bsb_code').value.toString(),
@@ -221,9 +228,9 @@ export class UploadDocumentsComponent implements OnInit {
       currency: this.secondFormGroup.get('currency').value.toString(),
     }
 
-    console.log(requestConfig)
+    //console.log(requestConfig)
 
-    /*this.isLoading = true;
+    this.isLoading = true;
     this.subscriptions.push(
       this.commonService.postAPICall({
         url: 'artist-details/step-two',
@@ -242,7 +249,7 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         this.helperService.showError(err.error.msg);
       })
-    )*/
+    )
   }
 
   // Submit Step Three Form
@@ -385,20 +392,42 @@ export class UploadDocumentsComponent implements OnInit {
               zip: this.artistAccountDetails.zip ? this.artistAccountDetails.zip : '',
             })
 
+
+
+            this.stripe_type = this.artistAccountDetails.stripe_type;
+
+
+            console.log(this.stripe_type)
+
+            let account_holder_name = this.artistAccountDetails.account_holder_name.split(" ");
+
             // Second Step Patch Value
-            /*this.secondFormGroup.patchValue({
-              account_holder_name: this.artistAccountDetails.account_holder_name ? this.artistAccountDetails.account_holder_name : '',
-              account_number: this.artistAccountDetails.account_number ? this.artistAccountDetails.account_number : '',
+            this.secondFormGroup.patchValue({
+
+              bank_country: this.artistAccountDetails.bank_country ? this.artistAccountDetails.bank_country : '',
+              country_code: this.artistAccountDetails.country_code ? this.artistAccountDetails.country_code : '',
+              account_holder_first_name: account_holder_name[0] ? account_holder_name[0] : '',
+              account_holder_last_name: account_holder_name[1] ? account_holder_name[1] : '',
+              id_number: this.artistAccountDetails.id_number ? this.artistAccountDetails.id_number : '',
+              sort_code: this.artistAccountDetails.sort_code ? this.artistAccountDetails.sort_code : '',
+              ifsc_code: this.artistAccountDetails.ifsc_code ? this.artistAccountDetails.ifsc_code : '',
+              bsb_code: this.artistAccountDetails.bsb_code ? this.artistAccountDetails.bsb_code : '',
+              bank_code: this.artistAccountDetails.bank_code ? this.artistAccountDetails.bank_code : '',
+              branch_code: this.artistAccountDetails.branch_code ? this.artistAccountDetails.branch_code : '',
+              clearing_code: this.artistAccountDetails.clearing_code ? this.artistAccountDetails.clearing_code : '',
+              transit_number: this.artistAccountDetails.transit_number ? this.artistAccountDetails.transit_number : '',
+              institution_number: this.artistAccountDetails.institution_number ? this.artistAccountDetails.institution_number : '',
               routing_no: this.artistAccountDetails.routing_no ? this.artistAccountDetails.routing_no : '',
-              branch_address: this.artistAccountDetails.branch_address ? this.artistAccountDetails.branch_address : '',
+              account_number: this.artistAccountDetails.account_number ? this.artistAccountDetails.account_number : '',
+              clabe: this.artistAccountDetails.clabe ? this.artistAccountDetails.clabe : '',
+              iban: this.artistAccountDetails.iban ? this.artistAccountDetails.iban : '',
               branch_name: this.artistAccountDetails.branch_name ? this.artistAccountDetails.branch_name : '',
-              bank_country: result.data.artist_details.country_id ? result.data.artist_details.country_id : '',
-              bank_state: this.artistAccountDetails.zip ? this.artistAccountDetails.bank_state : '',
-              bank_city: this.artistAccountDetails.bank_city ? this.artistAccountDetails.bank_city : '',
-              bank_zip: this.artistAccountDetails.bank_zip ? this.artistAccountDetails.bank_zip : '',
+              bank_name: this.artistAccountDetails.bank_name ? this.artistAccountDetails.bank_name : '',
               currency: this.artistAccountDetails.currency ? this.artistAccountDetails.currency : '',
-              swift_code: this.artistAccountDetails.swift_code ? this.artistAccountDetails.swift_code : '',
-            })*/
+            })
+
+
+            console.log(this.secondFormGroup)
 
             //this.f2.bank_country.disable();
 
@@ -453,8 +482,22 @@ export class UploadDocumentsComponent implements OnInit {
 
     this.stripe_type = result[0].stripe_type;
 
+
+    this.helperService.showError('Your previous account will be deleted!');
+
+
+    if (this.stripe_type!=11) {
+      this.secondFormGroup.get('iban').clearValidators();
+      this.secondFormGroup.get('iban').updateValueAndValidity();
+    }else{
+      this.secondFormGroup.get('iban').setValidators(Validators.required);
+      this.secondFormGroup.get('iban').updateValueAndValidity();
+    }
+
     this.secondFormGroup.patchValue({
-      currency: result[0].currency_code
+      currency: result[0].currency_code,
+      country_code: result[0].country_code,
+      iban:''
     })
 
   }

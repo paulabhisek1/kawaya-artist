@@ -74,24 +74,35 @@
                   <form [formGroup]="secondFormGroup" (ngSubmit)="submitFormSecondStep()">
                       <div class="row">
                         <div class="col-md-6">  
+                          <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select placeholder="Branch Country" formControlName="bank_country" required (selectionChange)="slectCountry($event)">
+                              <mat-option *ngFor="let country of countries" [value]="country.id">
+                                {{country.name}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f2.bank_country.errors">
+                              <span *ngIf="f2.bank_country.errors.required || f2.bank_country.errors.nospace">*Please select the bank country</span>
+                            </mat-error>
+                          </mat-form-field>
+                          <span *ngIf="artistAccountDetails.stripe_disabled_reason" style="color: red">Stripe rejected reason: {{artistAccountDetails.stripe_disabled_reason}}</span>
+                        </div>
+                      <div class="col-md-6">  
                         <mat-form-field appearance="outline">
-                          <mat-label>Country</mat-label>
-                          <mat-select placeholder="Branch Country" formControlName="bank_country" required (selectionChange)="slectCountry($event)">
-                            <mat-option *ngFor="let country of countries" [value]="country.id">
-                              {{country.name}}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="f2.bank_country.errors">
-                            <span *ngIf="f2.bank_country.errors.required || f2.bank_country.errors.nospace">*Please select the bank country</span>
+                          <mat-label>Account Holder First Name</mat-label>
+                          <input matInput placeholder="Account Holder First Name" formControlName="account_holder_first_name" required [attr.disabled]="activeStatus? true : null">
+                          <mat-error *ngIf="f2.account_holder_first_name.errors">
+                            <span *ngIf="f2.account_holder_first_name.errors.required || f2.account_holder_first_name.errors.nospace">*Please enter the account holder first name</span>
                           </mat-error>
                         </mat-form-field>
                       </div>
+
                       <div class="col-md-6">  
                         <mat-form-field appearance="outline">
-                          <mat-label>Account Holder Name</mat-label>
-                          <input matInput placeholder="Account Holder Name" formControlName="account_holder_name" required [attr.disabled]="activeStatus? true : null">
-                          <mat-error *ngIf="f2.account_holder_name.errors">
-                            <span *ngIf="f2.account_holder_name.errors.required || f2.account_holder_name.errors.nospace">*Please enter the account holder name</span>
+                          <mat-label>Account Holder Last Name</mat-label>
+                          <input matInput placeholder="Account Holder Last Name" formControlName="account_holder_last_name" required [attr.disabled]="activeStatus? true : null">
+                          <mat-error *ngIf="f2.account_holder_last_name.errors">
+                            <span *ngIf="f2.account_holder_last_name.errors.required || f2.account_holder_last_name.errors.nospace">*Please enter the account holder last name</span>
                           </mat-error>
                         </mat-form-field>
                       </div>
@@ -100,7 +111,7 @@
                       <div class="col-md-6" *ngIf="stripe_type==1">  
                         <mat-form-field appearance="outline">
                           <mat-label>Routing Number</mat-label>
-                          <input matInput placeholder="Routing Number" numbersOnly formControlName="routing_no" maxlength="13" required [attr.disabled]="activeStatus? true : null">
+                          <input matInput placeholder="Routing Number" formControlName="routing_no" maxlength="13" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.routing_no.errors">
                             <span *ngIf="f2.routing_no.errors.required || f2.routing_no.errors.nospace">*Please enter the routing number</span>
                           </mat-error>
@@ -241,7 +252,7 @@
                       <div class="col-md-6" *ngIf="stripe_type==11">  
                         <mat-form-field appearance="outline">
                           <mat-label>IBAN</mat-label>
-                          <input matInput placeholder="IBAN" formControlName="iban" maxlength="16" required [attr.disabled]="activeStatus? true : null">
+                          <input matInput placeholder="IBAN" formControlName="iban" maxlength="30" required [attr.disabled]="activeStatus? true : null">
                           <mat-error *ngIf="f2.iban.errors">
                             <span *ngIf="f2.iban.errors.required || f2.iban.errors.nospace">*Please enter the iban number</span>
                           </mat-error>
@@ -255,6 +266,16 @@
                           <input matInput placeholder="currency code" formControlName="currency" required disabled="true">
                           <mat-error *ngIf="f2.currency.errors">
                             <span *ngIf="f2.currency.errors.required || f2.currency.errors.nospace">*Please enter the currency code</span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6">  
+                        <mat-form-field appearance="outline">
+                          <mat-label>ID Proof Number</mat-label>
+                          <input matInput placeholder="ID Proof Number" formControlName="id_number" required disabled="true">
+                          <mat-error *ngIf="f2.id_number.errors">
+                            <span *ngIf="f2.id_number.errors.required || f2.id_number.errors.nospace">*Please enter the id proof number</span>
                           </mat-error>
                         </mat-form-field>
                       </div>
