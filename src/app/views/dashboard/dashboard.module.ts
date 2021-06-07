@@ -6,6 +6,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SharedModule } from '../../shared/shared.module';
+
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   imports: [
@@ -13,7 +16,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     DashboardRoutingModule,
     ChartsModule,
     BsDropdownModule,
-    ButtonsModule.forRoot()
+    SharedModule,
+    ButtonsModule.forRoot(),
+    NgApexchartsModule
   ],
   declarations: [ DashboardComponent ]
 })

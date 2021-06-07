@@ -1,395 +1,522 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { CommonService } from '../../core/services/Common/common.service';
+import { Subscription } from 'rxjs';
+import { HelperService } from '../../core/services/Helper/helper.service';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexTitleSubtitle,
+  ApexXAxis,
+  ApexFill,
+  ApexGrid,
+  ApexStroke
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  title: ApexTitleSubtitle;
+};
+
+export type ChartOptionsPodcast = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  title: ApexTitleSubtitle;
+  colors: string[];
+};
+
+import * as moment from 'moment';
 
 @Component({
-  templateUrl: 'dashboard.component.html'
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptionsSongDownload: Partial<ChartOptions>;
+  public chartOptionsSongPlayed: Partial<ChartOptions>;
+  public chartOptionsPodcastDownload: Partial<ChartOptionsPodcast>;
+  public chartOptionsPodcastPlayed: Partial<ChartOptionsPodcast>;
 
-  radioModel: string = 'Month';
+  subscriptions: Subscription[] = [];
+
+  graphSongFilter: string = '1';
+  graphPodcastFilter: string = '1';
+
+  graphSongLoading: boolean = false;
+  graphPodcastLoading: boolean = false;
+  kpiLoading: boolean = false;
+
+  shwGraph: boolean = false
+
+  songGraphDataArray: any = [];
+  songGraphCatArray: any = [];
+  songGraphDataArrayPlayed: any = [];
+
+  songDownloadCountSeries: any = undefined;
+  songPlayedCountSeries: any = undefined;
+
+  validSongGraph: boolean = false;
+
+  shwGraphPodcasr: boolean = false
+
+  podcastGraphDataArray: any = [];
+  podcastGraphCatArray: any = [];
+  podcastGraphDataArrayPlayed: any = [];
+
+  podcastDownloadCountSeries: any = undefined;
+  podcastPlayedCountSeries: any = undefined;
+  podcastSeries: any = undefined;
+
+  podcastChartFilter = '1';
+
+  validPodcastGraph: boolean = false;
 
   constructor(
-    private commonService: CommonService
+    private commonService: CommonService,
+    private helperService: HelperService
   ) {
     this.commonService.checkActiveUser();
   }
 
-  // lineChart1
-  public lineChart1Data: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart1Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 40 - 5,
-          max: 84 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart1Colours: Array<any> = [
-    {
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart1Legend = false;
-  public lineChart1Type = 'line';
-
-  // lineChart2
-  public lineChart2Data: Array<any> = [
-    {
-      data: [1, 18, 9, 17, 34, 22, 11],
-      label: 'Series A'
-    }
-  ];
-  public lineChart2Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart2Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 1 - 5,
-          max: 34 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        tension: 0.00001,
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart2Colours: Array<any> = [
-    { // grey
-      backgroundColor: getStyle('--info'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart2Legend = false;
-  public lineChart2Type = 'line';
-
-
-  // lineChart3
-  public lineChart3Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart3Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart3Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart3Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-    }
-  ];
-  public lineChart3Legend = false;
-  public lineChart3Type = 'line';
-
-
-  // barChart1
-  public barChart1Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
-      label: 'Series A',
-      barPercentage: 0.6,
-    }
-  ];
-  public barChart1Labels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
-  public barChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
-  public barChart1Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderWidth: 0
-    }
-  ];
-  public barChart1Legend = false;
-  public barChart1Type = 'bar';
-
-  // mainChart
-
-  public mainChartElements = 27;
-  public mainChartData1: Array<number> = [];
-  public mainChartData2: Array<number> = [];
-  public mainChartData3: Array<number> = [];
-
-  public mainChartData: Array<any> = [
-    {
-      data: this.mainChartData1,
-      label: 'Current'
-    },
-    {
-      data: this.mainChartData2,
-      label: 'Previous'
-    },
-    {
-      data: this.mainChartData3,
-      label: 'BEP'
-    }
-  ];
-  /* tslint:disable:max-line-length */
-  public mainChartLabels: Array<any> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  /* tslint:enable:max-line-length */
-  public mainChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips,
-      intersect: true,
-      mode: 'index',
-      position: 'nearest',
-      callbacks: {
-        labelColor: function(tooltipItem, chart) {
-          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
-        }
-      }
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          drawOnChartArea: false,
-        },
-        ticks: {
-          callback: function(value: any) {
-            return value.charAt(0);
-          }
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
-        }
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public mainChartColours: Array<any> = [
-    { // brandInfo
-      backgroundColor: hexToRgba(getStyle('--info'), 10),
-      borderColor: getStyle('--info'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandSuccess
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--success'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandDanger
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--danger'),
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5]
-    }
-  ];
-  public mainChartLegend = false;
-  public mainChartType = 'line';
-
-  // social box charts
-
-  public brandBoxChartData1: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Facebook'
-    }
-  ];
-  public brandBoxChartData2: Array<any> = [
-    {
-      data: [1, 13, 9, 17, 34, 41, 38],
-      label: 'Twitter'
-    }
-  ];
-  public brandBoxChartData3: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'LinkedIn'
-    }
-  ];
-  public brandBoxChartData4: Array<any> = [
-    {
-      data: [35, 23, 56, 22, 97, 23, 64],
-      label: 'Google+'
-    }
-  ];
-
-  public brandBoxChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public brandBoxChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false,
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public brandBoxChartColours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.1)',
-      borderColor: 'rgba(255,255,255,.55)',
-      pointHoverBackgroundColor: '#fff'
-    }
-  ];
-  public brandBoxChartLegend = false;
-  public brandBoxChartType = 'line';
-
-  public random(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+  ngOnInit(): void {
+    this.fetchSongGraph();
+    this.fetchPodcastGraph();
+    this.fetchDashboardKPI();
   }
 
-  ngOnInit(): void {
-    // generate random values for mainChart
-    for (let i = 0; i <= this.mainChartElements; i++) {
-      this.mainChartData1.push(this.random(50, 200));
-      this.mainChartData2.push(this.random(80, 100));
-      this.mainChartData3.push(65);
+  changeSongGraphFilter(filterVal) {
+    this.shwGraph = false;
+    this.graphSongFilter = filterVal;
+    this.fetchSongGraph();
+  }
+
+  changePodcastGraphFilter(filterVal) {
+    this.shwGraphPodcasr = false;
+    this.graphPodcastFilter = filterVal;
+    this.fetchPodcastGraph();
+  }
+
+  fetchSongGraph() {
+    let requestConfig = {
+      filterType: this.graphSongFilter
     }
+
+    this.graphSongLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'song-graph-data',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.graphSongLoading = false;
+        if(result.status == 200) {
+          this.validSongGraph = true
+          let downloadArray = [];
+          let playedArray = [];
+          this.songGraphCatArray = [];
+          result.data.songsGraph.forEach((x, index) => {
+            downloadArray.push(x.downloadCount);
+            playedArray.push(x.playedCount);
+            this.songGraphCatArray.push(moment(x.date).format('MMM DD'));
+          });
+
+          this.songGraphDataArray = [
+            {
+              name: "Total Downloads",
+              data: downloadArray
+            }
+          ]
+
+          this.songGraphDataArrayPlayed = [
+            {
+              name: "Total Played",
+              data: playedArray
+            }
+          ]
+
+          this.createSongGraphDownload();
+          this.createSongGraphPlayed();
+
+          setTimeout(()=>{
+            this.shwGraph = true;
+          }, 500);
+        }
+        else {
+          this.validSongGraph = false;
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.validSongGraph = false;
+        this.graphSongLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  fetchPodcastGraph() {
+    let requestConfig = {
+      filterType: this.graphPodcastFilter
+    }
+
+    this.graphPodcastLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'podcast-graph-data',
+        data: requestConfig
+      }).subscribe((result)=>{
+        this.graphPodcastLoading = false;
+        if(result.status == 200) {
+          if(result.status == 200) {
+            this.validPodcastGraph = true
+            let downloadArray = [];
+            let playedArray = [];
+            this.podcastGraphCatArray = [];
+            result.data.podcastGraph.forEach((x, index) => {
+              downloadArray.push(parseInt(x.downloadCount));
+              playedArray.push(parseInt(x.playedCount));
+              this.podcastGraphCatArray.push(moment(x.date).format('MMM DD'));
+            });
+  
+            this.podcastGraphDataArray = [
+              {
+                name: "Total Downloads",
+                data: downloadArray
+              }
+            ]
+  
+            this.podcastGraphDataArrayPlayed = [
+              {
+                name: "Total Played",
+                data: playedArray
+              }
+            ]
+
+            this.createPodcastGraphDownload();
+            this.createPodcastGraphPlayed();
+  
+            setTimeout(()=>{
+              this.shwGraphPodcasr = true;
+            }, 500);
+          }
+          else {
+            this.validPodcastGraph = false;
+            this.helperService.showError(result.message);
+          }
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.validPodcastGraph = false;
+        this.graphPodcastLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  fetchDashboardKPI() {
+    this.kpiLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'dashboard-data',
+      }).subscribe((result)=>{
+        this.kpiLoading = false;
+        if(result.status == 200) {
+          console.log("KPI DATA : ", result.data);
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.kpiLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
+  createSongGraphDownload() {
+    this.shwGraph = true;
+    this.chartOptionsSongDownload = {
+      series: this.songGraphDataArray,
+      chart: {
+        height: 350,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 10,
+          colors: {
+            ranges: [{
+                from: 0,
+                to: 100,
+                color: '#6b3f57'
+            }],
+            backgroundBarColors: [],
+            backgroundBarOpacity: 1,
+            backgroundBarRadius: 0,
+        },
+          columnWidth: '50%',
+          dataLabels: {
+            position: "top", // top, center, bottom
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function(val) {
+          return val + "";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      },
+
+      xaxis: {
+        categories: this.songGraphCatArray,
+        position: "top",
+        labels: {
+          offsetY: -18
+        },
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: "solid",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35
+        }
+      },
+      fill: {
+        type: "solid",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        labels: {
+          show: false,
+          formatter: function(val) {
+            return val + "";
+          }
+        }
+      },
+      title: {
+        text: `Total downloads in last ${(this.graphSongFilter == '1') ? '7 days' : '30 days'}`,
+        floating: false,
+        offsetY: 330,
+        align: "center",
+        style: {
+          color: "#444",
+        }
+      }
+    };
+  }
+
+  createSongGraphPlayed() {
+    this.shwGraph = true;
+    this.chartOptionsSongPlayed = {
+      series: this.songGraphDataArrayPlayed,
+      chart: {
+        height: 350,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 10,
+          columnWidth: '50%',
+          dataLabels: {
+            position: "top" // top, center, bottom
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function(val) {
+          return val + "";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      },
+
+      xaxis: {
+        categories: this.songGraphCatArray,
+        position: "top",
+        labels: {
+          offsetY: -18
+        },
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: "solid",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35
+        }
+      },
+      fill: {
+        type: "solid",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        labels: {
+          show: false,
+          formatter: function(val) {
+            return val + "";
+          }
+        }
+      },
+      title: {
+        text: `Total played in last ${(this.graphSongFilter == '1') ? '7 days' : '30 days'}`,
+        floating: false,
+        offsetY: 330,
+        align: "center",
+        style: {
+          color: "#444",
+        }
+      }
+    };
+  }
+
+  createPodcastGraphDownload() {
+    this.chartOptionsPodcastDownload = {
+      series: this.podcastGraphDataArray,
+      chart: {
+        height: 350,
+        type: "line",
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: true
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      colors: ["#6b3f57"],
+      title: {
+        text: `Total downloads in last ${(this.graphPodcastFilter == '1') ? '7 days' : '30 days'}`,
+        align: "left"
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5
+        }
+      },
+      xaxis: {
+        categories: this.podcastGraphCatArray
+      }
+    };
+  }
+
+  createPodcastGraphPlayed() {
+    this.chartOptionsPodcastPlayed = {
+      series: this.podcastGraphDataArrayPlayed,
+      chart: {
+        height: 350,
+        type: "line",
+        zoom: {
+          enabled: false
+        },
+      },
+      dataLabels: {
+        enabled: true,
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      title: {
+        text: `Total played in last ${(this.graphPodcastFilter == '1') ? '7 days' : '30 days'}`,
+        align: "left"
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5
+        }
+      },
+      xaxis: {
+        categories: this.podcastGraphCatArray
+      }
+    };
   }
 }
