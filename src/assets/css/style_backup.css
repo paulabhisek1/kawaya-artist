@@ -7,7 +7,9 @@ body {
     color: #000;
     font-family: 'Calibri';
     overflow-x: hidden;
-    background: #e4e5e6;
+    background: #e4e5e6 url(../images/bg2.jpg) center center no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 @font-face {
@@ -124,8 +126,17 @@ section {
     color: #fff;
 }
 
+.form-control {
+    box-shadow: none;
+    border-color: #ddd;
+    background: rgb(240, 240, 240) !important;
+    height: 50px !important;
+}
 
-
+.form-control:focus {
+    border-color: #fda39b !important;
+    box-shadow: 0px 0px 5px 0px rgba(255,48,30,1) !important;s
+}
 
 
 .login_form_style {
@@ -460,7 +471,16 @@ section {
     border-color: #fff;
 }
 
-
+.header-fixed .app-header {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
 
 .navbar-nav .nav-link {
     color: #fff !important;
@@ -468,12 +488,27 @@ section {
 
 .app-header .navbar-toggler-icon {
     height: 23px;
+    background: url(../images/menu.svg) no-repeat !important;
 }
 
 button:focus {
     outline: none !important;
 }
 
+.sidebar .nav-link.active .nav-icon {
+    color: #fff !important;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
 
 
 .mat-focus-indicator {
@@ -584,7 +619,22 @@ button:focus {
 }
 
 
-
+.upload_document .mat-button
+{
+    background: #2f353a !important;
+    color: #fff !important;
+}
+.upload_document .mat-button:hover
+{
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;   
+}
 .upload_document  input:-internal-autofill-selected {
     appearance: menulist-button;
     background-color: transparent !important;
@@ -598,8 +648,23 @@ button:focus {
     width: 100%;
     margin:25px 0;
 }
+.form_shadow {
+    -webkit-box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
 
 
+}
 .file_upload_text
 {
     font-size: 16px;
@@ -788,6 +853,17 @@ audio:hover
     width: 100%;
     min-width: 800px;
 }
+.sidebar .nav-link.active 
+{
+    background: rgba(51, 31, 33, 1) !important;
+    background: -moz-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(51, 31, 33, 1)), color-stop(100%, rgba(209, 5, 36, 1))) !important;
+    background: -webkit-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -o-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: -ms-linear-gradient(left, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    background: linear-gradient(to right, rgba(51, 31, 33, 1) 0%, rgba(209, 5, 36, 1) 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#331f21', endColorstr='#d10524', GradientType=1) !important;
+}
 
 .body_inner {
     display: block;
@@ -843,16 +919,16 @@ audio:hover
     border-radius: 10px;
     background: #fff;
     margin-top: 15px;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.14);
--moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.14);
-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.14);
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.23);
+-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.23);
+box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.23);
 transition: 0.5s;
 }
 .table_body:hover
 {
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
--moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(248,108,107,1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(248,108,107,1);
+    box-shadow: 2px 2px 5px 0px rgba(248,108,107,1);  
 }
 
 .table_body > div
@@ -945,6 +1021,11 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
     padding: 12px 30px !important;
 }
 
+.sidebar
+{
+    background: #fff !important;
+}
+
 
 @media screen and (max-width:850px)
 
@@ -987,172 +1068,3 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
     text-align: left;
 }
 }
-
-
-/*************new***************/
-
-.sidebar
-{
-    background: #fff !important;
-}
-.sidebar .nav-link .nav-icon
-{
-    color: #4b4f54 !important;
-}
-.sidebar .nav-link
-{
-    color: #4b4f54 !important;
-}
-.sidebar .nav-link.active 
-{
-    color: #ff301e !important;
-    background: transparent !important;
-}
-.sidebar .nav-link.active .nav-icon {
-    color: #ff301e !important;
-}
-
-.sidebar .nav-link:hover {
-    color: #ff301e !important;
-    background: transparent !important;
-}
-.sidebar .nav-link:hover .nav-icon {
-    color: #ff301e !important;
-}
-a 
-{
-    color: #ff301e !important;
-}
-.header-fixed .app-header {
-    background-color: #fff !important;
-    box-shadow: 0px 1px 11px 0px rgba(0,0,0,0.10) !important;
-}
-.breadcrumb {
-    list-style: none;
-    background-color: #fff !important;
-}
-.dropdown-item i
-{
-    color: #4b4f54 !important; 
-}
-.dropdown-item
-{
-    color: #4b4f54 !important; 
-}
-.page_indide
-{
-    display: block;
-    float: left;
-    width: 100%;
-    background: #fff;
-    margin-bottom: 30px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-.page_heading
-{
-    display: inline-block;
-    width: 100%;
-    vertical-align: top;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 0;
-    background-color: #f0f3f5;
-    border-bottom: 1px solid #c8ced3;
-}
-.page_heading h2
-{
-    font-size: 25px;
-    color: #4b4f54;
-    line-height: normal !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-.upload_document
-{
-    display: block;
-    float: left;
-    width: 100%;
-    padding: 20px !important;
-}
-.sidebar .sidebar-minimizer {
-    background-color: #f0f3f5 !important;
-}
-.upload_document .mat-button
-{
-    background: #ff301e !important;
-    color: #fff !important;
-    border-radius: 40px !important;
-    padding: 2px 30px !important;
-}
-.upload_document .mat-button:hover
-{
-    background: #dd2312 !important;
-}
-.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
-    background: #dd2312 !important;
-}
-.upload_document  .mat-form-field-appearance-outline .mat-form-field-outline
-{
-    color: #bbbbbb !important;
-}
-.country_list_main_area
-{
-    display: block;
-    float: left;
-    width: 100%;
-    padding: 20px;
-
-}
-.orange_but
-{
-    background: #ff301e !important;
-    color: #fff !important;
-    border-radius: 40px !important;
-    padding: 12px 20px !important;   
-}
-
-.orange_but2
-{
-    background: #ff301e !important;
-    color: #fff !important;
-    border-radius: 40px !important;
-    padding: 10px 30px !important;   
-}
-.orange_but:hover ,.orange_but2:hover
-{
-    background: #dd2312 !important;   
-}
-.form-control {
-    box-shadow: none;
-    border: 1px solid #bbbbbb !important;
-    background: transparent !important;
-    height: 50px !important;
-}
-.form-control:focus {
-    border-color: #bbbbbb !important;
-    box-shadow: 0px 0px 5px 0px rgb(226, 226, 226) !important;
-}
-.graph_mian_area
-{
-    display: block;
-    float:left;
-    width: 100%;
-    border: 1px solid #f0f3f5;
-    padding: 15px 0;
-    overflow: hidden;
-    overflow-x: auto;
-
-}
-.graph_inside
-{
-    display: block;
-    float: left;
-    width: 100%;
-    min-width: 600px;
-}
-
-
-
-
-
-

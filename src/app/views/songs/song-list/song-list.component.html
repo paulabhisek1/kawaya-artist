@@ -1,7 +1,10 @@
-<div class="body_inner">
+<div class="page_indide">
     <div class="animated fadeIn">
+        <div class="page_heading"> 
+        <h2>Song List</h2>
+        </div>
         <div class="country_list_main_area">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-md-4">
                     <div class="input-group">
                         <input type="text" class="form-control search_field" (input)="startSearch()" name="searchText" [(ngModel)]="searchText" placeholder="Search by song name">
@@ -18,7 +21,7 @@
     
                 <div class="col-md-8">
                     <div style="float: right;">
-                        <button class="btn btn-danger" routerLink="add"><i _ngcontent-jlk-c84="" class="fa fa-plus fa-md"></i> Add song</button>
+                        <button class="btn btn-danger orange_but" routerLink="add"><i _ngcontent-jlk-c84="" class="fa fa-plus fa-md"></i> Add song</button>
                     </div>
                 </div>
             </div>
@@ -114,4 +117,4 @@
             <img src="assets/images/loader.gif" alt="loader" />  
         </div>
     </div>
-    </div>
+</div>

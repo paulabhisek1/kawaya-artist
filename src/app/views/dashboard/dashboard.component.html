@@ -19,29 +19,37 @@
           Please wait! Loading Songs Graph...
       </div>
       <div *ngIf="shwGraph" class="row">
-          <div class="col-md-6">
-            <apx-chart
-              [series]="chartOptionsSongDownload.series"
-              [chart]="chartOptionsSongDownload.chart"
-              [dataLabels]="chartOptionsSongDownload.dataLabels"
-              [plotOptions]="chartOptionsSongDownload.plotOptions"
-              [yaxis]="chartOptionsSongDownload.yaxis"
-              [xaxis]="chartOptionsSongDownload.xaxis"
-              [fill]="chartOptionsSongDownload.fill"
-              [title]="chartOptionsSongDownload.title"
-            ></apx-chart>
+          <div class="col-12">
+            <div class="graph_mian_area">  
+              <div class="graph_inside">
+                <apx-chart
+                  [series]="chartOptionsSongDownload.series"
+                  [chart]="chartOptionsSongDownload.chart"
+                  [dataLabels]="chartOptionsSongDownload.dataLabels"
+                  [plotOptions]="chartOptionsSongDownload.plotOptions"
+                  [yaxis]="chartOptionsSongDownload.yaxis"
+                  [xaxis]="chartOptionsSongDownload.xaxis"
+                  [fill]="chartOptionsSongDownload.fill"
+                  [title]="chartOptionsSongDownload.title"
+                ></apx-chart>
+              </div>  
+            </div>
           </div>
-          <div class="col-md-6">
-            <apx-chart
-              [series]="chartOptionsSongPlayed.series"
-              [chart]="chartOptionsSongPlayed.chart"
-              [dataLabels]="chartOptionsSongPlayed.dataLabels"
-              [plotOptions]="chartOptionsSongPlayed.plotOptions"
-              [yaxis]="chartOptionsSongPlayed.yaxis"
-              [xaxis]="chartOptionsSongPlayed.xaxis"
-              [fill]="chartOptionsSongPlayed.fill"
-              [title]="chartOptionsSongPlayed.title"
-            ></apx-chart>
+          <div class="col-12 mt-5">
+              <div class="graph_mian_area">  
+                <div class="graph_inside">
+                  <apx-chart
+                    [series]="chartOptionsSongPlayed.series"
+                    [chart]="chartOptionsSongPlayed.chart"
+                    [dataLabels]="chartOptionsSongPlayed.dataLabels"
+                    [plotOptions]="chartOptionsSongPlayed.plotOptions"
+                    [yaxis]="chartOptionsSongPlayed.yaxis"
+                    [xaxis]="chartOptionsSongPlayed.xaxis"
+                    [fill]="chartOptionsSongPlayed.fill"
+                    [title]="chartOptionsSongPlayed.title"
+                  ></apx-chart>
+                </div>
+            </div>
           </div>
       </div>
     </div>

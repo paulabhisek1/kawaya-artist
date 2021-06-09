@@ -1,10 +1,12 @@
-<div class="upload_document_form_area">
+<div class="page_indide">
   <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-12">
         <p *ngIf="textStatus" class="text_status">* {{ textStatus }} <ng-container *ngIf="artistDetails.is_active == 2"><a href="javascript:void(0)" (click)="openDeclineModal(declineModal)">Click Here For More Information</a> </ng-container></p>
-
+        <div class="page_heading"> 
         <h2>Upload Document </h2>
-        <div class="animated fadeIn upload_document form_shadow">
+        </div>
+
+        <div class="animated fadeIn upload_document">
               <mat-vertical-stepper [linear]="isLinear" #stepper [selectedIndex]="selectedStep">
                 <!-- FIRST STEP -->
                 <mat-step [stepControl]="firstFormGroup">
