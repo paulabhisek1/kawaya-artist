@@ -57,7 +57,7 @@
                         <div style="width: 15%;">
                             <div class="mobile_heading">Action</div>
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <a class="btn btn-light btn-sm" title="Details" [popover]="'Edit'"
+                                <a class="btn btn-light btn-sm" title="Edit" [popover]="'Edit'"
                                     [appendToBody]="true" popoverPlacement="top-center"
                                     [popoverCloseOnMouseOutside]="true" (click)="navigateToEdit(album.id)">
                                 <i class="fa fa-edit fa-lg"></i>
@@ -65,7 +65,7 @@
                             </div>
         
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                <a class="btn btn-light btn-sm" title="Details"
+                                <a class="btn btn-light btn-sm" title="Delete"
                                     (click)="openDeleteConfirmation(album.id)">
                                 <i class="fa fa-trash fa-lg"></i>
                                 </a>

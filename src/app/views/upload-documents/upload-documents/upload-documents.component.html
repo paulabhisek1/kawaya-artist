@@ -64,7 +64,7 @@
                         </mat-form-field>
                       </div>
                   </div>
-                    <div>
+                    <div class="mt-4">
                       <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
                       <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
@@ -334,8 +334,8 @@
                         </mat-form-field>
                       </div> -->
                       </div>
-                    <div>
-                      <button mat-button matStepperPrevious>Back</button>
+                    <div class="mt-4">
+                      <button class="back_but"  matStepperPrevious>Back</button>
                       <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
                       <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
@@ -405,8 +405,8 @@
                         <p class="file_upload_text">Upload Your Profile Picture</p>
                       </div> -->
                     </div>  
-                    <div class="mt-4">
-                      <button mat-button matStepperPrevious>Back</button>
+                    <div class="mt-5">
+                      <button class="back_but" matStepperPrevious>Back</button>
                       <button type="submit" mat-button *ngIf="activeStatus==false">Save & Next</button>
                       <button type="button" mat-button *ngIf="activeStatus==true" (click)="nextStep()">Next</button>
                     </div>
@@ -460,7 +460,7 @@
                       </div>
                     </div>  
                     <div>
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button class="back_but"  matStepperPrevious>Back</button>
                       <button type="submit" mat-button *ngIf="activeStatus==false">Done</button>
                     </div>
                   </form>

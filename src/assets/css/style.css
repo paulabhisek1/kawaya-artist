@@ -762,7 +762,7 @@ audio:hover
     -webkit-box-shadow: 15px 15px 20px rgb(0 0 0 / 40%);
     -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
     box-shadow: 15px 15px 20px rgb(0 0 0 / 40%);
-    -webkit-transform: scale(1.05);
+
 }
 .podcast_table
 {
@@ -893,6 +893,7 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
 .search_field
 {
     margin: 10px 0 !important;
+    border-radius: 30px !important;
 }
 .details_image
 {
@@ -1007,9 +1008,11 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
 {
     color: #ff301e !important;
     background: transparent !important;
+    font-weight: bold !important;
 }
 .sidebar .nav-link.active .nav-icon {
     color: #ff301e !important;
+    font-weight: bold !important;
 }
 
 .sidebar .nav-link:hover {
@@ -1082,12 +1085,13 @@ a
     background: #ff301e !important;
     color: #fff !important;
     border-radius: 40px !important;
-    padding: 2px 30px !important;
+    padding: 2px 40px !important;
 }
 .upload_document .mat-button:hover
 {
     background: #dd2312 !important;
 }
+
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
     background: #dd2312 !important;
 }
@@ -1149,6 +1153,30 @@ a
     float: left;
     width: 100%;
     min-width: 600px;
+}
+
+
+.back_but
+{
+    background: none !important;
+    border: 2px solid #ff301e !important;
+    color: #ff301e !important;
+    border-radius: 40px !important;
+    padding: 0 40px !important;
+    line-height: 34px !important;
+    outline: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+}
+.back_but:hover
+{
+    background: #ff301e !important;
+    color: #fff !important;
 }
 
 
