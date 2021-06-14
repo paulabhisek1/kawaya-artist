@@ -907,6 +907,7 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
     height: 280px;
     object-fit: cover;
     object-position: center;
+    border-radius: 10px;
 }
 .details_right_area
 {
@@ -1141,10 +1142,12 @@ a
     display: block;
     float:left;
     width: 100%;
-    border: 1px solid #f0f3f5;
     padding: 15px 0;
     overflow: hidden;
     overflow-x: auto;
+    background: #f0f3f5;
+    padding: 20px;
+    border: 1px solid #c8ced3;
 
 }
 .graph_inside
@@ -1152,7 +1155,7 @@ a
     display: block;
     float: left;
     width: 100%;
-    min-width: 600px;
+    min-width: 500px;
 }
 
 
@@ -1178,6 +1181,45 @@ a
     background: #ff301e !important;
     color: #fff !important;
 }
+
+.graph_details_area
+{
+    display: block;
+    float:left;
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+    overflow-x: auto;
+    background: #f0f3f5;
+    padding: 20px;
+    border: 1px solid #c8ced3;
+    min-height: 406px;
+
+}
+.graph_details_area h2
+{
+    font-size: 22px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 15px;
+}
+.graph_details_area p
+{
+    padding: 12px 10px;
+    font-size: 14px;
+    margin: 0;
+    color: rgb(37, 37, 37);
+    text-align: right;
+}
+.graph_details_area p:nth-child(odd)
+{
+    background: #fff;
+}
+.graph_details_area p strong
+{
+    float: left ;
+}
+
 
 
 

@@ -19,7 +19,7 @@
           Please wait! Loading Songs Graph...
       </div>
       <div *ngIf="shwGraph" class="row">
-          <div class="col-12">
+          <div class="col-lg-8">
             <div class="graph_mian_area">  
               <div class="graph_inside">
                 <apx-chart
@@ -35,7 +35,19 @@
               </div>  
             </div>
           </div>
-          <div class="col-12 mt-5">
+
+          <div class="col-lg-4">
+            <div class="graph_details_area">
+              <h2>Details</h2>
+              <p><strong>Total Podcasts:</strong> 2</p>
+              <p><strong>Total Songs:</strong> 3</p>
+              <p><strong>Total Albums:</strong> 5</p>
+              <p><strong>Total Followers:</strong> 14</p>
+              <p><strong>Total Revenue:</strong> 8</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-8 mt-3">
               <div class="graph_mian_area">  
                 <div class="graph_inside">
                   <apx-chart
@@ -50,6 +62,17 @@
                   ></apx-chart>
                 </div>
             </div>
+          </div>
+
+          <div class="col-lg-4 mt-3">
+            <div class="graph_details_area">
+              <h2>Details</h2>
+              <p><strong>Total Podcasts:</strong> 2</p>
+              <p><strong>Total Songs:</strong> 3</p>
+              <p><strong>Total Albums:</strong> 5</p>
+              <p><strong>Total Followers:</strong> 14</p>
+              <p><strong>Total Revenue:</strong> 8</p>
+            </div>      
           </div>
       </div>
     </div>
@@ -76,6 +99,8 @@
       </div>
       <div *ngIf="shwGraphPodcasr" class="row">
           <div class="col-md-6">
+            <div class="graph_mian_area">  
+              <div class="graph_inside">
             <apx-chart
               [series]="chartOptionsPodcastDownload.series"
               [chart]="chartOptionsPodcastDownload.chart"
@@ -86,8 +111,13 @@
               [title]="chartOptionsPodcastDownload.title"
               [colors]="chartOptionsPodcastDownload.colors"
             ></apx-chart>
+            </div>
           </div>
+          </div>
+
           <div class="col-md-6">
+            <div class="graph_mian_area">  
+              <div class="graph_inside">
             <apx-chart
               [series]="chartOptionsPodcastPlayed.series"
               [chart]="chartOptionsPodcastPlayed.chart"
@@ -97,6 +127,8 @@
               [stroke]="chartOptionsPodcastPlayed.stroke"
               [title]="chartOptionsPodcastPlayed.title"
             ></apx-chart>
+          </div>
+        </div>
           </div>
       </div>
     </div>
