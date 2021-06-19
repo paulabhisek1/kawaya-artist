@@ -500,6 +500,9 @@ button:focus {
 .app-header .nav-item .nav-link>.img-avatar,
 .app-header .nav-item .avatar.nav-link>img {
     height: 40px !important;
+    width: 40px !important;
+    object-fit: cover !important;
+    object-position: center !important;
     margin: 0 10px;
 }
 .sidebar .sidebar-minimizer {
@@ -948,47 +951,6 @@ box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.50);
 }
 
 
-@media screen and (max-width:850px)
-
-{
-    .mobile_heading
-    {
-        display: block;
-    }
-    .table_heading
-    {
-        display: none;
-    }
-    .table_body > div
-    {
-        width: 100% !important;
-        text-align: center;
-    }
-    .details_right_area
-{
-    width: 100%;
-    display: inline-block; 
-    padding-left: 0; 
-    vertical-align: top;   
-    margin-top: 20px;
-}
-.details_image
-{
-    width: 200px;
-}
-.details_image img
-{
-    height: 200px;
-}
-.image_center
-{
-    text-align: center;
-}
-.image_center .full
-{
-    text-align: left;
-}
-}
 
 
 /*************new***************/
@@ -1076,7 +1038,6 @@ a
     display: block;
     float: left;
     width: 100%;
-    padding: 20px !important;
 }
 .sidebar .sidebar-minimizer {
     background-color: #f0f3f5 !important;
@@ -1086,7 +1047,8 @@ a
     background: #ff301e !important;
     color: #fff !important;
     border-radius: 40px !important;
-    padding: 2px 40px !important;
+    margin: 3px 0 !important;
+    padding: 2px 44px !important;
 }
 .upload_document .mat-button:hover
 {
@@ -1219,6 +1181,97 @@ a
 {
     float: left ;
 }
+
+@media screen and (max-width:850px)
+
+{
+    .mobile_heading
+    {
+        display: block;
+    }
+    .table_heading
+    {
+        display: none;
+    }
+    .table_body > div
+    {
+        width: 100% !important;
+        text-align: center;
+    }
+    .details_right_area
+{
+    width: 100%;
+    display: inline-block; 
+    padding-left: 0; 
+    vertical-align: top;   
+    margin-top: 20px;
+}
+.details_image
+{
+    width: 200px;
+}
+.details_image img
+{
+    height: 200px;
+}
+.image_center
+{
+    text-align: center;
+}
+.image_center .full
+{
+    text-align: left;
+}
+.mat-vertical-content-container {
+    margin-left: 20px !important;
+}
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header, .mat-vertical-stepper-header {
+    padding: 24px 5px !important;
+}
+}
+
+@media screen and (max-width:768px)
+
+{
+    .back_but {
+        padding: 0 30px !important;
+    }
+    .upload_document .mat-button {
+        padding: 2px 34px !important;
+    }
+    .mat-vertical-content {
+        padding: 0 15px 24px 15px !important;
+    }
+    .form-control {
+        height: 44px !important;
+    }
+    .orange_but {
+        padding: 8px 17px !important;
+    }
+    .swal2-container {
+        padding: 30px !important;
+    }
+    .swal2-icon {
+        width: 3em !important;
+        height: 3em !important;
+        margin:0 auto 5px !important;
+    }
+    .swal2-icon .swal2-icon-content {
+        font-size: 2em !important;
+    }
+    .swal2-actions {
+         margin: 5px auto 0 !important;
+    }
+    .swal2-title {
+         margin: 0 !important;
+    }
+    audio {
+        width: 100% !important;
+    }
+    .table_body {
+        padding: 12px 10px !important;
+    }
+}   
 
 
 
