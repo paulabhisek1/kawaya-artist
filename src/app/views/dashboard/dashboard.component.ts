@@ -15,18 +15,20 @@ import {
   ApexXAxis,
   ApexFill,
   ApexGrid,
-  ApexStroke
+  ApexStroke,
+  ApexNonAxisChartSeries,
+  ApexResponsive,
 } from "ng-apexcharts";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
   xaxis: ApexXAxis;
-  fill: ApexFill;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
   title: ApexTitleSubtitle;
+  colors: string[];
 };
 
 export type ChartOptionsPodcast = {
@@ -38,6 +40,16 @@ export type ChartOptionsPodcast = {
   stroke: ApexStroke;
   title: ApexTitleSubtitle;
   colors: string[];
+};
+
+export type PieChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  responsive: ApexResponsive[];
+  title: ApexTitleSubtitle;
+  labels: any;
+  plotOptions: ApexPlotOptions
 };
 
 import * as moment from 'moment';
@@ -52,6 +64,10 @@ export class DashboardComponent implements OnInit {
   public chartOptionsSongPlayed: Partial<ChartOptions>;
   public chartOptionsPodcastDownload: Partial<ChartOptionsPodcast>;
   public chartOptionsPodcastPlayed: Partial<ChartOptionsPodcast>;
+  public songDownloadPieChart: Partial<PieChartOptions>;
+  public songPlayedPieChart: Partial<PieChartOptions>;
+  public podcastDownloadPieChart: Partial<PieChartOptions>;
+  public podcastPlayedPieChart: Partial<PieChartOptions>;
 
   subscriptions: Subscription[] = [];
 
@@ -87,6 +103,18 @@ export class DashboardComponent implements OnInit {
 
   validPodcastGraph: boolean = false;
 
+  kpiDetails: any = {};
+
+
+  pieSongPlayedArray: any = [];
+  pieSongDownloadArray: any = [];
+  piePodcastPlayedArray: any = [];
+  piePodcastDownloadArray: any = [];
+
+
+  chartLoading: boolean = false;
+  shwChart: boolean = false;
+
   constructor(
     private commonService: CommonService,
     private helperService: HelperService
@@ -98,6 +126,7 @@ export class DashboardComponent implements OnInit {
     this.fetchSongGraph();
     this.fetchPodcastGraph();
     this.fetchDashboardKPI();
+    this.fetchDashboardChart();
   }
 
   changeSongGraphFilter(filterVal) {
@@ -237,7 +266,7 @@ export class DashboardComponent implements OnInit {
       }).subscribe((result)=>{
         this.kpiLoading = false;
         if(result.status == 200) {
-          console.log("KPI DATA : ", result.data);
+          this.kpiDetails = result.data;
         }
         else {
           this.helperService.showError(result.message);
@@ -249,110 +278,66 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  fetchDashboardChart() {
+    this.chartLoading = true;
+    this.subscriptions.push(
+      this.commonService.getAPICall({
+        url: 'dashboard-chart',
+      }).subscribe((result)=>{
+        this.chartLoading = false;
+        if(result.status == 200) {
+          this.pieSongPlayedArray = [result.data.song.played.sevenDays, result.data.song.played.fifteenDays, result.data.song.played.thirtyDays]
+          this.pieSongDownloadArray = [result.data.song.download.sevenDays, result.data.song.download.fifteenDays, result.data.song.download.thirtyDays]
+          this.piePodcastPlayedArray = [result.data.podcast.played.sevenDays, result.data.podcast.played.fifteenDays, result.data.podcast.played.thirtyDays]
+          this.piePodcastDownloadArray = [result.data.podcast.download.sevenDays, result.data.podcast.download.fifteenDays, result.data.podcast.download.thirtyDays]
+
+          this.createSongPlayedPieChart();
+          this.createSongDownloadPieChart();
+          this.createPodcastDownloadPieChart();
+          this.createPodcastPlayedPieChart();
+
+          this.shwChart = true;
+        }
+        else {
+          this.helperService.showError(result.message);
+        }
+      },(err)=>{
+        this.chartLoading = false;
+        this.helperService.showError(err.error.message);
+      })
+    )
+  }
+
   createSongGraphDownload() {
     this.shwGraph = true;
     this.chartOptionsSongDownload = {
       series: this.songGraphDataArray,
       chart: {
         height: 350,
-        type: "bar"
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          borderRadius: 10,
-          colors: {
-            ranges: [{
-                from: 0,
-                to: 100,
-                color: '#6b3f57'
-            }],
-            backgroundBarColors: [],
-            backgroundBarOpacity: 1,
-            backgroundBarRadius: 0,
-        },
-          columnWidth: '50%',
-          dataLabels: {
-            position: "top", // top, center, bottom
-          }
+        type: "line",
+        zoom: {
+          enabled: false
         }
       },
       dataLabels: {
-        enabled: true,
-        formatter: function(val) {
-          return val + "";
-        },
-        offsetY: -20,
-        style: {
-          fontSize: "12px",
-          colors: ["#304758"]
-        }
+        enabled: true
       },
-
-      xaxis: {
-        categories: this.songGraphCatArray,
-        position: "top",
-        labels: {
-          offsetY: -18
-        },
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        crosshairs: {
-          fill: {
-            type: "solid",
-            gradient: {
-              colorFrom: "#D8E3F0",
-              colorTo: "#BED1E6",
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5
-            }
-          }
-        },
-        tooltip: {
-          enabled: true,
-          offsetY: -35
-        }
+      stroke: {
+        curve: "smooth"
       },
-      fill: {
-        type: "solid",
-        gradient: {
-          shade: "light",
-          type: "horizontal",
-          shadeIntensity: 0.25,
-          gradientToColors: undefined,
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [50, 0, 100, 100]
-        }
-      },
-      yaxis: {
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        labels: {
-          show: false,
-          formatter: function(val) {
-            return val + "";
-          }
-        }
-      },
+      colors: ["#6b3f57"],
       title: {
-        text: `Total downloads in last ${(this.graphSongFilter == '1') ? '7 days' : '30 days'}`,
-        floating: false,
-        offsetY: 330,
-        align: "center",
-        style: {
-          color: "#444",
+        text: `Total downloads in last ${(this.graphPodcastFilter == '1') ? '7 days' : '30 days'}`,
+        align: "left"
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5
         }
+      },
+      xaxis: {
+        categories: this.songGraphCatArray
       }
     };
   }
@@ -363,94 +348,29 @@ export class DashboardComponent implements OnInit {
       series: this.songGraphDataArrayPlayed,
       chart: {
         height: 350,
-        type: "bar"
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          borderRadius: 10,
-          columnWidth: '50%',
-          dataLabels: {
-            position: "top" // top, center, bottom
-          }
+        type: "line",
+        zoom: {
+          enabled: false
         }
       },
       dataLabels: {
-        enabled: true,
-        formatter: function(val) {
-          return val + "";
-        },
-        offsetY: -20,
-        style: {
-          fontSize: "12px",
-          colors: ["#304758"]
-        }
+        enabled: true
       },
-
-      xaxis: {
-        categories: this.songGraphCatArray,
-        position: "top",
-        labels: {
-          offsetY: -18
-        },
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        crosshairs: {
-          fill: {
-            type: "solid",
-            gradient: {
-              colorFrom: "#D8E3F0",
-              colorTo: "#BED1E6",
-              stops: [0, 100],
-              opacityFrom: 0.4,
-              opacityTo: 0.5
-            }
-          }
-        },
-        tooltip: {
-          enabled: true,
-          offsetY: -35
-        }
-      },
-      fill: {
-        type: "solid",
-        gradient: {
-          shade: "light",
-          type: "horizontal",
-          shadeIntensity: 0.25,
-          gradientToColors: undefined,
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [50, 0, 100, 100]
-        }
-      },
-      yaxis: {
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        labels: {
-          show: false,
-          formatter: function(val) {
-            return val + "";
-          }
-        }
+      stroke: {
+        curve: "smooth"
       },
       title: {
-        text: `Total played in last ${(this.graphSongFilter == '1') ? '7 days' : '30 days'}`,
-        floating: false,
-        offsetY: 330,
-        align: "center",
-        style: {
-          color: "#444",
+        text: `Total played in last ${(this.graphPodcastFilter == '1') ? '7 days' : '30 days'}`,
+        align: "left"
+      },
+      grid: {
+        row: {
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+          opacity: 0.5
         }
+      },
+      xaxis: {
+        categories: this.songGraphCatArray
       }
     };
   }
@@ -471,7 +391,6 @@ export class DashboardComponent implements OnInit {
       stroke: {
         curve: "smooth"
       },
-      colors: ["#6b3f57"],
       title: {
         text: `Total downloads in last ${(this.graphPodcastFilter == '1') ? '7 days' : '30 days'}`,
         align: "left"
@@ -517,6 +436,118 @@ export class DashboardComponent implements OnInit {
       xaxis: {
         categories: this.podcastGraphCatArray
       }
+    };
+  }
+
+  createSongPlayedPieChart() {
+    this.songPlayedPieChart = {
+      series: this.pieSongPlayedArray,
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: ["7 Days", "15 Days", "30 Days"],
+      title: {
+        text: `Songs Played Chart`,
+        align: "left"
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+  }
+
+  createSongDownloadPieChart() {
+    this.songDownloadPieChart = {
+      series: this.pieSongDownloadArray,
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      title: {
+        text: `Songs Download Chart`,
+        align: "left"
+      },
+      labels: ["7 Days", "15 Days", "30 Days"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+  }
+
+  createPodcastPlayedPieChart() {
+    this.podcastPlayedPieChart = {
+      series: this.piePodcastPlayedArray,
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      title: {
+        text: `Podcasts Played Chart`,
+        align: "left"
+      },
+      labels: ["7 Days", "15 Days", "30 Days"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+  }
+
+  createPodcastDownloadPieChart() {
+    this.podcastDownloadPieChart = {
+      series: this.piePodcastDownloadArray,
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      title: {
+        text: `Podcasts Download Chart`,
+        align: "left"
+      },
+      labels: ["7 Days", "15 Days", "30 Days"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
     };
   }
 }

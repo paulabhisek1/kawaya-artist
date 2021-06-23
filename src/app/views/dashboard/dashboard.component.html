@@ -3,12 +3,12 @@
   <div class="card">
     <div class="card-header">
       <h3 class="heading-text">Songs Graph</h3>
-      <div class="filter-box">
+      <!-- <div class="filter-box">
         <mat-radio-group aria-label="Select an option" [(ngModel)]="graphSongFilter">
           <mat-radio-button (click)="changeSongGraphFilter('1')" value="1">Last 7 days</mat-radio-button>
           <mat-radio-button (click)="changeSongGraphFilter('2')" value="2">Last 30 days</mat-radio-button>
         </mat-radio-group>
-      </div>
+      </div> -->
     </div>
 
     <div class="card-body">
@@ -75,6 +75,29 @@
             </div>      
           </div>
       </div>
+
+      <div *ngIf="shwChart" class="row">
+        <div class="col-md-6">
+          <apx-chart
+            [series]="songPlayedPieChart.series"
+            [chart]="songPlayedPieChart.chart"
+            [labels]="songPlayedPieChart.labels"
+            [responsive]="songPlayedPieChart.responsive"
+            [title]="songPlayedPieChart.title"
+            [plotOptions]="songPlayedPieChart.plotOptions"
+          ></apx-chart>
+        </div>
+        <div class="col-md-6">
+          <apx-chart
+            [series]="songDownloadPieChart.series"
+            [chart]="songDownloadPieChart.chart"
+            [labels]="songDownloadPieChart.labels"
+            [responsive]="songDownloadPieChart.responsive"
+            [title]="songDownloadPieChart.title"
+            [plotOptions]="songDownloadPieChart.plotOptions"
+          ></apx-chart>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -83,10 +106,10 @@
     <div class="card-header">
       <h3 class="heading-text">Podcasts Graph</h3>
       <div class="filter-box">
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="graphPodcastFilter">
+        <!-- <mat-radio-group aria-label="Select an option" [(ngModel)]="graphPodcastFilter">
           <mat-radio-button (click)="changePodcastGraphFilter('1')" value="1">Last 7 days</mat-radio-button>
           <mat-radio-button (click)="changePodcastGraphFilter('2')" value="2">Last 30 days</mat-radio-button>
-        </mat-radio-group>
+        </mat-radio-group> -->
       </div>
     </div>
 
@@ -131,6 +154,30 @@
         </div>
           </div>
       </div>
+      <div *ngIf="shwChart" class="row">
+        <div class="col-md-6">
+          <apx-chart
+            [series]="podcastPlayedPieChart.series"
+            [chart]="podcastPlayedPieChart.chart"
+            [labels]="podcastPlayedPieChart.labels"
+            [responsive]="podcastPlayedPieChart.responsive"
+            [title]="podcastPlayedPieChart.title"
+            [plotOptions]="podcastPlayedPieChart.plotOptions"
+          ></apx-chart>
+        </div>
+        <div class="col-md-6">
+          <apx-chart
+            [series]="podcastDownloadPieChart.series"
+            [chart]="podcastDownloadPieChart.chart"
+            [labels]="podcastDownloadPieChart.labels"
+            [responsive]="podcastDownloadPieChart.responsive"
+            [title]="podcastDownloadPieChart.title"
+            [plotOptions]="podcastDownloadPieChart.plotOptions"
+          ></apx-chart>
+        </div>
+      </div>
     </div>
   </div>
+
+
 </div>
