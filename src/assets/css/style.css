@@ -1292,6 +1292,31 @@ foreignObject
 {
     width: 100% !important; 
 }
+.box_color1
+{
+    background: #feb019;
+}
+.box_color2
+{
+    background: #008ffb;
+}
+.box_color3
+{
+    background: #00e396;
+}
+.box_color4
+{
+    background: #93BE52;
+}
+.box_color5
+{
+    background: #FC6180;
+}
+.graph_inside_box h4
+{
+    text-align: center;
+    color: #dd2312;
+}
 
 @media screen and (max-width:1300px)
 
