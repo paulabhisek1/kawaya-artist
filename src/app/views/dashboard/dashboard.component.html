@@ -5,7 +5,7 @@
           <i class="fa fa-podcast" aria-hidden="true"></i>
         </div>
         <h3>Total Podcasts</h3>
-        <h2>2</h2>
+        <h2>{{ kpiDetails?.totalPodcasts }}</h2>
     </div>
 
     <div class="dashboard_details_box1">
@@ -13,7 +13,7 @@
         <i ng-reflect-ng-class="[object Object]" class="nav-icon fa fa-music"></i>
       </div>
       <h3>Total Songs</h3>
-      <h2>3</h2>
+      <h2>{{ kpiDetails?.totalSongs }}</h2>
     </div>
 
     <div class="dashboard_details_box1">
@@ -21,7 +21,7 @@
         <i ng-reflect-ng-class="[object Object]" class="nav-icon fa fa-folder"></i>
       </div>
         <h3>Total Albums</h3>
-        <h2>5</h2>
+        <h2>{{ kpiDetails?.totalAlbums }}</h2>
     </div>
 
     <div class="dashboard_details_box1">
@@ -29,7 +29,7 @@
         <i class="fa fa-eye" aria-hidden="true"></i>
       </div>
       <h3>Total Followers</h3>
-      <h2>14</h2>
+      <h2>{{ kpiDetails?.totalFollowers }}</h2>
     </div>
 
     <div class="dashboard_details_box1">
@@ -37,7 +37,7 @@
         <i class="fa fa-certificate" aria-hidden="true"></i>
       </div>
       <h3>Total Revenue</h3>
-      <h2>8</h2>
+      <h2>&#163;{{ kpiDetails?.totalRevenue }}</h2>
     </div>
   </div>
 
@@ -54,12 +54,14 @@
 
           <div class="row">
             <div class="col-lg-8">
-              <div class="graph_inside_box">
+              <div class="graph_inside_box" *ngIf="shwGraph">
                 <apx-chart
                     [series]="chartOptionsSongDownload.series"
                     [chart]="chartOptionsSongDownload.chart"
                     [dataLabels]="chartOptionsSongDownload.dataLabels"
                     [plotOptions]="chartOptionsSongDownload.plotOptions"
+                    [grid]="chartOptionsSongDownload.grid"
+                    [stroke]="chartOptionsSongDownload.stroke"
                     [yaxis]="chartOptionsSongDownload.yaxis"
                     [xaxis]="chartOptionsSongDownload.xaxis"
                     [fill]="chartOptionsSongDownload.fill"
@@ -69,27 +71,38 @@
             </div>  
             
             <div class="col-lg-4">
-              <div class="graph_inside_box">
-                <apx-chart
-              [series]="songPlayedPieChart.series"
-              [chart]="songPlayedPieChart.chart"
-              [labels]="songPlayedPieChart.labels"
-              [responsive]="songPlayedPieChart.responsive"
-              [title]="songPlayedPieChart.title"
-              [plotOptions]="songPlayedPieChart.plotOptions"
-            ></apx-chart>    
+              <div class="graph_inside_box" *ngIf="shwChart">
+                <div class="chart_div">
+                  <ng-container *ngIf="totalSongPlayed > 0">
+                    <apx-chart
+                      [series]="songPlayedPieChart.series"
+                      [chart]="songPlayedPieChart.chart"
+                      [labels]="songPlayedPieChart.labels"
+                      [responsive]="songPlayedPieChart.responsive"
+                      [title]="songPlayedPieChart.title"
+                      [plotOptions]="songPlayedPieChart.plotOptions"
+                    ></apx-chart> 
+                  </ng-container>
+                </div>
+                <ng-container *ngIf="totalSongPlayed == 0">
+                  <h3 style="text-align: center; width: 100%;">
+                    <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+                  </h3>
+                </ng-container>
               </div>    
             </div> 
           </div>
 
           <div class="row">
             <div class="col-lg-8">
-              <div class="graph_inside_box">
+              <div class="graph_inside_box" *ngIf="shwGraph">
                 <apx-chart
                     [series]="chartOptionsSongPlayed.series"
                     [chart]="chartOptionsSongPlayed.chart"
                     [dataLabels]="chartOptionsSongPlayed.dataLabels"
                     [plotOptions]="chartOptionsSongPlayed.plotOptions"
+                    [grid]="chartOptionsSongPlayed.grid"
+                    [stroke]="chartOptionsSongPlayed.stroke"
                     [yaxis]="chartOptionsSongPlayed.yaxis"
                     [xaxis]="chartOptionsSongPlayed.xaxis"
                     [fill]="chartOptionsSongPlayed.fill"
@@ -99,15 +112,22 @@
             </div>  
             
             <div class="col-lg-4">
-              <div class="graph_inside_box">
-                <apx-chart
-            [series]="songDownloadPieChart.series"
-            [chart]="songDownloadPieChart.chart"
-            [labels]="songDownloadPieChart.labels"
-            [responsive]="songDownloadPieChart.responsive"
-            [title]="songDownloadPieChart.title"
-            [plotOptions]="songDownloadPieChart.plotOptions"
-          ></apx-chart>    
+              <div class="graph_inside_box" *ngIf="shwChart">
+                <ng-container *ngIf="totalSongDownloaded > 0">
+                  <apx-chart
+                    [series]="songDownloadPieChart.series"
+                    [chart]="songDownloadPieChart.chart"
+                    [labels]="songDownloadPieChart.labels"
+                    [responsive]="songDownloadPieChart.responsive"
+                    [title]="songDownloadPieChart.title"
+                    [plotOptions]="songDownloadPieChart.plotOptions"
+                  ></apx-chart> 
+                </ng-container>
+                <ng-container *ngIf="totalSongDownloaded == 0">
+                  <h3 style="text-align: center; width: 100%;">
+                    <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+                  </h3>
+                </ng-container>
               </div>    
             </div> 
           </div>
@@ -129,7 +149,7 @@
 
           <div class="row">
             <div class="col-lg-8">
-              <div class="graph_inside_box">
+              <div class="graph_inside_box" *ngIf="shwGraphPodcasr">
                 <apx-chart
                 [series]="chartOptionsPodcastDownload.series"
                 [chart]="chartOptionsPodcastDownload.chart"
@@ -144,22 +164,29 @@
             </div>  
             
             <div class="col-lg-4">
-              <div class="graph_inside_box">
-                <apx-chart
-                [series]="podcastPlayedPieChart.series"
-                [chart]="podcastPlayedPieChart.chart"
-                [labels]="podcastPlayedPieChart.labels"
-                [responsive]="podcastPlayedPieChart.responsive"
-                [title]="podcastPlayedPieChart.title"
-                [plotOptions]="podcastPlayedPieChart.plotOptions"
-              ></apx-chart>    
+              <div class="graph_inside_box" *ngIf="shwChart">
+                <ng-container *ngIf="totalPodcastPlayed > 0">
+                  <apx-chart
+                    [series]="podcastPlayedPieChart.series"
+                    [chart]="podcastPlayedPieChart.chart"
+                    [labels]="podcastPlayedPieChart.labels"
+                    [responsive]="podcastPlayedPieChart.responsive"
+                    [title]="podcastPlayedPieChart.title"
+                    [plotOptions]="podcastPlayedPieChart.plotOptions"
+                  ></apx-chart>   
+                </ng-container>
+                <ng-container *ngIf="totalPodcastPlayed == 0">
+                  <h3 style="text-align: center; width: 100%;">
+                    <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+                  </h3>
+                </ng-container>
               </div>    
             </div> 
           </div>
 
           <div class="row">
             <div class="col-lg-8">
-              <div class="graph_inside_box">
+              <div class="graph_inside_box" *ngIf="shwGraphPodcasr">
                 <apx-chart
                 [series]="chartOptionsPodcastPlayed.series"
                 [chart]="chartOptionsPodcastPlayed.chart"
@@ -173,15 +200,22 @@
             </div>  
             
             <div class="col-lg-4">
-              <div class="graph_inside_box">
-                <apx-chart
-            [series]="podcastDownloadPieChart.series"
-            [chart]="podcastDownloadPieChart.chart"
-            [labels]="podcastDownloadPieChart.labels"
-            [responsive]="podcastDownloadPieChart.responsive"
-            [title]="podcastDownloadPieChart.title"
-            [plotOptions]="podcastDownloadPieChart.plotOptions"
-          ></apx-chart>    
+              <div class="graph_inside_box" *ngIf="shwChart">
+                <ng-container *ngIf="totalPodcastDownloaded > 0">
+                  <apx-chart
+                    [series]="podcastDownloadPieChart.series"
+                    [chart]="podcastDownloadPieChart.chart"
+                    [labels]="podcastDownloadPieChart.labels"
+                    [responsive]="podcastDownloadPieChart.responsive"
+                    [title]="podcastDownloadPieChart.title"
+                    [plotOptions]="podcastDownloadPieChart.plotOptions"
+                  ></apx-chart>
+                </ng-container>
+                <ng-container *ngIf="totalPodcastDownloaded == 0">
+                  <h3 style="text-align: center; width: 100%;">
+                    <img src="assets/images/no_image2.png" alt="noimage" style="width: 80%; max-width: 400px;" /> 
+                  </h3>
+                </ng-container>
               </div>    
             </div> 
           </div>

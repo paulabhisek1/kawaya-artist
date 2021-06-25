@@ -115,6 +115,11 @@ export class DashboardComponent implements OnInit {
   chartLoading: boolean = false;
   shwChart: boolean = false;
 
+  totalSongPlayed: number = 0;
+  totalSongDownloaded: number = 0;
+  totalPodcastPlayed: number = 0;
+  totalPodcastDownloaded: number = 0;
+
   constructor(
     private commonService: CommonService,
     private helperService: HelperService
@@ -267,6 +272,7 @@ export class DashboardComponent implements OnInit {
         this.kpiLoading = false;
         if(result.status == 200) {
           this.kpiDetails = result.data;
+          this.kpiDetails.totalRevenue = 0;
         }
         else {
           this.helperService.showError(result.message);
@@ -286,10 +292,15 @@ export class DashboardComponent implements OnInit {
       }).subscribe((result)=>{
         this.chartLoading = false;
         if(result.status == 200) {
-          this.pieSongPlayedArray = [result.data.song.played.sevenDays, result.data.song.played.fifteenDays, result.data.song.played.thirtyDays]
-          this.pieSongDownloadArray = [result.data.song.download.sevenDays, result.data.song.download.fifteenDays, result.data.song.download.thirtyDays]
-          this.piePodcastPlayedArray = [result.data.podcast.played.sevenDays, result.data.podcast.played.fifteenDays, result.data.podcast.played.thirtyDays]
-          this.piePodcastDownloadArray = [result.data.podcast.download.sevenDays, result.data.podcast.download.fifteenDays, result.data.podcast.download.thirtyDays]
+          this.pieSongPlayedArray = [result.data.song.played.sevenDays, result.data.song.played.fifteenDays, result.data.song.played.thirtyDays];
+          this.pieSongDownloadArray = [result.data.song.download.sevenDays, result.data.song.download.fifteenDays, result.data.song.download.thirtyDays];
+          this.piePodcastPlayedArray = [result.data.podcast.played.sevenDays, result.data.podcast.played.fifteenDays, result.data.podcast.played.thirtyDays];
+          this.piePodcastDownloadArray = [result.data.podcast.download.sevenDays, result.data.podcast.download.fifteenDays, result.data.podcast.download.thirtyDays];
+
+          this.totalSongPlayed = result.data.song.played.sevenDays + result.data.song.played.fifteenDays + result.data.song.played.thirtyDays;
+          this.totalPodcastPlayed = result.data.podcast.played.sevenDays + result.data.podcast.played.fifteenDays + result.data.podcast.played.thirtyDays;
+          this.totalSongDownloaded = result.data.song.download.sevenDays + result.data.song.download.fifteenDays + result.data.song.download.thirtyDays;
+          this.totalPodcastDownloaded = result.data.podcast.download.sevenDays + result.data.podcast.download.fifteenDays + result.data.podcast.download.thirtyDays;
 
           this.createSongPlayedPieChart();
           this.createSongDownloadPieChart();
