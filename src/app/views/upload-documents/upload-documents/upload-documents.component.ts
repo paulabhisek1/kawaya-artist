@@ -341,7 +341,7 @@ export class UploadDocumentsComponent implements OnInit {
         this.isLoading = false;
         if(result.status == 200) {
           this.artistDetails = result.data.artist_details;
-
+          console.log("DET : ", this.artistDetails);
           if (result.data.artist_details.is_active==3 || result.data.artist_details.is_active==1) {
             this.activeStatus  = true;
           }else{
