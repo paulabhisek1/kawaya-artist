@@ -443,7 +443,7 @@ export class DashboardComponent implements OnInit {
     this.songPlayedPieChart = {
       series: this.pieSongPlayedArray,
       chart: {
-        width: 350,
+        width: 300,
         type: "pie"
       },
       labels: ["7 Days", "15 Days", "30 Days"],
@@ -453,10 +453,10 @@ export class DashboardComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 1920,
+          breakpoint: 480,
           options: {
             chart: {
-              width: 350
+              width: 200
             },
             legend: {
               position: "bottom"
@@ -471,7 +471,7 @@ export class DashboardComponent implements OnInit {
     this.songDownloadPieChart = {
       series: this.pieSongDownloadArray,
       chart: {
-        width: 350,
+        width: 300,
         type: "pie"
       },
       title: {
@@ -481,10 +481,10 @@ export class DashboardComponent implements OnInit {
       labels: ["7 Days", "15 Days", "30 Days"],
       responsive: [
         {
-          breakpoint: 1920,
+          breakpoint: 480,
           options: {
             chart: {
-              width: 350
+              width: 200
             },
             legend: {
               position: "bottom"
@@ -499,7 +499,7 @@ export class DashboardComponent implements OnInit {
     this.podcastPlayedPieChart = {
       series: this.piePodcastPlayedArray,
       chart: {
-        width: 350,
+        width: 300,
         type: "pie"
       },
       title: {
@@ -509,10 +509,10 @@ export class DashboardComponent implements OnInit {
       labels: ["7 Days", "15 Days", "30 Days"],
       responsive: [
         {
-          breakpoint: 1920,
+          breakpoint: 480,
           options: {
             chart: {
-              width: 350
+              width: 200
             },
             legend: {
               position: "bottom"
@@ -527,7 +527,7 @@ export class DashboardComponent implements OnInit {
     this.podcastDownloadPieChart = {
       series: this.piePodcastDownloadArray,
       chart: {
-        width: 350,
+        width: 300,
         type: "pie"
       },
       title: {
@@ -537,16 +537,16 @@ export class DashboardComponent implements OnInit {
       labels: ["7 Days", "15 Days", "30 Days"],
       responsive: [
         {
-          breakpoint: 1920,
-            options: {
-                chart: {
-                  width: 350
-                },
-                legend: {
-                  position: "bottom"
-                }
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
             }
           }
+        }
       ]
     };
   }

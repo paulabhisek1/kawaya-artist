@@ -1,56 +1,91 @@
 <div class="animated fadeIn">
-  <!-- SONGS GRAPH -->
-  <div class="card">
-    <div class="card-header">
-      <h3 class="heading-text">Songs Graph</h3>
-      <!-- <div class="filter-box">
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="graphSongFilter">
-          <mat-radio-button (click)="changeSongGraphFilter('1')" value="1">Last 7 days</mat-radio-button>
-          <mat-radio-button (click)="changeSongGraphFilter('2')" value="2">Last 30 days</mat-radio-button>
-        </mat-radio-group>
-      </div> -->
+  <div class="dashboard_boxes_area">
+    <div class="dashboard_details_box1">
+        <div class="dashboard_details_icon_area">
+          <i class="fa fa-podcast" aria-hidden="true"></i>
+        </div>
+        <h3>Total Podcasts</h3>
+        <h2>2</h2>
     </div>
 
-    <div class="card-body">
-      <div class="alert alert-danger" role="alert" *ngIf="(!validSongGraph)&&(shwGraph)">
-        Sorry! Unable to load Songs Graph
+    <div class="dashboard_details_box1">
+      <div class="dashboard_details_icon_area">
+        <i ng-reflect-ng-class="[object Object]" class="nav-icon fa fa-music"></i>
       </div>
-      <div class="alert alert-primary" role="alert" *ngIf="!shwGraph">
-          Please wait! Loading Songs Graph...
+      <h3>Total Songs</h3>
+      <h2>3</h2>
+    </div>
+
+    <div class="dashboard_details_box1">
+      <div class="dashboard_details_icon_area">
+        <i ng-reflect-ng-class="[object Object]" class="nav-icon fa fa-folder"></i>
       </div>
-      <div *ngIf="shwGraph" class="row">
-          <div class="col-lg-8">
-            <div class="graph_mian_area">  
-              <div class="graph_inside">
+        <h3>Total Albums</h3>
+        <h2>5</h2>
+    </div>
+
+    <div class="dashboard_details_box1">
+      <div class="dashboard_details_icon_area">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </div>
+      <h3>Total Followers</h3>
+      <h2>14</h2>
+    </div>
+
+    <div class="dashboard_details_box1">
+      <div class="dashboard_details_icon_area">
+        <i class="fa fa-certificate" aria-hidden="true"></i>
+      </div>
+      <h3>Total Revenue</h3>
+      <h2>8</h2>
+    </div>
+  </div>
+
+  <div class="songs_graph_mian_area">
+    <div class="page_main_heading">
+      <h2>Songs Graph</h2>
+      <div class="graph_mian_area2">
+        <div class="alert alert-danger" role="alert" *ngIf="(!validSongGraph)&&(shwGraph)">
+          Sorry! Unable to load Songs Graph
+        </div>
+        <div class="alert alert-primary" role="alert" *ngIf="!shwGraph">
+            Please wait! Loading Songs Graph...
+        </div>
+
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="graph_inside_box">
                 <apx-chart
-                  [series]="chartOptionsSongDownload.series"
-                  [chart]="chartOptionsSongDownload.chart"
-                  [dataLabels]="chartOptionsSongDownload.dataLabels"
-                  [plotOptions]="chartOptionsSongDownload.plotOptions"
-                  [yaxis]="chartOptionsSongDownload.yaxis"
-                  [xaxis]="chartOptionsSongDownload.xaxis"
-                  [fill]="chartOptionsSongDownload.fill"
-                  [title]="chartOptionsSongDownload.title"
-                ></apx-chart>
-              </div>  
-            </div>
+                    [series]="chartOptionsSongDownload.series"
+                    [chart]="chartOptionsSongDownload.chart"
+                    [dataLabels]="chartOptionsSongDownload.dataLabels"
+                    [plotOptions]="chartOptionsSongDownload.plotOptions"
+                    [yaxis]="chartOptionsSongDownload.yaxis"
+                    [xaxis]="chartOptionsSongDownload.xaxis"
+                    [fill]="chartOptionsSongDownload.fill"
+                    [title]="chartOptionsSongDownload.title"
+                  ></apx-chart>    
+              </div>
+            </div>  
+            
+            <div class="col-lg-4">
+              <div class="graph_inside_box">
+                <apx-chart
+              [series]="songPlayedPieChart.series"
+              [chart]="songPlayedPieChart.chart"
+              [labels]="songPlayedPieChart.labels"
+              [responsive]="songPlayedPieChart.responsive"
+              [title]="songPlayedPieChart.title"
+              [plotOptions]="songPlayedPieChart.plotOptions"
+            ></apx-chart>    
+              </div>    
+            </div> 
           </div>
 
-          <div class="col-lg-4">
-            <div class="graph_details_area">
-              <h2>Details</h2>
-              <p><strong>Total Podcasts:</strong> 2</p>
-              <p><strong>Total Songs:</strong> 3</p>
-              <p><strong>Total Albums:</strong> 5</p>
-              <p><strong>Total Followers:</strong> 14</p>
-              <p><strong>Total Revenue:</strong> 8</p>
-            </div>
-          </div>
-          
-          <div class="col-lg-8 mt-3">
-              <div class="graph_mian_area">  
-                <div class="graph_inside">
-                  <apx-chart
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="graph_inside_box">
+                <apx-chart
                     [series]="chartOptionsSongPlayed.series"
                     [chart]="chartOptionsSongPlayed.chart"
                     [dataLabels]="chartOptionsSongPlayed.dataLabels"
@@ -59,125 +94,104 @@
                     [xaxis]="chartOptionsSongPlayed.xaxis"
                     [fill]="chartOptionsSongPlayed.fill"
                     [title]="chartOptionsSongPlayed.title"
-                  ></apx-chart>
-                </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mt-3">
-            <div class="graph_details_area">
-              <h2>Details</h2>
-              <p><strong>Total Podcasts:</strong> 2</p>
-              <p><strong>Total Songs:</strong> 3</p>
-              <p><strong>Total Albums:</strong> 5</p>
-              <p><strong>Total Followers:</strong> 14</p>
-              <p><strong>Total Revenue:</strong> 8</p>
-            </div>      
-          </div>
-      </div>
-
-      <div *ngIf="shwChart" class="row">
-        <div class="col-md-6">
-          <apx-chart
-            [series]="songPlayedPieChart.series"
-            [chart]="songPlayedPieChart.chart"
-            [labels]="songPlayedPieChart.labels"
-            [responsive]="songPlayedPieChart.responsive"
-            [title]="songPlayedPieChart.title"
-            [plotOptions]="songPlayedPieChart.plotOptions"
-          ></apx-chart>
-        </div>
-        <div class="col-md-6">
-          <apx-chart
+                  ></apx-chart>    
+              </div>
+            </div>  
+            
+            <div class="col-lg-4">
+              <div class="graph_inside_box">
+                <apx-chart
             [series]="songDownloadPieChart.series"
             [chart]="songDownloadPieChart.chart"
             [labels]="songDownloadPieChart.labels"
             [responsive]="songDownloadPieChart.responsive"
             [title]="songDownloadPieChart.title"
             [plotOptions]="songDownloadPieChart.plotOptions"
-          ></apx-chart>
-        </div>
+          ></apx-chart>    
+              </div>    
+            </div> 
+          </div>
       </div>
     </div>
   </div>
 
-  <!-- PODCASTS GRAPH -->
-  <div class="card">
-    <div class="card-header">
-      <h3 class="heading-text">Podcasts Graph</h3>
-      <div class="filter-box">
-        <!-- <mat-radio-group aria-label="Select an option" [(ngModel)]="graphPodcastFilter">
-          <mat-radio-button (click)="changePodcastGraphFilter('1')" value="1">Last 7 days</mat-radio-button>
-          <mat-radio-button (click)="changePodcastGraphFilter('2')" value="2">Last 30 days</mat-radio-button>
-        </mat-radio-group> -->
-      </div>
-    </div>
 
-    <div class="card-body">
-      <div class="alert alert-danger" role="alert" *ngIf="(!validPodcastGraph)&&(shwGraphPodcasr)">
-        Sorry! Unable to load Podcasts Graph
-      </div>
-      <div class="alert alert-primary" role="alert" *ngIf="!shwGraphPodcasr">
-          Please wait! Loading Podcasts Graph...
-      </div>
-      <div *ngIf="shwGraphPodcasr" class="row">
-          <div class="col-md-6">
-            <div class="graph_mian_area">  
-              <div class="graph_inside">
-            <apx-chart
-              [series]="chartOptionsPodcastDownload.series"
-              [chart]="chartOptionsPodcastDownload.chart"
-              [xaxis]="chartOptionsPodcastDownload.xaxis"
-              [dataLabels]="chartOptionsPodcastDownload.dataLabels"
-              [grid]="chartOptionsPodcastDownload.grid"
-              [stroke]="chartOptionsPodcastDownload.stroke"
-              [title]="chartOptionsPodcastDownload.title"
-              [colors]="chartOptionsPodcastDownload.colors"
-            ></apx-chart>
-            </div>
-          </div>
+  <div class="songs_graph_mian_area mt-5 mb-4">
+    <div class="page_main_heading">
+      <h2>Podcasts Graph</h2>
+      <div class="graph_mian_area2">
+        <div class="alert alert-danger" role="alert" *ngIf="(!validPodcastGraph)&&(shwGraphPodcasr)">
+          Sorry! Unable to load Podcasts Graph
+        </div>
+        <div class="alert alert-primary" role="alert" *ngIf="!shwGraphPodcasr">
+            Please wait! Loading Podcasts Graph...
+        </div>
+
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="graph_inside_box">
+                <apx-chart
+                [series]="chartOptionsPodcastDownload.series"
+                [chart]="chartOptionsPodcastDownload.chart"
+                [xaxis]="chartOptionsPodcastDownload.xaxis"
+                [dataLabels]="chartOptionsPodcastDownload.dataLabels"
+                [grid]="chartOptionsPodcastDownload.grid"
+                [stroke]="chartOptionsPodcastDownload.stroke"
+                [title]="chartOptionsPodcastDownload.title"
+                [colors]="chartOptionsPodcastDownload.colors"
+              ></apx-chart>   
+              </div>
+            </div>  
+            
+            <div class="col-lg-4">
+              <div class="graph_inside_box">
+                <apx-chart
+                [series]="podcastPlayedPieChart.series"
+                [chart]="podcastPlayedPieChart.chart"
+                [labels]="podcastPlayedPieChart.labels"
+                [responsive]="podcastPlayedPieChart.responsive"
+                [title]="podcastPlayedPieChart.title"
+                [plotOptions]="podcastPlayedPieChart.plotOptions"
+              ></apx-chart>    
+              </div>    
+            </div> 
           </div>
 
-          <div class="col-md-6">
-            <div class="graph_mian_area">  
-              <div class="graph_inside">
-            <apx-chart
-              [series]="chartOptionsPodcastPlayed.series"
-              [chart]="chartOptionsPodcastPlayed.chart"
-              [xaxis]="chartOptionsPodcastPlayed.xaxis"
-              [dataLabels]="chartOptionsPodcastPlayed.dataLabels"
-              [grid]="chartOptionsPodcastPlayed.grid"
-              [stroke]="chartOptionsPodcastPlayed.stroke"
-              [title]="chartOptionsPodcastPlayed.title"
-            ></apx-chart>
-          </div>
-        </div>
-          </div>
-      </div>
-      <div *ngIf="shwChart" class="row">
-        <div class="col-md-6">
-          <apx-chart
-            [series]="podcastPlayedPieChart.series"
-            [chart]="podcastPlayedPieChart.chart"
-            [labels]="podcastPlayedPieChart.labels"
-            [responsive]="podcastPlayedPieChart.responsive"
-            [title]="podcastPlayedPieChart.title"
-            [plotOptions]="podcastPlayedPieChart.plotOptions"
-          ></apx-chart>
-        </div>
-        <div class="col-md-6">
-          <apx-chart
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="graph_inside_box">
+                <apx-chart
+                [series]="chartOptionsPodcastPlayed.series"
+                [chart]="chartOptionsPodcastPlayed.chart"
+                [xaxis]="chartOptionsPodcastPlayed.xaxis"
+                [dataLabels]="chartOptionsPodcastPlayed.dataLabels"
+                [grid]="chartOptionsPodcastPlayed.grid"
+                [stroke]="chartOptionsPodcastPlayed.stroke"
+                [title]="chartOptionsPodcastPlayed.title"
+              ></apx-chart>    
+              </div>
+            </div>  
+            
+            <div class="col-lg-4">
+              <div class="graph_inside_box">
+                <apx-chart
             [series]="podcastDownloadPieChart.series"
             [chart]="podcastDownloadPieChart.chart"
             [labels]="podcastDownloadPieChart.labels"
             [responsive]="podcastDownloadPieChart.responsive"
             [title]="podcastDownloadPieChart.title"
             [plotOptions]="podcastDownloadPieChart.plotOptions"
-          ></apx-chart>
-        </div>
+          ></apx-chart>    
+              </div>    
+            </div> 
+          </div>
       </div>
     </div>
   </div>
+
+
+
+
 
 
 </div>
